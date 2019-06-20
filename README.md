@@ -19,7 +19,7 @@ This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and que
 
 ### Running the quickstart
 + Open the azure-search-quickstart.ipynb file in Jupyter Notebook
-+ Replace <YOUR-SERVICE-NAME> and <YOUR-ADMIN-KEY> with the service and api-key details of your Azure Search service
++ Replace <YOUR-SERVICE-NAME> and <YOUR-ADMIN-API-KEY> with the service and api-key details of your Azure Search service
 + Run each step individually
 
 ## Tutorial-AI-Enrichment-Jupyter-Notebook
@@ -30,7 +30,7 @@ This sample creates an Azure Search indexing pipeline that searches for and extr
 
 ### Running the tutorial
 + Open the PythonTutorial-AzureSearch-AIEnrichment.ipynb file in Jupyter Notebook
-+ Replace <YOUR-SERVICE-NAME> and <YOUR-ADMIN-KEY> with the service and api-key details of your Azure Search service
++ Replace <YOUR-SERVICE-NAME> and <YOUR-ADMIN-API-KEY> with the service and api-key details of your Azure Search service
 + Replace <YOUR-BLOB-RESOURCE-CONNECTION-STRING> with a connection string to an Azure Blob storage resource that you created, and to which you uploaded [content files](https://github.com/Azure-Samples/azure-search-sample-data/tree/master/mixedContent) of various file types.
 + Run each step individually
 
