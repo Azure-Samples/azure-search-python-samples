@@ -1,6 +1,7 @@
 ---
 topic: sample
-services: azure-search
+services: search
+platforms: python
 languages:
   - python
 name: Azure Search Sample Data
