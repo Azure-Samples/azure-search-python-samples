@@ -1,17 +1,11 @@
 ---
-topic: sample
-author: HeidiSteen
-services: search
-platforms: python
+page_type: sample
 languages:
   - python
-name: Azure Search Sample Data
-description: |
-  Find Python samples for Azure Search in this repo.
 products:
   - azure-search
 ---
-# Azure Search Python Samples repository
+# Python sample repository for Azure Search
 
 This repository contains Python sample code used in Azure Search quickstarts, tutorials, and examples. You can use the shared (free) Azure Search service to run any sample in this repository.
 
