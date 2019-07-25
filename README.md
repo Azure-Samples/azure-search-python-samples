@@ -1,10 +1,13 @@
 ---
 page_type: sample
+topic: sample
 languages:
   - python
 products:
+  - azure
   - azure-search
 ---
+
 # Python sample repository for Azure Search
 
 This repository contains Python sample code used in Azure Search quickstarts, tutorials, and examples. You can use the shared (free) Azure Search service to run any sample in this repository.
@@ -13,7 +16,7 @@ This repository contains Python sample code used in Azure Search quickstarts, tu
 
 This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and query an Azure Search index using a Jupyter Python notebook](https://docs.microsoft.com/azure/search/search-get-started-python). 
 
-### Running the quickstart
+### Run the quickstart
 + Open the azure-search-quickstart.ipynb file in Jupyter Notebook
 + Replace <YOUR-SERVICE-NAME> and <YOUR-ADMIN-API-KEY> with the service and api-key details of your Azure Search service
 + Run each step individually
@@ -24,7 +27,7 @@ This sample is a Jupyter Python3 .ipynb file used in [Python Tutorial: Call Cogn
 
 This sample creates an Azure Search indexing pipeline that searches for and extracts text and text representations of images and scanned documents stored as blobs in Azure Blob storage. This sample leverages cognitive skills from the Azure Cognitive Services API, such as entity recognition and language detection.
 
-### Running the tutorial
+### Run the tutorial
 + Open the PythonTutorial-AzureSearch-AIEnrichment.ipynb file in Jupyter Notebook
 + Replace <YOUR-SERVICE-NAME> and <YOUR-ADMIN-API-KEY> with the service and api-key details of your Azure Search service
 + Replace <YOUR-BLOB-RESOURCE-CONNECTION-STRING> with a connection string to an Azure Blob storage resource that you created, and to which you uploaded [content files](https://github.com/Azure-Samples/azure-search-sample-data/tree/master/mixedContent) of various file types.
