@@ -26,7 +26,7 @@ This sample demonstrates AI enrichment by building a cognitive search indexing p
 
 ## Prerequisites
 
-- [Anaconda 3.x](https://www.anaconda.com/distribution/#download-section), providing Python 3.x and Jupyter Notebooks
+- [Anaconda 3.x](https://www.anaconda.com/distribution/#download-section) providing Python 3.x and Jupyter Notebooks
 - [Sample file set (mixed content types)](https://github.com/Azure-Samples/azure-search-sample-data/tree/master/mixedContent)
 - [Azure storage account](https://docs.microsoft.com/azure/storage/common/storage-quickstart-create-account) 
 - [Azure Search service](https://docs.microsoft.com/en-us/azure/search/search-create-service-portal)
@@ -37,10 +37,10 @@ This sample demonstrates AI enrichment by building a cognitive search indexing p
 2. Extract contents if the download is a zip file. Make sure the files are read-write.
 
 ## Running the sample
-1. Start Jupyter Notebook. On Windows with Anaconda3, you can use Anaconda Navigator to launch a notebook from the Start menu.
+1. On the Windows Start menu, select Anaconda3, and then select Jupyter Notebook.
 2. Open the PythonTutorial-AzureSearch-AIEnrichment.ipynb file in Jupyter Notebook.
 3. Replace <YOUR-SERVICE-NAME> and <YOUR-ADMIN-API-KEY> with the service and api-key details of your Azure Search service.
 4. Replace <YOUR-BLOB-RESOURCE-CONNECTION-STRING> with a connection string to an Azure Blob storage resource that you created, and to which you uploaded [content files](https://github.com/Azure-Samples/azure-search-sample-data/tree/master/mixedContent) of various file types.
-5. Run each step individually
+5. Run each step individually.
 
 By sequentially executing each step, you can verify the printed response status or response output appears before continuing to the next step. The step that creates the indexer, in particular, may take a few minutes to complete. See the tutorial for more details.

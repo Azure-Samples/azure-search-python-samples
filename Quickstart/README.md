@@ -8,7 +8,7 @@ products:
   - azure-search
 ---
 
-# Python quickstart for Azure Search
+# Python sample for an Azure Search quickstart
 
 This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and query an Azure Search index using a Jupyter Python notebook](https://docs.microsoft.com/azure/search/search-get-started-python). It demonstrates a connection to Azure Search, creating and loading an index, and query execution.
 
@@ -24,7 +24,7 @@ This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and que
 
 ## Prerequisites
 
-- [Anaconda 3.x](https://www.anaconda.com/distribution/#download-section), providing Python 3.x and Jupyter Notebooks
+- [Anaconda 3.x](https://www.anaconda.com/distribution/#download-section) providing Python 3.x and Jupyter Notebooks
 - [Azure Search service](https://docs.microsoft.com/en-us/azure/search/search-create-service-portal)
 
 ## Setup
@@ -33,7 +33,7 @@ This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and que
 2. Extract contents if the download is a zip file. Make sure the files are read-write.
 
 ## Running the sample
-1. Start Jupyter Notebook. On Windows with Anaconda3, you can use Anaconda Navigator to launch a notebook from the Start menu.
+1. On the Windows Start menu, select Anaconda3, and then select Jupyter Notebook.
 1. Open the azure-search-quickstart.ipynb file in Jupyter Notebook
 1. Replace <YOUR-SERVICE-NAME> and <YOUR-ADMIN-API-KEY> with the service and api-key details of your Azure Search service
 1. Run each step individually
