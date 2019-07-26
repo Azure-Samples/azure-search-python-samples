@@ -1,13 +1,3 @@
----
-topic: sample
-platform: python
-languages:
-  - python
-products:
-  - azure
-  - azure-search
----
-
 # Python sample repository for Azure Search
 
 This repository contains Python sample code used in Azure Search quickstarts, tutorials, and examples. You can use the shared (free) Azure Search service to run any sample in this repository. Samples are in individual folders in this repository.
