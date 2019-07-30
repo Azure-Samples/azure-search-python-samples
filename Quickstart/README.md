@@ -6,7 +6,7 @@ products:
   - azure
   - azure-search
 description: "This sample demonstrates a connection to Azure Search, creating and loading an index, and query execution."
-urlFragment: pythong-sample-quickstart
+urlFragment: python-sample-quickstart
 ---
 
 # Python sample for an Azure Search quickstart
