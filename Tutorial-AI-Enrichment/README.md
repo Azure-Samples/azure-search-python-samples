@@ -12,9 +12,9 @@ description: "This Python sample Jupyter notebook demonstrates AI enrichment usi
 
 # Get started with cognitive search AI enrichment in Azure Search
 
-This sample is a Jupyter Python3 .ipynb file used in [Python Tutorial: Call Cognitive Services APIs in an Azure Search indexing pipeline](https://docs.microsoft.com/azure/search/cognitive-search-tutorial-blob-python). 
+Demonstrates AI enrichment by building a cognitive search indexing pipeline that detects and extracts text and text representations of images and scanned documents stored as blobs in Azure Blob storage. This sample leverages cognitive skills from the Azure Cognitive Services API, such as entity recognition and language detection. It uses the REST APIs to make calls to Azure Search, including index definition, data ingestion and AI enrichment, and query execution.
 
-This sample demonstrates AI enrichment by building a cognitive search indexing pipeline that detects and extracts text and text representations of images and scanned documents stored as blobs in Azure Blob storage. This sample leverages cognitive skills from the Azure Cognitive Services API, such as entity recognition and language detection.
+This sample is a Jupyter Python3 .ipynb file used in [Python Tutorial: Call Cognitive Services APIs in an Azure Search indexing pipeline](https://docs.microsoft.com/azure/search/cognitive-search-tutorial-blob-python). 
 
 ## Contents
 

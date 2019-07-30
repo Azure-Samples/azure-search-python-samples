@@ -2,6 +2,7 @@
 page_type: sample
 languages:
   - python
+  - rest
 products:
   - azure
   - azure-search
@@ -11,7 +12,9 @@ urlFragment: python-sample-quickstart
 
 # Python sample for an Azure Search quickstart
 
-This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and query an Azure Search index using a Jupyter Python notebook](https://docs.microsoft.com/azure/search/search-get-started-python). It demonstrates a connection to Azure Search, creating and loading an index, and query execution.
+Demonstrates connecting to Azure Search, creating and loading an index consisting of fictitious hotel data, and running queries. A Jupyter Python Notebook is used to run this code. Calls to Azure Search are through the REST APIs
+
+This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and query an Azure Search index using a Jupyter Python notebook](https://docs.microsoft.com/azure/search/search-get-started-python)
 
 ## Contents
 
