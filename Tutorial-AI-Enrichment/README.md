@@ -1,12 +1,14 @@
 ---
 page_type: sample
-topic: sample
 languages:
   - python
+  - rest
 products:
   - azure
   - azure-search
+description: "This Python sample Jupyter notebook demonstrates AI enrichment using Cognitive Services in an Azure Search indexing pipeline. Calls to Azure Search are made using REST APIs. "
 ---
+
 
 # Get started with cognitive search AI enrichment in Azure Search
 
