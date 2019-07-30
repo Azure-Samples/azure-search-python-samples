@@ -26,7 +26,7 @@ This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and que
 ## Prerequisites
 
 - [Anaconda 3.x](https://www.anaconda.com/distribution/#download-section) providing Python 3.x and Jupyter Notebooks
-- [Azure Search service](https://docs.microsoft.com/en-us/azure/search/search-create-service-portal)
+- [Azure Search service](https://docs.microsoft.com/azure/search/search-create-service-portal)
 
 ## Setup
 
