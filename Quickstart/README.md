@@ -7,6 +7,7 @@ products:
   - azure
   - azure-search
 description: "This Python sample demonstrates a connection to Azure Search, creating and loading an index, and query execution. Calls to Azure Search are made using REST APIs."
+urlFragment: python-quickstart-azure-search
 ---
 
 # Quickstart sample for Azure Search using Python
