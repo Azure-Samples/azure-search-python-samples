@@ -3,10 +3,12 @@ page_type: sample
 languages:
   - python
   - rest
+name: Quickstart in Python
 products:
   - azure
   - azure-search
-description: "This Python sample demonstrates a connection to Azure Search, creating and loading an index, and query execution. Calls to Azure Search are made using REST APIs."
+description: |
+  Jupyter Python3 notebook, demonstrating index definition, data ingestion, and query execution in Azure Search using the REST APIs.
 urlFragment: python-sample-quickstart
 ---
 
