@@ -6,9 +6,9 @@ languages:
 products:
   - azure
   - azure-search
-name: Cognitive search AI-enriched pipeline
+name: Build a cognitive search AI-enriched pipeline
 description: |
-  Jupyter Python3 notebook, demonstrating AI enrichment using Cognitive Services in an Azure Search indexing pipeline. Calls to Azure Search are made using REST APIs.
+  Demonstrates AI enrichment using Cognitive Services in an Azure Search indexing pipeline. Calls to Azure Search are made using REST APIs in Jupyter Python3 notebook.
 urlFragment: python-tutorial-cognitive-search
 ---
 
