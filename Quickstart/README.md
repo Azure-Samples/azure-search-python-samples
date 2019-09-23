@@ -3,7 +3,7 @@ page_type: sample
 languages:
   - python
   - rest
-name: Quickstart in Python
+name: Azure Search Quickstart in Python
 products:
   - azure
   - azure-search
