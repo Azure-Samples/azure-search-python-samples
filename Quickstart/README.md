@@ -6,7 +6,7 @@ languages:
 name: Azure Cognitive Search Quickstart in Python
 products:
   - azure
-  - cognitive-search
+  - azure-cognitive-search
 description: |
   Learn basic steps for creating, loading, and querying a search index using REST APIs and a Jupyter Python3 notebook.
 urlFragment: python-sample-quickstart

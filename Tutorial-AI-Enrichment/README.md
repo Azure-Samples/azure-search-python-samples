@@ -5,7 +5,7 @@ languages:
   - rest
 products:
   - azure
-  - cognitive-search
+  - azure-cognitive-search
 name: Build an AI enrichment pipeline
 description: |
   Demonstrates AI enrichment using Cognitive Services in an Azure Cognitive Search indexing pipeline. Calls are made using REST APIs in Jupyter Python3 notebook.
