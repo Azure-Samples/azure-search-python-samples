@@ -2,7 +2,6 @@
 page_type: sample
 languages:
   - python
-  - rest
 products:
   - azure
   - azure-cognitive-search
