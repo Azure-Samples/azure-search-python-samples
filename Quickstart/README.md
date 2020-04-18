@@ -2,7 +2,6 @@
 page_type: sample
 languages:
   - python
-  - rest
 name: Azure Cognitive Search Quickstart in Python
 products:
   - azure
