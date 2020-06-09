@@ -7,8 +7,8 @@ name: Build and deploy a custom skill with Azure Machine Learning
 description: This sample provides a Jupyter notebook for building and training an aspect-based sentiment model with Azure Machine Learning and then deploying the model to an Azure Kubernetes cluster for integration into an AI enrichment pipeline in Azure Cognitive Search.
 products: 
  - azure
- - cognitive-search
- - machine-learning
+ - azure-cognitive-search
+ - azure-machine-learning
 urlFragment: custom-skill-azure-machine-learning
 ---
 
