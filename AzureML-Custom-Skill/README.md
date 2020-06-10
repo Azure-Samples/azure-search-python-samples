@@ -43,16 +43,16 @@ There are two datasets provided. If you wish to train the model yourself, the `h
 
 ## Setup
 
-1. Clone or download the contents of this repository.
-1. Extract contents if the download is a zip file. Make sure the files are read-write.
-1. While setting up the Azure accounts and services, copy the names and keys to an easily accessed text file. The names and keys will be added to the first cell in the notebook where variables for accessing the Azure services are defined.
-1. If you are unfamiliar with Azure Machine Learning and its requirements, you will want to review these documents before getting started:
+* Clone or download the contents of this repository.
+* Extract contents if the download is a zip file. Make sure the files are read-write.
+* While setting up the Azure accounts and services, copy the names and keys to an easily accessed text file. The names and keys will be added to the first cell in the notebook where variables for accessing the Azure services are defined.
+* If you are unfamiliar with Azure Machine Learning and its requirements, you will want to review these documents before getting started:
 
 * [Configure a development environment for Azure Machine Learning](https://docs.microsoft.com/azure/machine-learning/how-to-configure-environment)
 * [Create and manage Azure Machine Learning workspaces in the Azure portal](https://docs.microsoft.com/azure/machine-learning/how-to-manage-workspace)
 * When configuring the development environment for Azure Machine Learning, consider using the [cloud-based compute instance](https://docs.microsoft.com/azure/machine-learning/how-to-configure-environment#compute-instance) for speed and ease in getting started.
 
-1. Upload the dataset file to a container in the storage account. The [larger file](datasets\hotel_reviews_1000.csv) is necessary if you wish to perform the training step in the notebook. If you prefer to skip the training step, the [smaller file](datasets\hotel_reviews_100.csv) is recommended.
+* Upload the dataset file to a container in the storage account. The [larger file](datasets\hotel_reviews_1000.csv) is necessary if you wish to perform the training step in the notebook. If you prefer to skip the training step, the [smaller file](datasets\hotel_reviews_100.csv) is recommended.
 
 ### Running the tutorial
 
