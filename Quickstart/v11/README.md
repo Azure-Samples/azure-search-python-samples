@@ -15,9 +15,9 @@ urlFragment: python-sample-quickstart
 
 ![Flask sample MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
 
-Demonstrates connecting to Azure Cognitive Search, creating and loading an index consisting of fictitious hotel data, and running queries. A Jupyter Python Notebook is used to run this code. Calls to Azure Cognitive Search are through the REST APIs.
+Demonstrates using Python and the Azure SDK for Python to create an Azure Cognitive Search index, load it with documents, and execute a few queries. The index is modeled on a subset of the Hotels dataset, reduced for readability and comprehension. Index definition and documents are included in the code.
 
-This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and query a search index using a Jupyter Python notebook](https://docs.microsoft.com/azure/search/search-get-started-python)
+This sample is a Jupyter Python3 .ipynb file to perform the actions against the Cognitive Search service.
 
 ## Contents
 
@@ -33,6 +33,7 @@ This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and que
 
 - [Anaconda 3.x](https://www.anaconda.com/distribution/#download-section) providing Python 3.x and Jupyter Notebooks
 - [Azure Cognitive Search service](https://docs.microsoft.com/azure/search/search-create-service-portal)
+- Azure Cognitive Search SDK for Python (pip install azure-search-documents --pre)
 
 ## Setup
 
@@ -42,7 +43,7 @@ This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and que
 ## Running the sample
 1. On the Windows Start menu, select Anaconda3, and then select Jupyter Notebook.
 1. Open the azure-search-quickstart.ipynb file in Jupyter Notebook
-1. Replace <YOUR-SERVICE-NAME> and <YOUR-ADMIN-API-KEY> with the service and api-key details of your search service
+1. Replace <service_name> <admin_key> and <query_key> with the service and api-key details of your search service
 1. Run each step individually
 
 ## Next steps
