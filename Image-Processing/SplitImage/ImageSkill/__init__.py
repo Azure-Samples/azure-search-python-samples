@@ -7,6 +7,26 @@ import base64
 import logging
 import azure.functions as func
 
+def base64EncodeImage(image):
+    is_success, im_buf_arr = cv2.imencode(".jpg", image)
+    byte_im = im_buf_arr.tobytes()
+    base64Bytes = base64.b64encode(byte_im)
+    base64String = base64Bytes.decode('utf-8')
+    return base64String
+
+def obfuscate_data(image, factor=3.0):
+    (h, w) = image.shape[:2]
+    kW = int(w / factor)
+    kH = int(h / factor)
+    # ensure the width of the kernel is odd
+    if kW % 2 == 0:
+        kW -= 1
+    # ensure the height of the kernel is odd
+    if kH % 2 == 0:
+        kH -= 1
+    # apply a Gaussian blur to the input image using our computed
+    # kernel size
+    return cv2.GaussianBlur(image, (kW, kH), 0)
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
@@ -60,17 +80,23 @@ def transform_value(value):
         jpg_as_np = np.frombuffer(inputBytes, dtype=np.uint8)
         originalImage = cv2.imdecode(jpg_as_np, flags=1)
         slices = []
-        for line in data["layoutText"]["lines"]:
-            slicedImage = originalImage[line["boundingBox"][0]["x"]:line["boundingBox"][0]["y"], line["boundingBox"][3]["x"]:line["boundingBox"][3]["y"]]
-            if(slicedImage.size >0):
-                is_success, im_buf_arr = cv2.imencode(".jpg", slicedImage)
-                byte_im = im_buf_arr.tobytes()
-                base64Bytes = base64.b64encode(byte_im)
-                base64String = base64Bytes.decode('utf-8')
-                aslice = { "$type": "file", 
-                        "data": base64String 
-                        }
-                slices.append(aslice)
+        for pii_entity in data["pii_entities"]:
+            if(pii_entity["type"] == "Phone Number"):
+                for line in data["layoutText"]["lines"]:
+                    if(pii_entity["text"] in line["text"]):
+                        startX = line["boundingBox"][0]["x"]
+                        startY = line["boundingBox"][0]["y"]
+                        endX = line["boundingBox"][2]["x"]
+                        endY = line["boundingBox"][2]["y"]
+                        slicedImage = originalImage[startY:endY, startX:endX]
+                        if(slicedImage.size >0):
+                            fuzzy = obfuscate_data(slicedImage)
+                            originalImage[startY:endY, startX:endX] = fuzzy 
+                            base64String = base64EncodeImage(slicedImage)   
+                            aslice = { "$type": "file", 
+                                    "data": base64String 
+                                    }
+                            slices.append(aslice)
 
 
     except AssertionError  as error:
@@ -83,8 +109,11 @@ def transform_value(value):
     
 
     return ({
-            "recordId": recordId,
+            "recordId": recordId,   
             "data": {
-                "slices": slices
+                "slices": slices,
+                "original": { "$type": "file", 
+                        "data": base64EncodeImage(originalImage) 
+                        }
                     }
             })
