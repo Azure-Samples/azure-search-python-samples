@@ -12,7 +12,7 @@ This sample is a Jupyter Python3 .ipynb file used in the [Python Tutorial: Call 
 
 ## Tutorial - Image processing
 
-This sample is a Jupyter Python3 .ipynb file to work with image skills in a skillset. You'll use the Optical Character Recognition (OCR) skill to extract text from a JPG, a personal information identification skill to scrub phone numbers from the image, and a custom function (deployed to Azure Functions).
+This sample is a Jupyter Python3 .ipynb file that shows how to work with image skills in a skillset. Although the skillset performs useful operations, including Optical Character Recognition (OCR) and redaction of personally identifying information, the sample's purpose is to demonstrate the coordination of image file handoffs from one skill to the next.
 
 ## Tutorial - Train and deploy a custom skill with Azure Machine Learning
 
