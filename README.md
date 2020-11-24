@@ -4,11 +4,15 @@ This repository contains Python sample code used in Azure Cognitive Search quick
 
 ## Quickstart - Azure Cognitive Search
 
-This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and query an Azure Cognitive Search index using a Jupyter Python notebook](https://docs.microsoft.com/azure/search/search-get-started-python). Use this sample to learn service connections, index creation, data ingestion, and basic queries.
+This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and query an Azure Cognitive Search index using a Jupyter Python notebook](https://docs.microsoft.com/azure/search/search-get-started-python). Learn how to use the [**azure-search-documents**](https://docs.microsoft.com/python/api/overview/azure/search-documents-readme) client library in the Azure SDK for Python to make service connections, create and load indexes, and run basic queries.
 
-## Tutorial - Add AI enrichments to an indexing pipeline
+## Tutorial - Add a skillset (enrichments) to an indexing pipeline
 
-This sample is a Jupyter Python3 .ipynb file. It's used in the [Python Tutorial: Call Cognitive Services APIs in an Azure Cognitive Search indexing pipeline](https://docs.microsoft.com/azure/search/cognitive-search-tutorial-blob-python). This sample demonstrates cognitive search functionality, adding AI enrichments from Cognitive Services to extract, detect, and analyze information from image files or large unstructured document files.
+This sample is a Jupyter Python3 .ipynb file used in the [Python Tutorial: Call Cognitive Services APIs in an Azure Cognitive Search indexing pipeline](https://docs.microsoft.com/azure/search/cognitive-search-tutorial-blob-python). This sample demonstrates cognitive search functionality, adding AI enrichments from Cognitive Services to extract, detect, and analyze information from image files or large unstructured document files.
+
+## Tutorial - Image processing
+
+This sample is a Jupyter Python3 .ipynb file that shows how to work with image skills in a skillset. Although the skillset performs useful operations, including Optical Character Recognition (OCR) and redaction of personally identifying information, the sample's purpose is to demonstrate the coordination of image file handoffs from one skill to the next.
 
 ## Tutorial - Train and deploy a custom skill with Azure Machine Learning
 
