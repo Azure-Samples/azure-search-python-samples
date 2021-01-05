@@ -22,6 +22,8 @@ To train the aspect-based sentiment model, you will be using the [nlp recipes re
 
 There are two datasets provided. If you wish to train the model yourself, the `hotel_reviews_1000.csv` file is required. Prefer to skip the training step? Download the `hotel_reviews_100.csv`.
 
+In this sample, skillset output is sent to a [knowledge store](https://docs.microsoft.com/azure/search/knowledge-store-concept-intro) in Azure Storage. Because knowledge store is not yet supported in the [**azure-search-documents**](https://docs.microsoft.com/python/api/overview/azure/search-documents-readme) python library, the [Search REST APIs](https://docs.microsoft.com/rest/api/searchservice/) are used instead.
+
 ## Contents
 
 | File/folder | Description |

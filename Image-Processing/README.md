@@ -2,6 +2,7 @@
 page_type: sample
 languages:
   - python
+  - REST
 name: Image processing in Python
 products:
   - azure
@@ -29,6 +30,8 @@ The source input and resulting output are stored in Azure Blob storage, so you w
 Predefined skills, such as OCR skill, are backed by Cognitive Services. You will need the Cognitive Services account name for this tutorial, but because the number of transformations is limited, there is no charge to your account.
 
 Custom skills must be hosted as a URL-accessible module. This tutorial uses Azure Functions to satisfy this requirement, but you could use another mechanism for your own solutions.
+
+In this sample, skillset output is sent to a [knowledge store](https://docs.microsoft.com/azure/search/knowledge-store-concept-intro) in Azure Storage. Because knowledge store is not yet supported in the [**azure-search-documents**](https://docs.microsoft.com/python/api/overview/azure/search-documents-readme) python library, the [Search REST APIs](https://docs.microsoft.com/rest/api/searchservice/) are used instead.
 
 ## Prerequisites
 
