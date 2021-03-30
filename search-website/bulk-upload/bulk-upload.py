@@ -8,14 +8,17 @@ from azure.search.documents.indexes.models import SearchIndex
 
 
 # Get the service endpoint and API key from the environment
-endpoint = 'YOUR-ENDPOINT-URL'
-key = 'YOUR-KEY'
+endpoint = 'https://YOUR-SEARCH-RESOURCE-NAME.search.windows.net'
+key = 'YOUR-SEARCH-ADMIN-KEY'
 
 
 # Give your index a name
 # You can also supply this at runtime in __main__
-index_name = 'YOUR-INDEX-NAME'
+index_name = 'good-books'
 
+# Books catalog
+books_url = "https://raw.githubusercontent.com/zygmuntz/goodbooks-10k/master/books.csv";
+batch_size = 1000
 
 # Instantiate a client
 class CreateClient(object):
@@ -70,7 +73,6 @@ def convert_csv_to_json(url):
 # Batch your uploads to Azure Search
 def batch_upload_json_data_to_index(json_file, client):
     batch_array = []
-    batch_size = 1000
     count = 0
     batch_counter = 0
     for i in json_file:
@@ -126,7 +128,7 @@ if __name__ == '__main__':
         './good-books-index.json',
         index_name,
         admin_client,
-        url=True)
-    books_data = convert_csv_to_json(
-        'https://raw.githubusercontent.com/Azure-Samples/js-e2e/main/search/bulk-insert-books-from-csv/books.csv')
+        url=False)
+    books_data = convert_csv_to_json(books_url)
     batch_upload = batch_upload_json_data_to_index(books_data, search_client)
+    print('Upload complete')
