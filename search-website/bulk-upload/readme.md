@@ -1,8 +1,13 @@
-# Bulk insert from CSV to Cognitive Search
+# Create Cognitive Search Index from CSV file
 
-## Run program
+1. Change the following values in the `bulk_upload.py` file:
 
-```bash
-pip install -r requirements.txt && \
-python bulk-upload.py
-```
+    * YOUR-SEARCH-RESOURCE-NAME
+    * YOUR-SEARCH-ADMIN-KEY
+    
+1. Install the requirements and run the script:
+
+    ```bash
+    pip install -r requirements.txt && \
+    python bulk-upload.py
+    ```

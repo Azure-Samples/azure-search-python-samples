@@ -1,3 +1,4 @@
+import sys
 import json
 import requests
 import pandas as pd
@@ -16,8 +17,11 @@ key = 'YOUR-SEARCH-ADMIN-KEY'
 # You can also supply this at runtime in __main__
 index_name = 'good-books'
 
+# Search Index Schema definition
+index_schema = './good-books-index.json'
+
 # Books catalog
-books_url = "https://raw.githubusercontent.com/zygmuntz/goodbooks-10k/master/books.csv";
+books_url = "https://raw.githubusercontent.com/zygmuntz/goodbooks-10k/master/books.csv"
 batch_size = 1000
 
 # Instantiate a client
@@ -48,11 +52,15 @@ def create_schema_from_json_and_upload(schema, index_name, admin_client, url=Fal
     if not url:
         with open(schema) as json_file:
             schema_data = json.load(json_file)
-            upload_schema = admin_client.create_index(SearchIndex(name=index_name, fields=schema_data['fields']))
-            if upload_schema:
-                print(f'Schema uploaded; Index created for {index_name}.')
-            else:
-                exit(0)
+            try:
+                upload_schema = admin_client.create_index(SearchIndex(name=index_name, fields=schema_data['fields']))
+                if upload_schema:
+                    print(f'Schema uploaded; Index created for {index_name}.')
+                else:
+                    exit(0)
+            except:
+                print("Unexpected error:", sys.exc_info()[0])
+            
     else:
         data_from_url = requests.get(schema)
         schema_data = json.loads(data_from_url.content)
@@ -125,7 +133,7 @@ if __name__ == '__main__':
     admin_client = start_client.create_admin_client()
     search_client = start_client.create_search_client()
     schema = create_schema_from_json_and_upload(
-        './good-books-index.json',
+        index_schema,
         index_name,
         admin_client,
         url=False)
