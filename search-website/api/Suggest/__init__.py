@@ -32,7 +32,12 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     if q:
         logging.info(f"/Suggest q = {q}")
         suggestions = search_client.suggest(search_text="code", suggester_name="sg", top=5)
-        return func.HttpResponse(body=f"{suggestions}", status_code=200)
+        
+        # format the React app expects
+        full_response = {}
+        full_response["suggestions"]=suggestions
+        
+        return func.HttpResponse(body=f"{full_response}", status_code=200)
     else:
         return func.HttpResponse(
              "No query param found.",
