@@ -81,7 +81,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         full_response["results"]=list(search_results)
         
         
-        return func.HttpResponse(body=f"{full_response}", status_code=200)
+        return func.HttpResponse(body=full_response, status_code=200)
     else:
         return func.HttpResponse(
              "No query param found.",

@@ -24,7 +24,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     if docid:
         logging.info(f"/Lookup id = {docid}")
         returnedDocument = search_client.get_document(key=docid)
-        return func.HttpResponse(body=f"{returnedDocument}", status_code=200)
+        return func.HttpResponse(body=returnedDocument, status_code=200)
     else:
         return func.HttpResponse(
              "No doc id param found.",
