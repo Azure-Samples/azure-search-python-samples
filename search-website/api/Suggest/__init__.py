@@ -6,6 +6,11 @@ from shared_code import azure_config
 
 environment_vars = azure_config()
 
+#curl --header "Content-Type: application/json" \
+#  --request POST \
+#  --data '{"q":"code","top":"5", "suggester":"sg"}' \
+#  http://localhost:7071/api/Suggest
+
 # Set Azure Search endpoint and key
 endpoint = f'https://{environment_vars["search_service_name"]}.search.windows.net'
 key = environment_vars["search_api_key"]
@@ -18,15 +23,18 @@ search_client = SearchClient(endpoint, index_name, AzureKeyCredential(key))
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
 
-    # http://localhost:7071/api/Lookup?id=100
-    docid = req.params.get('id') 
+    # variables sent in body
+    req_body = req.get_json()
+    q = req_body.get('q')
+    top = req_body.get('top')
+    suggester = req_body.get('suggester')
 
-    if docid:
-        logging.info(f"/Lookup id = {docid}")
-        returnedDocument = search_client.get_document(key=docid)
-        return func.HttpResponse(body=f"{returnedDocument}", status_code=200)
+    if q:
+        logging.info(f"/Suggest q = {q}")
+        suggestions = search_client.suggest(search_text="code", suggester_name="sg", top=5)
+        return func.HttpResponse(body=f"{suggestions}", status_code=200)
     else:
         return func.HttpResponse(
-             "No doc id param found.",
+             "No query param found.",
              status_code=200
         )
