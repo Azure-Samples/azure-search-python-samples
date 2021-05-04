@@ -3,6 +3,7 @@ import azure.functions as func
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from shared_code import azure_config
+import json
 
 environment_vars = azure_config()
 
@@ -24,7 +25,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     if docid:
         logging.info(f"/Lookup id = {docid}")
         returnedDocument = search_client.get_document(key=docid)
-        return func.HttpResponse(body=returnedDocument, status_code=200)
+        
+        full_response = {}
+        full_response["document"]=returnedDocument
+        
+        return func.HttpResponse(body=json.dumps(full_response), mimetype="application/json", status_code=200)
     else:
         return func.HttpResponse(
              "No doc id param found.",
