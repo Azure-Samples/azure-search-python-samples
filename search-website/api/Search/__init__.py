@@ -95,7 +95,7 @@ def new_shape(docs):
         
         client_side_expected_shape.append(new_document)
     
-    return json.dumps(list(client_side_expected_shape))
+    return list(client_side_expected_shape)
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
 
