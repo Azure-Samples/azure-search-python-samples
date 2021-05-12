@@ -27,6 +27,7 @@ def read_facets(facetsString):
             output[newVal]='array'
         else: 
             output[x]='string'
+            
     return output
 
 
@@ -40,18 +41,20 @@ def create_filter_expression(filter_list, facets):
     while (i < len(filter_list)) :
         field = filter_list[i]["field"]
         value = filter_list[i]["value"]
-
+        
         if (facets[field] == 'array'): 
             print('array')
             filter_expressions.append(f'{field}/any(t: search.in(t, \'{value}\', \',\'))')
         else :
             print('value')
-            filter_expressions.append(f'${field} eq \'{value}\'');
+            filter_expressions.append(f'{field} eq \'{value}\'')
         
         i += 1
     
+    
+    return_string = separator.join(filter_expressions)
 
-    return separator.join(filter_expressions)
+    return return_string
 
 def new_shape(docs):
     
@@ -108,7 +111,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     facets = environment_vars["search_facets"]
     facetKeys = read_facets(facets)
-    filter= create_filter_expression(filters, facets)
+    
+    filter=""
+    if(len(filters)): 
+        filter = create_filter_expression(filters, facetKeys)
 
     if q:
         logging.info(f"/Search q = {q}")
