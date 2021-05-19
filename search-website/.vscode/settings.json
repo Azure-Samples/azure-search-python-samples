@@ -7,5 +7,6 @@
     "debug.internalConsoleOptions": "neverOpen",
     "staticWebApps.appSubpath": "search-website",
     "staticWebApps.apiSubpath": "search-website/api",
-    "staticWebApps.outputSubpath": "build"
+    "staticWebApps.outputSubpath": "build",
+    "python.pythonPath": ".venv\\Scripts\\python.exe"
 }
