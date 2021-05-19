@@ -15,7 +15,7 @@ urlFragment: python-sample-search-web-app
 
 ![Flask sample MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
 
-This Python sample show you how to add document search to a web app.
+This Python sample shows you how to add document search to a web app.
 
 For this sample, you will use the Azure.Search.Documents library in the Azure SDK for Python to create, load, and query a search index containing the goodbooks-10k dataset, publicly available at [https://github.com/zygmuntz/goodbooks-10k](https://github.com/zygmuntz/goodbooks-10k). The search index runs on an [Azure Cognitive Search](https://docs.microsoft.com/azure/search/search-what-is-azure-search) service that you create. You can use the free tier for this sample.
 
