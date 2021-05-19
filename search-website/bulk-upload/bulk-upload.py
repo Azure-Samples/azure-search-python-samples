@@ -9,8 +9,8 @@ from azure.search.documents.indexes.models import SearchIndex
 
 
 # Get the service name (short name) and admin API key from the environment
-endpoint = 'heidist-westus2'
-key = '1E30AF86DFE1C7A7273DACB8C87F4EA3'
+endpoint = 'YOUR-SEARCH-RESOURCE-NAME'
+key = 'YOUR-SEARCH-ADMIN-KEY'
 
 
 # Give your index a name
