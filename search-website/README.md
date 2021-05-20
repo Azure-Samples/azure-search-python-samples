@@ -7,7 +7,7 @@ products:
   - azure
   - azure-cognitive-search
 description: |
-  Add document search to a web app. This Python sample uses the Azure.Search.Documents library to create, load, and query the index.
+  Add document search to a web app. This Python sample uses the Azure.Search.Documents library to create, load, and query the index. The app is an Azure Static Web app. User interaction is implemented with React. Query requests and responses are handled in Azure Function.
 urlFragment: python-sample-search-web-app
 ---
 
@@ -27,7 +27,7 @@ Related resources:
 
 * [Demo](https://victorious-beach-0ab88b51e.azurestaticapps.net/)
 
-* [Conceptual documentation](https://docs.microsoft.com//azure/search/)
+* [Conceptual documentation](https://docs.microsoft.com/azure/search/)
 
 * [API reference](https://docs.microsoft.com/python/api/overview/azure/search-documents-readme?view=azure-python)
 
@@ -55,11 +55,11 @@ Azure Static Web Apps is also required but you do not need to have this resource
 1. Clone (or Fork and Clone) this repository.
 1. Open `./search-website` in Visual Studio Code.
 
-This tutorial doesn't run the Azure Function API locally but if you intend to run it locally, you need to [install azure-functions-core-tools](https://docs.microsoft.com/azure/azure-functions/functions-run-local?WT.mc_id=shopathome-github-jopapa) globally with the following bash command: `npm install -g azure-functions-core-tools@3 --unsafe-perm true`
+This sample code runs the Azure Function API remotely on your cloned repository. If you intend to run it locally, you need to [install azure-functions-core-tools](https://docs.microsoft.com/azure/azure-functions/functions-run-local?WT.mc_id=shopathome-github-jopapa) globally with the following bash command: `npm install -g azure-functions-core-tools@3 --unsafe-perm true`
 
 ## Create and load the index
 
-1. Create a virtual environment.
+1. In VS Code, create a virtual environment.
 
    * Ctrl+Shift+P > Terminal: Create New Integrated Terminal
    * At the PS terminal command line, run these commands:
