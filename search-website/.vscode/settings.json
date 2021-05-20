@@ -8,5 +8,5 @@
     "staticWebApps.appSubpath": "search-website",
     "staticWebApps.apiSubpath": "search-website/api",
     "staticWebApps.outputSubpath": "build",
-    "python.pythonPath": ".venv\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\heidist\\AppData\\Local\\Programs\\Python\\Python39\\python.exe"
 }
