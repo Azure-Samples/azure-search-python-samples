@@ -2,16 +2,16 @@
 
 1. Change the following values in the `bulk_upload.py` file:
 
-    * YOUR-SEARCH-RESOURCE-NAME
+    * YOUR-SEARCH-RESOURCE-NAME (not the full URL)
     * YOUR-SEARCH-ADMIN-KEY
-    
+
 1. Install the requirements and run the script:
 
     ```bash
     pip install -r requirements.txt && \
     python bulk-upload.py
     ```
-    
+
 1. Script runs with results:
 
     ```bash
