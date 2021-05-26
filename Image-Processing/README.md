@@ -14,7 +14,7 @@ urlFragment: python-sample-image-processing
 
 # Image Processing Sample
 
-Cognitive Search can analyze images with text, or images with other images, to create searchable or analyzable text. This sample focuses on a specific aspect of image analysis in a Cognitive Search pipeline: passing images to a custom skill, and return images back to the skillset for further processing.
+Cognitive Search can annotate images with text, or images with other images, to create searchable or analyzable text. This sample focuses on a specific aspect of image analysis in a Cognitive Search pipeline: passing images to a custom skill, and return images back to the skillset for further processing.
 
 In this demonstration, you will use a sample JPEG file, services and tools, and fully formulated requests in notebook to perform the following tasks:
 
