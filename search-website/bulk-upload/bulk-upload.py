@@ -9,9 +9,8 @@ from azure.search.documents.indexes.models import SearchIndex
 
 
 # Get the service name (short name) and admin API key from the environment
-endpoint = 'YOUR-SEARCH-SERVICE-NAME'
-key = 'YOUR-SEARCH-SERVICE-ADMIN-API-KEY'
-
+endpoint = 'https://cspython.search.windows.net'
+key = '0A9E1A3D1A8B3E0E6F011915150AF899'
 
 # Give your index a name
 # You can also supply this at runtime in __main__
@@ -60,7 +59,7 @@ def create_schema_from_json_and_upload(schema, index_name, admin_client, url=Fal
                     exit(0)
             except:
                 print("Unexpected error:", sys.exc_info()[0])
-            
+
     else:
         data_from_url = requests.get(schema)
         schema_data = json.loads(data_from_url.content)
