@@ -5,13 +5,21 @@ import pandas as pd
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
-from azure.search.documents.indexes.models import SearchIndex
-
+from azure.search.documents.indexes.models import SearchIndex 
+from azure.search.documents.indexes.models import (
+    ComplexField,
+    CorsOptions,
+    SearchIndex,
+    ScoringProfile,
+    SearchFieldDataType,
+    SimpleField,
+    SearchableField
+)
 
 # Get the service name (short name) and admin API key from the environment
-endpoint = 'YOUR-SEARCH-SERVICE-NAME'
+service_name = 'YOUR-SEARCH-SERVICE-NAME'
 key = 'YOUR-SEARCH-SERVICE-ADMIN-API-KEY'
-
+endpoint = "https://{}.search.windows.net/".format(service_name)
 
 # Give your index a name
 # You can also supply this at runtime in __main__
@@ -44,31 +52,41 @@ class CreateClient(object):
     def create_admin_client(self):
         return SearchIndexClient(endpoint=endpoint,
                                  credential=self.credentials)
-
+# Get Schema from File or URL
+def get_schema_data(schema, url=False):
+    if not url:
+        with open(schema) as json_file:
+            schema_data = json.load(json_file)
+            return schema_data
+    else:
+            data_from_url = requests.get(schema)
+            schema_data = json.loads(data_from_url.content)
+            return schema_data
+    
 
 # Create Search Index from the schema
 # If reading the schema from a URL, set url=True
 def create_schema_from_json_and_upload(schema, index_name, admin_client, url=False):
-    if not url:
-        with open(schema) as json_file:
-            schema_data = json.load(json_file)
-            try:
-                upload_schema = admin_client.create_index(SearchIndex(name=index_name, fields=schema_data['fields']))
-                if upload_schema:
-                    print(f'Schema uploaded; Index created for {index_name}.')
-                else:
-                    exit(0)
-            except:
-                print("Unexpected error:", sys.exc_info()[0])
-            
-    else:
-        data_from_url = requests.get(schema)
-        schema_data = json.loads(data_from_url.content)
-        upload_schema = admin_client.create_index(SearchIndex(name=index_name, fields=schema_data['fields']))
+
+    cors_options = CorsOptions(allowed_origins=["*"], max_age_in_seconds=60)
+    scoring_profiles = []
+    schema_data = get_schema_data(schema, url)
+
+    index = SearchIndex(
+                name=index_name,
+                fields=schema_data['fields'],
+                scoring_profiles=scoring_profiles,
+                suggesters=schema_data['suggesters'], 
+                cors_options=cors_options)
+
+    try:
+        upload_schema = admin_client.create_index(index)
         if upload_schema:
             print(f'Schema uploaded; Index created for {index_name}.')
         else:
             exit(0)
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
 
 
 # Convert CSV data to JSON
