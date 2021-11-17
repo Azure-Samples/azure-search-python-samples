@@ -13,7 +13,8 @@ environment_vars = azure_config()
 #  http://localhost:7071/api/Suggest
 
 # Set Azure Search endpoint and key
-endpoint = f'https://{environment_vars["search_service_name"]}.search.windows.net'
+service_name = environment_vars["search_service_name"]
+endpoint = f'https://{service_name}.search.windows.net'
 key = environment_vars["search_api_key"]
 
 # Your index name
@@ -32,11 +33,12 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     if q:
         logging.info(f"/Suggest q = {q}")
-        suggestions = search_client.suggest(search_text="code", suggester_name="sg", top=5)
+        suggestions = search_client.suggest(search_text=q, suggester_name="sg", top=5)
         
         # format the React app expects
         full_response = {}
         full_response["suggestions"]=suggestions
+        print(suggestions)
         
         return func.HttpResponse(body=json.dumps(full_response), mimetype="application/json",status_code=200)
     else:
