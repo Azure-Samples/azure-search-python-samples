@@ -19,6 +19,8 @@ This Python sample shows you how to add document search to a web app.
 
 For this sample, you will use the Azure.Search.Documents library in the Azure SDK for Python to create, load, and query a search index containing the goodbooks-10k dataset, publicly available at [https://github.com/zygmuntz/goodbooks-10k](https://github.com/zygmuntz/goodbooks-10k). The search index runs on an [Azure Cognitive Search](https://docs.microsoft.com/azure/search/search-what-is-azure-search) service that you create. You can use the free tier for this sample.
 
+Optionally, this sample includes a devcontainer.json file so that you can run the code locally, as a developer, with the assurance that the environment is correctly configured and your local system doesn't need anything beyond docker. You'll need the [Docker extension](https://code.visualstudio.com/docs/containers/overview) to do this. If you don't want to us Docker, you can run your code in a virtual environment instead. 
+
 The application itself is deployed as an Azure Static web app (which you can run locally), using the JavaScript React library to build the user interface and Azure Functions to handle the query requests against the search index.
 
 This README is an shortened version of the [full Python tutorial](https://docs.microsoft.com//azure/search/tutorial-python-overview). 
@@ -47,6 +49,8 @@ You can deploy the sample onto Azure or run it locally by following the steps be
 * [Visual Studio  Code extension: Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions&WT.mc_id=shopathome-github-jopapa)
 * [Visual Studio Code extension: Azure Static Web Apps](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps)
 * [Azure Cognitive Search](https://docs.microsoft.com/azure/search/search-create-service-portal)
+
+[Visual Studio Code extension: Docker](https://code.visualstudio.com/docs/containers/overview) is optional, but necessary if you want to run the Python code in a container.
 
 Azure Static Web Apps is also required but you do not need to have this resource in advance. These instructions include inline steps for creating and configuring the web app in a later section.
 
