@@ -1,5 +1,7 @@
 # Create Cognitive Search Index from CSV file
 
+
+
 1. Change the following values in the `bulk_upload.py` file:
 
     * YOUR-SEARCH-RESOURCE-NAME (not the full URL)
@@ -31,3 +33,5 @@
 
     Done. Press any key to close the terminal.
     ```
+
+If you get a "file not found error" on good-books-index.json, try adding the "Terminal: Execute in File Directory" in Settings > Extensions > Python.

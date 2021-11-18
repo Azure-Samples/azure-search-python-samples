@@ -7,5 +7,11 @@
     "debug.internalConsoleOptions": "neverOpen",
     "staticWebApps.appSubpath": "search-website",
     "staticWebApps.apiSubpath": "search-website/api",
-    "staticWebApps.outputSubpath": "build"
+    "staticWebApps.outputSubpath": "build",
+    "markdownlint.config": {
+        "MD028": false,
+        "MD025": {
+            "front_matter_title": ""
+        }
+    }
 }
