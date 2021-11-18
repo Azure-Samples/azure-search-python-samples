@@ -1,7 +1,5 @@
 # Create Cognitive Search Index from CSV file
 
-
-
 1. Change the following values in the `bulk_upload.py` file:
 
     * YOUR-SEARCH-RESOURCE-NAME (not the full URL)
