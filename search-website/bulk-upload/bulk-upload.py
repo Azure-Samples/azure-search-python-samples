@@ -17,8 +17,8 @@ from azure.search.documents.indexes.models import (
 )
 
 # Get the service name (short name) and admin API key from the environment
-service_name = 'YOUR-SEARCH-SERVICE-NAME'
-key = 'YOUR-SEARCH-SERVICE-ADMIN-API-KEY'
+service_name = 'my-azure-service'
+key = 'vJrl02OBEde0sS8bKQdR0vSYqYSUgqnOuqxQhmyaljAzSeBlty1h'
 endpoint = "https://{}.search.windows.net/".format(service_name)
 
 # Give your index a name
@@ -111,11 +111,11 @@ def batch_upload_json_data_to_index(json_file, client):
             "books_count": i['books_count'] if i['books_count'] else 0,
             "isbn": str(i['isbn']),
             "isbn13": str(i['isbn13']),
-            "authors": i['authors'].split(',') if i['authors'] else None,
+            "task": i['task'].split(',') if i['task'] else None,
             "original_publication_year": int(i['original_publication_year']) if i['original_publication_year'] else 0,
-            "original_title": i['original_title'],
+            "region": i['region'],
             "title": i['title'],
-            "language_code": i['language_code'],
+            "area": i['area'],
             "average_rating": int(i['average_rating']) if i['average_rating'] else 0,
             "ratings_count": int(i['ratings_count']) if i['ratings_count'] else 0,
             "work_ratings_count": int(i['work_ratings_count']) if i['work_ratings_count'] else 0,

@@ -17,7 +17,7 @@ index_name = 'good-books'
 # Create Azure SDK client
 search_client = SearchClient(endpoint, index_name, AzureKeyCredential(key))
 
-# returns obj like {authors: 'array', language_code:'string'}
+# returns obj like {task: 'array', area:'string'}
 def read_facets(facetsString):
     facets = facetsString.split(",")
     output = {}
@@ -77,11 +77,11 @@ def new_shape(docs):
         new_shape["books_count"]=item["books_count"]        
         new_shape["isbn"]=item["isbn"]
         new_shape["isbn13"]=item["isbn13"]
-        new_shape["authors"]=item["authors"]
+        new_shape["task"]=item["task"]
         new_shape["original_publication_year"]=item["original_publication_year"]
-        new_shape["original_title"]=item["original_title"]
+        new_shape["region"]=item["region"]
         new_shape["title"]=item["title"]
-        new_shape["language_code"]=item["language_code"]
+        new_shape["area"]=item["area"]
         new_shape["average_rating"]=item["average_rating"]
         new_shape["ratings_count"]=item["ratings_count"]
         new_shape["work_ratings_count"]=item["work_ratings_count"]

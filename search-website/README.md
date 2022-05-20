@@ -135,9 +135,9 @@ The following instructions create and configure the Azure Static Web App resourc
     |SearchApiKey|Your Search query key. You can [find query keys in the Azure portal](https://docs.microsoft.com/azure/search/search-security-api-keys#find-existing-keys)|
     |SearchServiceName|Your Search resource name|
     |SearchIndexName|`good-books`|
-    |SearchFacets|`authors*,language_code`|
+    |SearchFacets|`task*,area`|
 
-    For the `authors*` facet, adding a `*` after a field name denotes that the field is of type `Collection(Edm.String)`. This allows the Azure Function to add filters correctly to queries. 
+    For the `task*` facet, adding a `*` after a field name denotes that the field is of type `Collection(Edm.String)`. This allows the Azure Function to add filters correctly to queries. 
 
 1. Select **Save** to save the settings. 
 

@@ -97,7 +97,7 @@
         "fields": []
       },
       {
-        "name": "authors",
+        "name": "task",
         "type": "Collection(Edm.String)",
         "facetable": true,
         "filterable": true,
@@ -125,7 +125,7 @@
         "fields": []
       },
       {
-        "name": "original_title",
+        "name": "region",
         "type": "Edm.String",
         "facetable": false,
         "filterable": false,
@@ -155,7 +155,7 @@
         "fields": []
       },
       {
-        "name": "language_code",
+        "name": "area",
         "type": "Edm.String",
         "facetable": true,
         "filterable": true,
@@ -322,8 +322,8 @@
         "name": "sg",
         "searchMode": "analyzingInfixMatching",
         "sourceFields": [
-          "authors",
-          "original_title"
+          "task",
+          "region"
         ]
       }
     ],
