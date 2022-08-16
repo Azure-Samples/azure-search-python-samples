@@ -1,0 +1,17 @@
+    {
+    "HotelId": "2",
+    "HotelName": "Twin Dome Motel",
+    "Description": "The hotel is situated in a  nineteenth century plaza, which has been expanded and renovated to the highest architectural standards to create a modern, functional and first-class hotel in which art and unique historical elements coexist with the most modern comforts.",
+    "Description_fr": "L'hôtel est situé dans une place du XIXe siècle, qui a été agrandie et rénovée aux plus hautes normes architecturales pour créer un hôtel moderne, fonctionnel et de première classe dans lequel l'art et les éléments historiques uniques coexistent avec le confort le plus moderne.",
+    "Category": "Boutique",
+    "Tags": [ "pool", "free wifi", "concierge" ],
+    "ParkingIncluded": "false",
+    "LastRenovationDate": "1979-02-18T00:00:00Z",
+    "Rating": 3.60,
+    "StreetAddress": "140 University Town Center Dr",
+    "City": "Sarasota",
+    "StateProvince": "FL",
+    "PostalCode": "34243",
+    "Country": "USA"
+
+    }
