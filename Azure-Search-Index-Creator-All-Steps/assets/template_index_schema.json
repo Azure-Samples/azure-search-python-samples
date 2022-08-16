@@ -1,0 +1,35 @@
+{
+    "name": "sample-index",
+    "fields": [
+        {
+        "name": "sample",
+        "type": "Edm.String",
+        "facetable": false,
+        "filterable": true,
+        "key": true,
+        "retrievable": true,
+        "searchable": false,
+        "sortable": true,
+        "analyzer": null,
+        "indexAnalyzer": null,
+        "searchAnalyzer": null,
+        "synonymMaps": [],
+        "fields": []
+       }
+     ],
+    "suggesters": [],
+    "scoringProfiles": [],
+    "defaultScoringProfile": "",
+    "corsOptions": null,
+    "analyzers": [],
+    "charFilters": [],
+    "tokenFilters": [],
+    "tokenizers": [],
+    "similarity": {
+      "@odata.type": "#Microsoft.Azure.Search.BM25Similarity",
+      "k1": null,
+      "b": null
+    },
+    "encryptionKey": null,
+    "@odata.etag": ""
+  }
