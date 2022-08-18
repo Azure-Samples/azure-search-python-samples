@@ -2,6 +2,10 @@
 
 This repository contains Python sample code used in Azure Cognitive Search quickstarts, tutorials, and examples. You can use the shared (free) Azure Cognitive Search service to run any sample in this repository.
 
+## All steps sample - Create an Azure Search Index with Cognitive Search from a scratch
+
+This sample provides all steps to create a new Azure Search Index with Cognitive Search and load it with the provided sample data from scratch. The idea is that no prior knowledge about Azure Search is required. This sample consists of two Jupiter Notebooks and accompanying materials. 
+
 ## Quickstart sample - Azure Cognitive Search
 
 This sample is a Jupyter Python3 .ipynb file used in [Quickstart: Create and query a search index using a Jupyter Python notebook](https://docs.microsoft.com/azure/search/search-get-started-python). Learn how to use the [**azure-search-documents**](https://docs.microsoft.com/python/api/overview/azure/search-documents-readme) client library in the Azure SDK for Python to make service connections, create and load indexes, and run basic queries.
