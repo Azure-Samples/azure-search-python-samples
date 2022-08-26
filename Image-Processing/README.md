@@ -36,15 +36,15 @@ In this sample, skillset output is sent to a [knowledge store](https://docs.micr
 ## Prerequisites
 
 + [Azure subscription](https://Azure.Microsoft.com/subscription/free)
-+ [Azure Cognitive Search](https://docs.microsoft.com/azure/search/search-create-service-portal) (get the full service endpoint and an admin API key)
-+ [Azure Storage](https://docs.microsoft.com/azure/storage/common/storage-account-create) (get the connection string)
-+ [Azure Cognitive Services](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-apis-create-account) (get the account name)
++ [Azure Cognitive Search](https://docs.microsoft.com/azure/search/search-create-service-portal)
++ [Azure Storage](https://docs.microsoft.com/azure/storage/common/storage-account-create)
++ [Azure Cognitive Services](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-apis-create-account)
 + [Python 3.6+](https://www.python.org/downloads/)
 + [Visual Studio Code](https://code.visualstudio.com/download) with the [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions) and the [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 
 ## Configure the components
 
-Before you open the notebook, assemble the resources that are referenced by the skillset.
+Before you can run the sample, assemble the resources that are referenced by the skillset.
 
 1. Download the **azure-search-python-samples** repository and extract its contents. 
 
@@ -52,15 +52,14 @@ Before you open the notebook, assemble the resources that are referenced by the 
 
 ### In Azure portal
 
-1. Navigate to Azure Storage and set up the data source. Create a container named "brf-sample", and then upload the sample JPEG file (microsoft.jpg) from the sample folder.
+1. Go to your Azure Storage account and set up the data source:
+   1. Create a container named "bfr-sample".
+   1. Upload the sample JPEG file (microsoft.jpg) from the sample folder.
+   1. From **Access keys**, copy the Azure Storage connection string and paste it into NotePad.
 
-1. From **Access keys**, copy the Azure Storage connection string and paste it into NotePad.
+1. Go to your search service, copy the search endpoint (http://<SERVICE-NAME>.search.windows.net) and an admin API key.
 
-1. Navigate to your search service, copy the search endpoint (http://<SERVICE-NAME>.search.windows.net) and an admin API key.
-
-1. Navigate to Cognitive Services, copy the account name. 
-
-1. Create a function app. Provide a function app name and be sure to choose Python for the run time stack. In the next step, you'll choose this app when deploying the custom skill. 
+1. Create a function app. Default values work for this sample. Be sure to choose Python for the run time stack. In the next step, you'll choose this app when deploying the custom skill. 
 
    ![Create function app example](media/function-app-example.png)
 
@@ -90,15 +89,14 @@ Before you open the notebook, assemble the resources that are referenced by the 
 
 1. In the first cell, paste in the following information:
 
-   * search service endpoint
-   * search service admin API key
-   * Azure Storage connection string
-   * Cognitive Services account name
-   * Blob container that contains the JPEG
-   * Function app URL
+   + search service endpoint
+   + search service admin API key
+   + Azure Storage connection string
+   + Blob container that contains the JPEG
+   + Function app URL
 
 1. Run each cell.
 
 ## Validation
 
-Once the indexer completes, use the Azure portal and Storage explorer in your Azure Storage account to find the final output. You will see a container `obfuscated` in the knowledge store that contains the same image you started with, but with the phone number redacted. For comparison, the original image is stored in a container `images`.
+Once the indexer completes, use the Azure portal and Storage explorer in your Azure Storage account to find the final output. You will see a container named `kstore-obfuscated` in Azure Storage that contains the same image you started with, but with the phone number redacted. For comparison, the original image is stored in a container `images`.
