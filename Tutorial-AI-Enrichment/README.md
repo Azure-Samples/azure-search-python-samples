@@ -13,15 +13,15 @@ urlFragment: python-tutorial-cognitive-search
 
 # Get started with skillsets and AI enrichment in Azure Cognitive Search
 
-Demonstrates AI enrichment by building an indexing pipeline that detects and extracts text and text representations of images and scanned documents stored as blobs in Azure Blob storage. This sample leverages cognitive skills from the Cognitive Services APIs, such as entity recognition and language detection. It uses the REST APIs to make calls to Azure Cognitive Search, including index definition, data ingestion and AI enrichment, and query execution.
+Demonstrates AI enrichment by building a [skillset](https://docs.microsoft.com/azure/search/cognitive-search-working-with-skillsets) that detects and extracts text and text representations of images and scanned documents stored as blobs in Azure Blob storage. This sample leverages cognitive skills that are based on he Cognitive Services APIs, such as entity recognition and language detection. It uses the REST APIs to make calls to Azure Cognitive Search, including index definition, data ingestion and AI enrichment, and query execution.
 
-This sample is a Jupyter Python3 .ipynb file used in [Python Tutorial: Call Cognitive Services APIs in an enrichment pipeline](https://docs.microsoft.com/azure/search/cognitive-search-tutorial-blob-python). 
+This Python sample is in a notebook. For an explanation of each step, see [Python Tutorial: Call Cognitive Services APIs in an enrichment pipeline](https://docs.microsoft.com/azure/search/cognitive-search-tutorial-blob-python). 
 
 ## Contents
 
 | File/folder | Description |
 |-------------|-------------|
-| `PythonTutorial-AzureSearch-AIEnrichment.ipynb`       | Jupyter Python notebook. |
+| `PythonTutorial-AzureSearch-AIEnrichment.ipynb` | Notebook containing the Python code for this sample |
 | `.gitignore` | Define what to ignore at commit time. |
 | `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
 | `README.md` | This README file. |
@@ -40,6 +40,7 @@ This sample is a Jupyter Python3 .ipynb file used in [Python Tutorial: Call Cogn
 2. Extract contents if the download is a zip file. Make sure the files are read-write.
 
 ## Running the sample
+
 1. On the Windows Start menu, select Anaconda3, and then select Jupyter Notebook.
 2. Open the PythonTutorial-AzureSearch-AIEnrichment.ipynb file in Jupyter Notebook.
 3. Replace <YOUR-SERVICE-NAME> and <YOUR-ADMIN-API-KEY> with the service and api-key details of your search service.
