@@ -42,7 +42,7 @@ In this sample, skillset output is sent to a [knowledge store](https://docs.micr
 + [Python 3.6+](https://www.python.org/downloads/)
 + [Visual Studio Code](https://code.visualstudio.com/download) with the [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions) and the [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 
-## Configure the components
+## Set up your project
 
 Before you can run the sample, assemble the resources that are referenced by the skillset.
 
@@ -65,7 +65,9 @@ Before you can run the sample, assemble the resources that are referenced by the
 
 ### In Visual Studio Code
 
-1. Set up the function app that contains the custom code. In Visual Studio Code, navigate to the **image-processing** sample folder.
+Set up the function app that contains the custom code.
+
+1. In Visual Studio Code, navigate to the **image-processing** sample folder.
 
 1. Right-click the **SplitImage** folder and select **Deploy to Function App**. You'll be prompted to select the function app you created in the previous step. You might also be prompted to sign in to Azure if you're not already.
 
@@ -87,7 +89,7 @@ Before you can run the sample, assemble the resources that are referenced by the
 
 1. Open the BFR_Sample_Rest.ipynb file in Jupyter Notebook.
 
-1. In the first cell, paste in the following information:
+1. In the first cell, replace the following placeholders with the values you found or created in the previous step:
 
    + search service endpoint
    + search service admin API key
@@ -95,7 +97,7 @@ Before you can run the sample, assemble the resources that are referenced by the
    + Blob container that contains the JPEG
    + Function app URL
 
-1. Run each cell.
+1. Run each cell individually or select **Run all**.
 
 ## Validation
 
