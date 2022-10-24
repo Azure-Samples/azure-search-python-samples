@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CircularProgress  from '@material-ui/core/CircularProgress';
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import Results from '../../components/Results/Results';
 import Pager from '../../components/Pager/Pager';
@@ -13,7 +13,7 @@ import "./Search.css";
 export default function Search() {
   
   let location = useLocation();
-  let history = useHistory();
+  const navigate = useNavigate();
   
   const [ results, setResults ] = useState([]);
   const [ resultCount, setResultCount ] = useState(0);
@@ -36,8 +36,6 @@ export default function Search() {
       skip: skip,
       filters: filters
     };
-    
-    console.log(body);
 
     axios.post( '/api/search', body)
       .then(response => {
@@ -57,7 +55,7 @@ export default function Search() {
   // pushing the new search term to history when q is updated
   // allows the back button to work as expected when coming back from the details page
   useEffect(() => {
-    history.push('/search?q=' + q);  
+    navigate('/search?q=' + q);  
     setCurrentPage(1);
     setFilters([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps

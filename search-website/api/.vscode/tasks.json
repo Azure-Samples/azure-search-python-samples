@@ -6,10 +6,10 @@
 			"command": "host start",
 			"problemMatcher": "$func-python-watch",
 			"isBackground": true,
-			"dependsOn": "pipInstall"
+			"dependsOn": "pip install (functions)"
 		},
 		{
-			"label": "pipInstall",
+			"label": "pip install (functions)",
 			"type": "shell",
 			"osx": {
 				"command": "${config:azureFunctions.pythonVenv}/bin/python -m pip install -r requirements.txt"

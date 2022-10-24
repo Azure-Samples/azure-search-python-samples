@@ -1,0 +1,10 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "SearchApiKey": "YOUR-SEARCH-QUERY-KEY",
+    "SearchServiceName": "YOUR-SEARCH-RESOURCE-NAME",
+    "SearchIndexName": "good-books"
+  }
+}

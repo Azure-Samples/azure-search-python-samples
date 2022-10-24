@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Context for user authentication
 import { AuthContext } from '../contexts/AuthContext';
@@ -47,11 +47,11 @@ export default function App() {
       <div className="container-fluid app">
         <AppHeader />
         <Router>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/search" component={Search} />
-            <Route path="/details/:id" component={Details} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/details/:id" element={<Details />} />
+          </Routes>
         </Router>
         {/* <AppFooter /> */}
       </div>

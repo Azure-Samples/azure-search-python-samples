@@ -1,6 +1,8 @@
 import React from 'react';
 import AppHeaderAuth from '../AppHeaderAuth/AppHeaderAuth';
 
+import logo from '../../images/microsoft_small.png';
+
 import './AppHeader.css';
 
 export default function AppHeader() {
@@ -8,7 +10,7 @@ export default function AppHeader() {
     <header className="header">
       <nav className="navbar navbar-expand-lg">
         <a className="navbar-brand" href="/">
-          <img src="/images/microsoft-small.svg" className="navbar-logo" alt="Microsoft" />
+          <img src={logo} height="50" className="navbar-logo" alt="Microsoft" />
         </a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>

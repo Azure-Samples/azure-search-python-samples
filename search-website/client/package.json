@@ -1,23 +1,25 @@
 {
-  "name": "sample",
+  "name": "my-reacte-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:7071",
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.21.1",
-    "bootstrap": "^4.5.2",
-    "jquery": "^3.5.1",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.61",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.1.3",
+    "bootstrap": "^5.2.2",
+    "jquery": "^3.6.1",
     "popper.js": "^1.16.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.4",
-    "styled-components": "^5.2.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.2",
+    "react-scripts": "5.0.1",
+    "styled-components": "^5.3.6",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -25,9 +27,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:7071",
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
