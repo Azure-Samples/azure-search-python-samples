@@ -37,7 +37,7 @@ Related resources:
 
 Below is a screenshot of the app created through this sample code.
 
-![Screenshot of sample web app](./images/web-app.png)
+![Screenshot of sample web app](./docs/images/web-app.png)
 
 You can deploy the sample onto Azure or run it locally by following the steps below.
 

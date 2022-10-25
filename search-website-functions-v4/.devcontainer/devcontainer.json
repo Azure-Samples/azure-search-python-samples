@@ -47,7 +47,7 @@
 	"forwardPorts": [7071],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "cd api && pip3 install --user -r requirements.txt && cd ../client && npm install",
+	//"postCreateCommand": "cd api && pip3 install --user -r requirements.txt && cd ../client && npm install",
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"
