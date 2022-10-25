@@ -21,4 +21,4 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g azure-functions-core-tools@4 --unsafe-perm true" 2>&1
 
 # Install React and Python packages are part of image
-RUN su cd api && pip3 install --user -r requirements.txt && cd ../client && npm install && cd ../bulk-upload && pip3 install --user -r requirements.txt
+#RUN su cd api && pip3 install --user -r requirements.txt && cd ../client && npm install && cd ../bulk-upload && pip3 install --user -r requirements.txt
