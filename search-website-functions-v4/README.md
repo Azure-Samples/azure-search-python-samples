@@ -2,12 +2,13 @@
 page_type: sample
 languages:
   - python
-name: Add search to web apps
+name: Add search to a Python app
 products:
   - azure
   - azure-cognitive-search
+  - azure-static-web-app
 description: |
-  Add document search to a web app. This Python sample uses the Azure.Search.Documents library to create, load, and query the index. The app is an Azure Static Web app. User interaction is implemented with React. Query requests and responses are handled in Azure Function.
+  Add document search to a web app. This Python sample uses the Azure.Search.Documents library to create, load, and query the index.
 urlFragment: python-sample-search-web-app
 ---
 
