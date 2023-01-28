@@ -28,11 +28,14 @@ This sample is a Jupyter Python3 .ipynb file to perform the actions against the 
 ## Set up the sample
 
 1. Clone or download this sample repository.
-2. Extract contents if the download is a zip file. Make sure the files are read-write.
+
+1. Extract contents if the download is a zip file. Make sure the files are read-write.
 
 ## Run the sample
 
 1. Open the azure-search-quickstart.ipynb file in Visual Studio Code.
+
+1. Open an integrated terminal and run `pip install azure-search-documents`.
 
 1. Set the service endpoint and API key for your search service:
 
