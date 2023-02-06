@@ -1,20 +1,10 @@
----
-topic: sample
-languages: 
- - python
- - REST
-name: Build and deploy a custom skill with Azure Machine Learning
-description: This sample provides a Jupyter notebook for building and training an aspect-based sentiment model with Azure Machine Learning and then deploying the model to an Azure Kubernetes cluster for integration into an AI enrichment pipeline in Azure Cognitive Search.
-products: 
- - azure
- - azure-cognitive-search
- - azure-machine-learning
-urlFragment: custom-skill-azure-machine-learning
----
-
-# Build and deploy a custom skill with Azure Machine Learning and Azure Cognitive Search
+# Archived - Custom skill example using Azure Machine Learning and Azure Cognitive Search
 
 ![MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
+
+This example is archived and no longer supported. The text of this readme is for the original sample and is out of date.
+
+## Original introduction
 
 In this sample, you will use the [hotel reviews dataset](https://www.kaggle.com/datafiniti/hotel-reviews) (distributed under [the Creative Commons license CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)) to create a custom skill using Azure Machine Learning to extract aspect-based sentiment from the reviews. This allows for the assignment of positive and negative sentiment within the same review to be correctly ascribed to identified entities like staff, room, lobby, or pool.
 
