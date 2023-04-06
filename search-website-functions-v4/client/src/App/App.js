@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // Context for user authentication
 import { AuthContext } from '../contexts/AuthContext';
 
 // App shell components
 import AppHeader from '../components/AppHeader/AppHeader';
-//import AppFooter from '../components/AppFooter/AppFooter';
+import AppFooter from '../components/AppFooter/AppFooter';
 
 // React Router page components
 import Home from '../pages/Home/Home';
@@ -46,14 +46,15 @@ export default function App() {
     <AuthContext.Provider value={user}>
       <div className="container-fluid app">
         <AppHeader />
-        <Router>
+        <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/details/:id" element={<Details />} />
+            <Route path={`/`} element={<Home />} />
+            <Route path={`/search`} element={<Search />} />
+            <Route path={`/details/:id`} element={<Details />}/>
+            <Route path={`*`} element={<Home />} />
           </Routes>
-        </Router>
-        {/* <AppFooter /> */}
+        </BrowserRouter>
+        {<AppFooter />}
       </div>
     </AuthContext.Provider>
   );
