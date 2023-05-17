@@ -29,7 +29,7 @@ index_name = "good-books"
 index_schema = "./good-books-index.json"
 
 # Books catalog
-books_url = "https://raw.githubusercontent.com/zygmuntz/goodbooks-10k/master/books.csv"
+books_url = "https://raw.githubusercontent.com/heidisteen/goodbooks-10k/master/books.csv"
 batch_size = 1000
 
 # Instantiate a client
