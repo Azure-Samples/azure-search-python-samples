@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import CircularProgress  from '@material-ui/core/CircularProgress';
+import CircularProgress  from '@mui/material/CircularProgress';
 import { useLocation, useNavigate } from "react-router-dom";
 
 import Results from '../../components/Results/Results';

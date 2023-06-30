@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import { Collapse, Checkbox, List, ListItem, ListItemText } from '@material-ui/core';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { Collapse, Checkbox, List, ListItem, ListItemText } from '@mui/material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import styled from 'styled-components';
 
 import './CheckboxFacet.css';
