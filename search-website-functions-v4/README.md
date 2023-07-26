@@ -81,8 +81,6 @@ This sample code runs the Azure Function API remotely on your cloned repository.
      * Search service name (short name)
      * Admin API key ([find the key in the portal](https://docs.microsoft.com/azure/search/search-security-api-keys#find-existing-keys))
 
-   * Set the Python interpreter to your virtual environment. Ctrl+Shift+P > Python: Select Interpreter, choosing your .venv environment. Refresh the list if you don't see a .venv option.
-
    * Install Python libraries and load the data. At the PS command line:
 
      * `cd \bulk-upload`  
