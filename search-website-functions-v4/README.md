@@ -16,9 +16,9 @@ urlFragment: python-sample-search-web-app
 
 ![Flask sample MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
 
-This Python sample shows you how to add document search to a web app.
+This Python sample shows you how to add document search to a web app using Azure Cognitive Search.
 
-For this sample, you will use the Azure.Search.Documents library in the Azure SDK for Python to create, load, and query a search index containing the goodbooks-10k dataset, publicly available at [https://github.com/zygmuntz/goodbooks-10k](https://github.com/zygmuntz/goodbooks-10k). The search index runs on an [Azure Cognitive Search](https://docs.microsoft.com/azure/search/search-what-is-azure-search) service that you create. You can use the free tier for this sample.
+For this sample, you will use the [**azure-search-documents**](https://pypi.org/project/azure-search-documents/) library in the Azure SDK for Python to create, load, and query a search index containing the goodbooks-10k dataset, publicly available at [https://github.com/zygmuntz/goodbooks-10k](https://github.com/zygmuntz/goodbooks-10k). The search index runs on an [Azure Cognitive Search](https://docs.microsoft.com/azure/search/search-what-is-azure-search) service that you create. You can use the free tier for this sample.
 
 Optionally, this sample includes a devcontainer.json file so that you can run the code locally, as a developer, with the assurance that the environment is correctly configured and your local system doesn't need anything beyond docker. You'll need the [Docker extension](https://code.visualstudio.com/docs/containers/overview) to do this. If you don't want to us Docker, you can run your code in a virtual environment instead. 
 
@@ -34,7 +34,7 @@ Related resources:
 
 * [API reference](https://docs.microsoft.com/python/api/overview/azure/search-documents-readme?view=azure-python)
 
-* New to Python in Visual Studio Code? See [Getting Started with Python in VS Code](https://code.visualstudio.com/docs/python/python-tutorial)
+* New to Python in Visual Studio Code? See [Getting Started with Python in Visual Studio Code](https://code.visualstudio.com/docs/python/python-tutorial)
 
 Below is a screenshot of the app created through this sample code.
 
@@ -64,7 +64,7 @@ This sample code runs the Azure Function API remotely on your cloned repository.
 
 ## Create and load the index
 
-1. In VS Code, create a virtual environment.
+1. In Visual Studio Code, create a virtual environment.
 
    * Ctrl+Shift+P > Terminal: Create New Integrated Terminal
    * At the PS terminal command line, run these commands:
@@ -108,12 +108,11 @@ The following instructions create and configure the Azure Static Web App resourc
     |How do you want to create a Static Web App?|Use existing GitHub repository|
     |Choose organization|Select your _own_ GitHub alias as the organization.|
     |Choose repository|Select **azure-search-python-samples** from the list. |
-    |Choose branch of repository|Select **master** from the list. |
+    |Choose branch of repository|Select **main** from the list. |
     |Enter the name for the new Static Web App.|Create a unique name for your resource. For example, you can prepend your name to the repository name such as, `joansmith-azure-search-python-samples`. |
     |Select a resource group for new resources.|Use the resource group you created for this tutorial.|
     |Choose build preset to configure default project structure.|Select **Custom**|
-    |Select the location of your application code|`search-website`|
-    |Select the location of your Azure Function code|`search-website/api`|
+    |Select the location of your application code|`search-website/client`|
     |Enter the path of your build output...|build|
     |Select a location for new resources.|Select a region close to you.|
 
@@ -142,13 +141,13 @@ The following instructions create and configure the Azure Static Web App resourc
 
 1. Select **Save** to save the settings. 
 
-1. Return to VS Code. 
+1. Return to Visual Studio Code. 
 
 1. Refresh your Static web app to see the Static web app's application settings. 
 
 ## Run queries in your app
 
-1. In VS Code, select **Azure** from the Activity Bar.
+1. In Visual Studio Code, select **Azure** from the Activity Bar.
 
 1. In the Side bar, **right-click on your Azure subscription** under the `Static web apps` area and find the Static web app you created.
 
