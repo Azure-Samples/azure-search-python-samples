@@ -49,11 +49,11 @@ You can deploy the sample onto Azure or run it locally by following the steps be
 * [Visual Studio  Code extension: Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 * [Visual Studio  Code extension: Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions&WT.mc_id=shopathome-github-jopapa)
 * [Visual Studio Code extension: Azure Static Web Apps](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps)
-* [Azure Cognitive Search](https://docs.microsoft.com/azure/search/search-create-service-portal)
+* [Azure Cognitive Search](https://learn.microsoft.com/azure/search/search-create-service-portal)
 
 [Visual Studio Code extension: Docker](https://code.visualstudio.com/docs/containers/overview) is optional, but necessary if you want to run the Python code in a container.
 
-Azure Static Web Apps is also required but you do not need to have this resource in advance. These instructions include inline steps for creating and configuring the web app in a later section.
+[Azure Static Web Apps](https://learn.microsoft.com/azure/static-web-apps/overview) is also required but you do not need to have this resource in advance. These instructions include inline steps for creating and configuring a static web app in a later section.
 
 ## Setup
 
