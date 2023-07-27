@@ -58,7 +58,8 @@ You can deploy the sample onto Azure or run it locally by following the steps be
 ## Setup
 
 1. Clone (or Fork and Clone) this repository.
-1. Open `./search-website` in Visual Studio Code.
+
+1. Open `./search-website-functions-v4` in Visual Studio Code.
 
 This sample code runs the Azure Function API remotely on your cloned repository. If you intend to run it locally, you need to [install azure-functions-core-tools](https://docs.microsoft.com/azure/azure-functions/functions-run-local?WT.mc_id=shopathome-github-jopapa) globally with the following bash command: `npm install -g azure-functions-core-tools@3 --unsafe-perm true`
 
