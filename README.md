@@ -4,7 +4,6 @@ This repository contains Python code samples used in Azure Cognitive Search docu
 
 | Sample | Description |
 |--------|-------------|
-| image-processing | This sample is a Jupyter Python3 .ipynb file that shows how to work with image skills in a skillset. Although the skillset performs useful operations, including Optical Character Recognition (OCR) and redaction of personally identifying information, the sample's purpose is to demonstrate the coordination of image file handoffs from one skill to the next. |
 | quickstart | "Day One" introduction to the fundamental tasks of working with a search index: create, load, and query. This sample is a Jupyter Python3 .ipynb file. The index is modeled on a subset of the Hotels dataset, widely used in Cognitive Search samples, but reduced here for readability and comprehension. |
 | quickstart-semantic-search | Extends the quickstart through modifications that invoke semantic search. This notebook adds a semantic configuration to the index and semantic query options that formulate the query and response. |
 | tutorial-ai-enrichment | This sample is a Jupyter Python3 .ipynb file used in the [Python Tutorial: Call Cognitive Services APIs in an Azure Cognitive Search indexing pipeline](https://docs.microsoft.com/azure/search/cognitive-search-tutorial-blob-python). This sample demonstrates cognitive search functionality, adding AI enrichments from Cognitive Services to extract, detect, and analyze information from image files or large unstructured document files. |
@@ -12,6 +11,5 @@ This repository contains Python code samples used in Azure Cognitive Search docu
 
 ## Archived samples
 
-See the **Archive** branch to access archived samples that are no longer maintained:
-
-* azureml-custom-skill
++ **azureml-custom-skill**: See the **Archive** branch of this repository.
++ **image-processing**: See [azure-search-sample-archive/tree/main/image-processing](https://github.com/Azure-Samples/azure-search-sample-archive/tree/main/image-processing).
