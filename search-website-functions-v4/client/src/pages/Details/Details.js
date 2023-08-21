@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import Rating from '@mui/material/Rating';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 
