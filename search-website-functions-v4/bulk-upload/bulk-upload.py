@@ -2,6 +2,10 @@ import sys
 import json
 import requests
 import pandas as pd
+import os
+import time
+import fnmatch
+import PyPDF2
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
@@ -17,19 +21,20 @@ from azure.search.documents.indexes.models import (
 )
 
 # Get the service name (short name) and admin API key from the environment
-service_name = "YOUR-SEARCH-SERVICE-NAME"
-key = "YOUR-SEARCH-SERVICE-ADMIN-API-KEY"
+service_name = "wsl-cog-search-test-2"
+key = "9GUM9vU7CjGgZxiPNuvyBIzPo1uOtAqdvrSQdDMZYEAzSeBz1hrb"
 endpoint = "https://{}.search.windows.net/".format(service_name)
 
 # Give your index a name
 # You can also supply this at runtime in __main__
-index_name = "good-books"
+index_name = "cartas-coordinador"
 
 # Search Index Schema definition
-index_schema = "./good-books-index.json"
+index_schema = "./cartas-coordinador-index.json"
 
+# PDFs filepath
 # Books catalog
-books_url = "https://raw.githubusercontent.com/Azure-Samples/azure-search-sample-data/main/good-books/books.csv"
+pdfs_filepath = "E:\AI\PDFs\Colbun"
 batch_size = 1000
 
 # Instantiate a client
@@ -92,13 +97,42 @@ def create_schema_from_json_and_upload(schema, index_name, admin_client, url=Fal
     except:
         print("Unexpected error:", sys.exc_info()[0])
 
+def convert_pdfs_to_json(root_dir):
+    data_list = []
+    id_count = 1
 
-# Convert CSV data to JSON
-def convert_csv_to_json(url):
-    df = pd.read_csv(url)
-    convert = df.to_json(orient="records")
-    return json.loads(convert)
+    for dirpath, dirs, files in os.walk(root_dir):
+        for filename in fnmatch.filter(files, '*.pdf'):
+            pdf_file = os.path.join(dirpath, filename)
 
+            with open(pdf_file, 'rb') as fileobj:
+                pdf = PyPDF2.PdfReader(fileobj)
+                text = ''
+                for page in pdf.pages:
+                    text += page.extract_text()
+
+                info = pdf.metadata
+                author = info.author
+                created_date = info.creation_date
+                created_date_str = created_date.strftime("%Y%m%d%H%M%S")
+                mod_date = info.modification_date
+                mod_date_str = mod_date.strftime("%Y%m%d%H%M%S")
+                num_pages = len(pdf.pages)
+
+                data = {
+                    "id": id_count,
+                    "filename": os.path.basename(pdf_file),
+                    "author": author,
+                    "created_date": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.strptime(created_date_str[2:-2], "%Y%m%d%H%M%S")),
+                    "last_modified_date": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.strptime(mod_date_str[2:-2], "%Y%m%d%H%M%S")),
+                    "number_of_pages": num_pages,
+                    "content": text
+                }
+
+                data_list.append(data)
+                id_count += 1
+
+    return data_list
 
 # Batch your uploads to Azure Search
 def batch_upload_json_data_to_index(json_file, client):
@@ -109,37 +143,13 @@ def batch_upload_json_data_to_index(json_file, client):
         count += 1
         batch_array.append(
             {
-                "id": str(i["book_id"]),
-                "goodreads_book_id": int(i["goodreads_book_id"]),
-                "best_book_id": int(i["best_book_id"]),
-                "work_id": int(i["work_id"]),
-                "books_count": i["books_count"] if i["books_count"] else 0,
-                "isbn": str(i["isbn"]),
-                "isbn13": str(i["isbn13"]),
-                "authors": i["authors"].split(",") if i["authors"] else None,
-                "original_publication_year": int(i["original_publication_year"])
-                if i["original_publication_year"]
-                else 0,
-                "original_title": i["original_title"],
-                "title": i["title"],
-                "language_code": i["language_code"],
-                "average_rating": int(i["average_rating"])
-                if i["average_rating"]
-                else 0,
-                "ratings_count": int(i["ratings_count"]) if i["ratings_count"] else 0,
-                "work_ratings_count": int(i["work_ratings_count"])
-                if i["work_ratings_count"]
-                else 0,
-                "work_text_reviews_count": i["work_text_reviews_count"]
-                if i["work_text_reviews_count"]
-                else 0,
-                "ratings_1": int(i["ratings_1"]) if i["ratings_1"] else 0,
-                "ratings_2": int(i["ratings_2"]) if i["ratings_2"] else 0,
-                "ratings_3": int(i["ratings_3"]) if i["ratings_3"] else 0,
-                "ratings_4": int(i["ratings_4"]) if i["ratings_4"] else 0,
-                "ratings_5": int(i["ratings_5"]) if i["ratings_5"] else 0,
-                "image_url": i["image_url"],
-                "small_image_url": i["small_image_url"],
+                "id": str(i["id"]),
+                "filename": i["filename"],
+                "author": i["author"],
+                "created_date": i["created_date"],
+                "last_modified_date": i["last_modified_date"],
+                "number_of_pages": i["number_of_pages"],
+                "content": i["content"]
             }
         )
 
@@ -167,6 +177,6 @@ if __name__ == "__main__":
     schema = create_schema_from_json_and_upload(
         index_schema, index_name, admin_client, url=False
     )
-    books_data = convert_csv_to_json(books_url)
-    batch_upload = batch_upload_json_data_to_index(books_data, search_client)
+    pdfs_data = convert_pdfs_to_json(pdfs_filepath)
+    batch_upload = batch_upload_json_data_to_index(pdfs_data, search_client)
     print("Upload complete")
