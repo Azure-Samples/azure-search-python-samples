@@ -12,7 +12,7 @@ endpoint = f'https://{environment_vars["search_service_name"]}.search.windows.ne
 key = environment_vars["search_api_key"]
 
 # Your index name
-index_name = "good-books"
+index_name = "cartas-coordinador"
 
 # Create Azure SDK client
 search_client = SearchClient(endpoint, index_name, AzureKeyCredential(key))
