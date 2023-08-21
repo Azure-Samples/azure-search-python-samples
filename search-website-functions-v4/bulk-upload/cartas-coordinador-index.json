@@ -32,7 +32,7 @@
     {
       "name": "author",
       "type": "Edm.String",
-      "facetable": false,
+      "facetable": true,
       "filterable": false,
       "retrievable": true,
       "sortable": false,
