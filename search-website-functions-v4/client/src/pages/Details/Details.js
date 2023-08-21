@@ -35,12 +35,12 @@ export default function Details() {
       resultStyle += " active";
       detailsBody = (
         <div className="card-body">
-          <h5 className="card-title">Title: {document.filename}</h5> // Title
-          <p className="card-text">Author: {document.author}</p> // Author
-          <p className="card-text">Last Modified: {document.last_modified_date}</p> // Last Modified
-          <p className="card-text">Created: {document.created_date}</p> // Created
-          <p className="card-text">Pages: {document.number_of_pages}</p> // Pages
-          <p className="card-text">Content: {document.content}</p> // Content
+          <h5 className="card-title">Title: {document.filename}</h5>
+          <p className="card-text">Author: {document.author}</p>
+          <p className="card-text">Last Modified: {document.last_modified_date}</p>
+          <p className="card-text">Created: {document.created_date}</p>
+          <p className="card-text">Pages: {document.number_of_pages}</p>
+          <p className="card-text">Content: {document.content}</p>
         </div>
       );
     }
