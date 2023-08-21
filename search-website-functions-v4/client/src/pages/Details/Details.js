@@ -15,10 +15,8 @@ export default function Details() {
 
   useEffect(() => {
     setIsLoading(true);
-    // console.log(id);
     axios.get('/api/lookup?id=' + id)
       .then(response => {
-        console.log(JSON.stringify(response.data))
         const doc = response.data.document;
         setDocument(doc);
         setIsLoading(false);
@@ -27,31 +25,26 @@ export default function Details() {
         console.log(error);
         setIsLoading(false);
       });
-
   }, [id]);
 
-  // View default is loading with no active tab
   let detailsBody = (<CircularProgress />),
       resultStyle = "nav-link",
       rawStyle    = "nav-link";
 
   if (!isLoading && document) {
-    // View result
     if (selectedTab === 0) {
       resultStyle += " active";
       detailsBody = (
         <div className="card-body">
-          <h5 className="card-title">{document.original_title}</h5>
-          <img className="image" src={document.image_url} alt="Book cover"></img>
-          <p className="card-text">{document.authors?.join('; ')} - {document.original_publication_year}</p>
-          <p className="card-text">ISBN {document.isbn}</p>
-          <Rating name="half-rating-read" value={parseInt(document.average_rating)} precision={0.1} readOnly></Rating>
-          <p className="card-text">{document.ratings_count} Ratings</p>
+          <h5 className="card-title">Title: {document.filename}</h5> // Title
+          <p className="card-text">Author: {document.author}</p> // Author
+          <p className="card-text">Last Modified: {document.last_modified_date}</p> // Last Modified
+          <p className="card-text">Created: {document.created_date}</p> // Created
+          <p className="card-text">Pages: {document.number_of_pages}</p> // Pages
+          <p className="card-text">Content: {document.content}</p> // Content
         </div>
       );
     }
-
-    // View raw data
     else {
       rawStyle += " active";
       detailsBody = (
@@ -63,7 +56,6 @@ export default function Details() {
       );
     }
   }
-
   return (
     <main className="main main--details container fluid">
       <div className="card text-center result-container">
