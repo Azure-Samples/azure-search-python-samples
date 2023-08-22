@@ -8,7 +8,7 @@ export default function Result(props) {
                 <h6 className="title-style">{props.document.filename}</h6>
             </a>
             <div className="card-body">
-                <p>{props.document.content.substring(0, 300)} ...</p>
+                <p>{props.document.content.substring(0, 500)} ...</p>
             </div>
         </div>
     );
