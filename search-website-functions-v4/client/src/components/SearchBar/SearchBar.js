@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Suggestions from './Suggestions/Suggestions';
 
@@ -18,7 +18,7 @@ export default function SearchBar(props) {
     const suggestionClickHandler = (s) => {
         document.getElementById("search-box").value = s;
         setShowSuggestions(false);
-        props.postSearchHandler(s);    
+        props.postSearchHandler(s);
     }
 
     const onEnterButton = (event) => {
@@ -38,7 +38,7 @@ export default function SearchBar(props) {
         }
     }
 
-    useEffect(_ =>{
+    useEffect(_ => {
         const timer = setTimeout(() => {
             const body = {
                 q: q,
@@ -49,15 +49,15 @@ export default function SearchBar(props) {
             if (q === '') {
                 setSuggestions([]);
             } else {
-                axios.post( '/api/suggest', body)
-                .then(response => {
-                    console.log(JSON.stringify(response.data))
-                    setSuggestions(response.data.suggestions);
-                } )
-                .catch(error => {
-                    console.log(error);
-                    setSuggestions([]);
-                });
+                axios.post('/api/suggest', body)
+                    .then(response => {
+                        console.log(JSON.stringify(response.data))
+                        setSuggestions(response.data.suggestions);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        setSuggestions([]);
+                    });
             }
         }, 300);
         return () => clearTimeout(timer);
@@ -74,13 +74,13 @@ export default function SearchBar(props) {
         <div >
             <div className="input-group" onKeyDown={e => onEnterButton(e)}>
                 <div className="suggestions" >
-                    <input 
+                    <input
                         autoComplete="off" // setting for browsers; not the app
-                        type="text" 
-                        id="search-box" 
-                        className="form-control rounded-0" 
-                        placeholder="What are you looking for?" 
-                        onChange={onChangeHandler} 
+                        type="text"
+                        id="search-box"
+                        className="form-control rounded-0"
+                        placeholder="Buscar cartas"
+                        onChange={onChangeHandler}
                         defaultValue={props.q}
                         onBlur={() => setShowSuggestions(false)}
                         onClick={() => setShowSuggestions(true)}>
@@ -89,7 +89,7 @@ export default function SearchBar(props) {
                 </div>
                 <div className="input-group-btn">
                     <button className="btn btn-primary rounded-0" type="submit" onClick={onSearchHandler}>
-                        Search
+                        Buscar
                     </button>
                 </div>
             </div>

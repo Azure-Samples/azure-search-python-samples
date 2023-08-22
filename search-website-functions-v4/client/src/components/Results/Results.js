@@ -6,10 +6,10 @@ import "./Results.css";
 export default function Results(props) {
 
   let results = props.documents.map((result, index) => {
-    return <Result 
-        key={index} 
-        document={result.document}
-      />;
+    return <Result
+      key={index}
+      document={result.document}
+    />;
   });
 
   let beginDocNumber = Math.min(props.skip + 1, props.count);
@@ -17,7 +17,7 @@ export default function Results(props) {
 
   return (
     <div>
-      <p className="results-info">Showing {beginDocNumber}-{endDocNumber} of {props.count.toLocaleString()} results</p>
+      <p className="results-info">Mostrando {beginDocNumber}-{endDocNumber} de {props.count.toLocaleString()} resultados</p>
       <div className="row row-cols-md-5 results">
         {results}
       </div>
