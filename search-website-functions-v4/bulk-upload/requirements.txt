@@ -16,3 +16,4 @@ six
 typing-extensions
 urllib3
 PyPDF2
+openai
