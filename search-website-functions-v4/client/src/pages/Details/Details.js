@@ -27,19 +27,22 @@ export default function Details() {
   }, [id]);
 
   let detailsBody = (<CircularProgress />),
-      resultStyle = "nav-link",
-      rawStyle    = "nav-link";
+    resultStyle = "nav-link",
+    rawStyle = "nav-link";
 
   if (!isLoading && document) {
     if (selectedTab === 0) {
       resultStyle += " active";
       detailsBody = (
         <div className="card-body">
-          <h5 className="card-title">Title: {document.filename}</h5>
-          <p className="card-text">Author: {document.author}</p>
-          <p className="card-text">Last Modified: {document.last_modified_date}</p>
-          <p className="card-text">Created: {document.created_date}</p>
-          <p className="card-text">Pages: {document.number_of_pages}</p>
+          <h5 className="card-title">Titulo: {document.filename}</h5>
+          <div className="text-justify">
+            <p className="card-text">Autor: {document.author}</p>
+            <p className="card-text">Last Modified: {document.last_modified_date}</p>
+            <p className="card-text">Created: {document.created_date}</p>
+            <p className="card-text">Pages: {document.number_of_pages}</p>
+          </div>
+
           <p className="card-text">Content: {document.content}</p>
         </div>
       );
@@ -60,8 +63,8 @@ export default function Details() {
       <div className="card text-center result-container">
         <div className="card-header">
           <ul className="nav nav-tabs card-header-tabs">
-              <li className="nav-item"><button className={resultStyle} onClick={() => setTab(0)}>Result</button></li>
-              <li className="nav-item"><button className={rawStyle} onClick={() => setTab(1)}>Raw Data</button></li>
+            <li className="nav-item"><button className={resultStyle} onClick={() => setTab(0)}>Result</button></li>
+            <li className="nav-item"><button className={rawStyle} onClick={() => setTab(1)}>Raw Data</button></li>
           </ul>
         </div>
         {detailsBody}

@@ -72,13 +72,13 @@ export default function SearchBar(props) {
 
     return (
         <div >
-            <div className="input-group" onKeyDown={e => onEnterButton(e)}>
+            <div className="input-group mt-5" onKeyDown={e => onEnterButton(e)}>
                 <div className="suggestions" >
                     <input
                         autoComplete="off" // setting for browsers; not the app
                         type="text"
                         id="search-box"
-                        className="form-control rounded-0"
+                        className="input input-bordered w-full"
                         placeholder="Buscar cartas"
                         onChange={onChangeHandler}
                         // defaultValue={props.q}
@@ -88,7 +88,7 @@ export default function SearchBar(props) {
                     {suggestionDiv}
                 </div>
                 <div className="input-group-btn">
-                    <button className="btn btn-primary rounded-0" type="submit" onClick={onSearchHandler}>
+                    <button className="btn btn-neutral rounded-0" type="submit" onClick={onSearchHandler}>
                         Buscar
                     </button>
                 </div>
