@@ -81,7 +81,7 @@ export default function SearchBar(props) {
                         className="form-control rounded-0"
                         placeholder="Buscar cartas"
                         onChange={onChangeHandler}
-                        defaultValue={props.q}
+                        // defaultValue={props.q}
                         onBlur={() => setShowSuggestions(false)}
                         onClick={() => setShowSuggestions(true)}>
                     </input>
