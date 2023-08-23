@@ -33,11 +33,11 @@ export default function AppHeader() {
         <a className="btn btn-ghost normal-case text-xl" href='/'>
           <img src={logo} height="50" className="navbar-logo" alt="Microsoft" />
         </a>
-      </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
-          <li><a className='text-base-100' href='/search'>Buscar</a></li>
+        <ul className='menu flex-row'>
+          <li><a className='text-base-100 text-base' href='/chatbot'>Chatbot</a></li>
+          <li><a className='text-base-100 text-base' href='/search'>Buscar</a></li>
         </ul>
+
       </div>
       <AppHeaderAuth />
     </div>
