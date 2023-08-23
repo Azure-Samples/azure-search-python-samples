@@ -47,45 +47,19 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     openai.api_version = environment_vars["azure_openai_api_version"]
     openai.api_key = environment_vars["azure_openai_key"]
     
-    # Decompose query
+    # Create Prompt
     prompt = []
-    prompt.append({"role":"system", "content":f"{SYSTEM_MESSAGE}\n{DECOMPOSE_INSTRUCTIONS}"})
-    prompt.append({"role":"user", "content":f"{EXAMPLES_DECOMPOSE}\n[QUERY]\n{query}\n\n[ANSWER]"})
+    for message in messages:
+        prompt.append(message)
+    prompt.append({"role":"user", "content":query})
     response = openai.ChatCompletion.create(
         engine="gpt-35-turbo", 
         messages=prompt, 
         temperature=0.7
         )
     
-    logging.info(response)
-    
-    # Function Calling
-    openai.api_version = "2023-07-01-preview"
-    prompt = []
-    prompt.append({"role":"user", "content":response["choices"][0]["message"]["content"]})
-    response = openai.ChatCompletion.create(
-        engine="gpt-35-turbo", 
-        messages=prompt, 
-        functions=FUNCTIONS, 
-        temperature=0.7)
-    
-    logging.info(response)
-    
-    response_message = response["choices"][0]["message"]
-    if response_message.get("function_call"):
-        function_name = response_message["function_call"]["name"]
-        if function_name == "Search":
-            function_args = json.loads(response_message["function_call"]["arguments"])
-            function_response = azure_search(
-                q=function_args.get("q"),
-                filters=function_args.get("filters"),
-            )
-        else:
-            function_response = f"Function '{function_name}' not found."
-    else:
-        function_response = "No function call found."
-    
+    logging.info(response)    
     
     return func.HttpResponse(
-        body=json.dumps(function_response), mimetype="application/json", status_code=200
+        body=json.dumps(response), mimetype="application/json", status_code=200
     )
