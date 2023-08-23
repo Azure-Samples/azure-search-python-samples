@@ -84,46 +84,38 @@ def new_shape(docs):
 
     return list(client_side_expected_shape)
 
+def azure_search(q, top=10, skip=0, filters=[]):
+    facets = environment_vars["search_facets"]
+    facetKeys = read_facets(facets)
+    filter = ""
+    if len(filters):
+        filter = create_filter_expression(filters, facetKeys)
+    search_results = search_client.search(
+        search_text=q,
+        top=top,
+        skip=skip,
+        facets=facetKeys,
+        filter=filter,
+        include_total_count=True,
+    )
+    returned_docs = new_shape(search_results)
+    returned_count = search_results.get_count()
+    returned_facets = search_results.get_facets()
+    full_response = {}
+    full_response["count"] = search_results.get_count()
+    full_response["facets"] = search_results.get_facets()
+    full_response["results"] = returned_docs
+    return full_response
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-
-    # variables sent in body
     req_body = req.get_json()
     q = req_body.get("q")
     top = req_body.get("top") or 8
     skip = req_body.get("skip") or 0
     filters = req_body.get("filters") or []
-
-    facets = environment_vars["search_facets"]
-    facetKeys = read_facets(facets)
-
-    filter = ""
-    if len(filters):
-        filter = create_filter_expression(filters, facetKeys)
-
     if q:
         logging.info(f"/Search q = {q}")
-
-        search_results = search_client.search(
-            search_text=q,
-            top=top,
-            skip=skip,
-            facets=facetKeys,
-            filter=filter,
-            include_total_count=True,
-        )
-
-        returned_docs = new_shape(search_results)
-        returned_count = search_results.get_count()
-        returned_facets = search_results.get_facets()
-
-        # format the React app expects
-        full_response = {}
-
-        full_response["count"] = search_results.get_count()
-        full_response["facets"] = search_results.get_facets()
-        full_response["results"] = returned_docs
-
+        full_response = azure_search(q, top=top, skip=skip, filters=filters)
         return func.HttpResponse(
             body=json.dumps(full_response), mimetype="application/json", status_code=200
         )
