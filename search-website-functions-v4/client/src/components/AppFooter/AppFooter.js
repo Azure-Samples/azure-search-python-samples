@@ -1,12 +1,12 @@
 import React from 'react';
 
-import './AppFooter.css';
+
 
 export default function AppFooter() {
   return (
-      <footer className="footer">
-        <hr />
-        &copy; 2023 Microsoft
-      </footer>
+    <footer className="footer p-10 bg-neutral text-neutral-content">
+      <hr />
+      &copy; 2023 Wisely
+    </footer>
   );
 };

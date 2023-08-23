@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from '../../components/SearchBar/SearchBar';
 
 import "./Home.css";
+import '../../App/App.css'
 import "../../pages/Search/Search.css";
-import logo from '../../images/cognitive_search.jpg';
+import logo from '../../images/coordinador-electrico-logo.png';
+
 
 export default function Home() {
   const navigate = useNavigate();
@@ -17,10 +19,9 @@ export default function Home() {
   }
 
   return (
-    <main className="main main--home">
+    <main className="h-screen">
       <div className="row home-search">
         <img className="logo" src={logo} alt="Cognitive Search"></img>
-        <p className="poweredby lead">Powered by Azure Cognitive Search</p>
         <SearchBar postSearchHandler={navigateToSearchPage}></SearchBar>
       </div>
     </main>
