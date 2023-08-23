@@ -4,25 +4,39 @@ import { ChatInput } from "./components/ChatInput";
 import axios from "axios";
 
 export const Chatbot = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(() => {
+    const storedMessages = localStorage.getItem("chatMessages");
+    return storedMessages ? JSON.parse(storedMessages) : [];
+  });
 
   const handleMessageSubmit = async (content) => {
     const newMessage = { role: "user", content };
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
+    const updatedMessages = [...messages, newMessage];
+    setMessages(updatedMessages);
+    localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
 
     try {
       const response = await axios.post("/api/Chatbot", {
-        messages: [...messages, newMessage],
+        messages: updatedMessages,
         query: content,
       });
 
-      const assistantResponse = response.data.choices[0].message.content; // Extract assistant's response
+      const assistantResponse = response.data.choices[0].message.content; // extract chatbot response
 
       const assistantMessage = {
         role: "assistant",
         content: assistantResponse,
       };
-      setMessages((prevMessages) => [...prevMessages, assistantMessage]);
+
+      const updatedMessagesWithAssistant = [
+        ...updatedMessages,
+        assistantMessage,
+      ];
+      setMessages(updatedMessagesWithAssistant);
+      localStorage.setItem(
+        "chatMessages",
+        JSON.stringify(updatedMessagesWithAssistant)
+      );
     } catch (error) {
       console.error(error);
     }
