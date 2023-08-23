@@ -1,17 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChatMessages } from "./components/ChatMessages";
 import { ChatInput } from "./components/ChatInput";
+import axios from "axios";
 
 export const Chatbot = () => {
-  const [messages, setMessages] = useState([
-    { role: "assistant", content: "Hello, how can I assist you?" },
-  ]);
+  const [messages, setMessages] = useState([]);
 
-  const handleSendMessage = (content) => {
+  const handleMessageSubmit = async (content) => {
     const newMessage = { role: "user", content };
-    setMessages([...messages, newMessage]);
-    //implement chatbot api
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    try {
+      const response = await axios.post("/api/Chatbot", {
+        messages: [...messages, newMessage],
+        query: content,
+      });
+
+      const assistantResponse = response.data.choices[0].message.content; // Extract assistant's response
+
+      const assistantMessage = {
+        role: "assistant",
+        content: assistantResponse,
+      };
+      setMessages((prevMessages) => [...prevMessages, assistantMessage]);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    console.log(messages);
+  }, [messages]);
 
   return (
     <div className="flex-grow bg-slate-100 ml-64 mr-64 p-4 flex flex-col">
@@ -23,7 +42,7 @@ export const Chatbot = () => {
       </div>
 
       <div className="h-full">
-        <ChatInput onSendMessage={handleSendMessage} />
+        <ChatInput onSendMessage={handleMessageSubmit} />
       </div>
     </div>
   );
