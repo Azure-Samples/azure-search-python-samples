@@ -19,7 +19,7 @@ export default function Home() {
   }
 
   return (
-    <main className="h-screen">
+    <main className="flex-grow">
       <div className="row home-search">
         <img className="logo" src={logo} alt="Cognitive Search"></img>
         <SearchBar postSearchHandler={navigateToSearchPage}></SearchBar>
