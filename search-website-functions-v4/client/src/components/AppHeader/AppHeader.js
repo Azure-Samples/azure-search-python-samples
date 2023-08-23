@@ -39,6 +39,7 @@ export default function AppHeader() {
           <li><a className='text-base-100' href='/search'>Buscar</a></li>
         </ul>
       </div>
+      <AppHeaderAuth />
     </div>
   );
 };
