@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Suggestions from './Suggestions/Suggestions';
 
@@ -10,15 +10,22 @@ export default function SearchBar(props) {
     let [suggestions, setSuggestions] = useState([]);
     let [showSuggestions, setShowSuggestions] = useState(false);
 
+
+
     const onSearchHandler = () => {
-        props.postSearchHandler(q);
+        const queryParams = {
+            q: q,
+            semantic_enabled: props.semantic_enabled, // Add this parameter
+        };
+        console.log({ queryParams })
+        props.postSearchHandler(queryParams);
         setShowSuggestions(false);
-    }
+    };
 
     const suggestionClickHandler = (s) => {
         document.getElementById("search-box").value = s;
         setShowSuggestions(false);
-        props.postSearchHandler(s);    
+        props.postSearchHandler(s);
     }
 
     const onEnterButton = (event) => {
@@ -37,8 +44,11 @@ export default function SearchBar(props) {
             props.searchChangeHandler(searchTerm);
         }
     }
+    const handleSemanticToggle = () => {
+        props.setSemanticEnabled(prevSemanticEnabled => !prevSemanticEnabled);
+    };
 
-    useEffect(_ =>{
+    useEffect(_ => {
         const timer = setTimeout(() => {
             const body = {
                 q: q,
@@ -49,15 +59,15 @@ export default function SearchBar(props) {
             if (q === '') {
                 setSuggestions([]);
             } else {
-                axios.post( '/api/suggest', body)
-                .then(response => {
-                    console.log(JSON.stringify(response.data))
-                    setSuggestions(response.data.suggestions);
-                } )
-                .catch(error => {
-                    console.log(error);
-                    setSuggestions([]);
-                });
+                axios.post('/api/suggest', body)
+                    .then(response => {
+                        console.log(JSON.stringify(response.data))
+                        setSuggestions(response.data.suggestions);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        setSuggestions([]);
+                    });
             }
         }, 300);
         return () => clearTimeout(timer);
@@ -72,26 +82,39 @@ export default function SearchBar(props) {
 
     return (
         <div >
-            <div className="input-group" onKeyDown={e => onEnterButton(e)}>
+            <div className="input-group mt-5" onKeyDown={e => onEnterButton(e)}>
                 <div className="suggestions" >
-                    <input 
+                    <input
                         autoComplete="off" // setting for browsers; not the app
-                        type="text" 
-                        id="search-box" 
-                        className="form-control rounded-0" 
-                        placeholder="What are you looking for?" 
-                        onChange={onChangeHandler} 
-                        defaultValue={props.q}
+                        type="text"
+                        id="search-box"
+                        className="input input-bordered w-full"
+                        placeholder="Buscar cartas"
+                        onChange={onChangeHandler}
+                        // defaultValue={props.q}
                         onBlur={() => setShowSuggestions(false)}
                         onClick={() => setShowSuggestions(true)}>
                     </input>
                     {suggestionDiv}
                 </div>
                 <div className="input-group-btn">
-                    <button className="btn btn-primary rounded-0" type="submit" onClick={onSearchHandler}>
-                        Search
+                    <button className="btn btn-neutral rounded-0" type="submit" onClick={onSearchHandler}>
+                        Buscar
                     </button>
                 </div>
+            </div>
+            <div className="flex flex-row mt-2">
+                <label className="label cursor-pointer gap-3">
+
+                    <input
+                        type="checkbox"
+                        checked={props.semanticEnabled}
+                        onChange={handleSemanticToggle}
+                        className='checkbox'
+                    />
+                    <span className="label-text">Semantic Search</span>
+
+                </label>
             </div>
         </div>
     );

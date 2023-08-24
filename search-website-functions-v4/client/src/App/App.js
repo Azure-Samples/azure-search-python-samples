@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // Context for user authentication
@@ -18,6 +18,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Custom app styles
 import './App.css';
+import { Chatbot } from '../pages/Chatbot/Chatbot';
 
 export default function App() {
   // React Hook: useState with a var name, set function, & default value
@@ -44,14 +45,15 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={user}>
-      <div className="container-fluid app">
+      <div className="flex flex-col min-h-screen bg-red">
         <AppHeader />
         <BrowserRouter>
           <Routes>
             <Route path={`/`} element={<Home />} />
             <Route path={`/search`} element={<Search />} />
-            <Route path={`/details/:id`} element={<Details />}/>
+            <Route path={`/details/:id`} element={<Details />} />
             <Route path={`*`} element={<Home />} />
+            <Route path={`/chatbot`} element={<Chatbot />} />
           </Routes>
         </BrowserRouter>
         {<AppFooter />}

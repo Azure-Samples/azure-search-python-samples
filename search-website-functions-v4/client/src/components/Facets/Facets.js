@@ -6,12 +6,12 @@ import "./Facets.css";
 
 export default function Facets(props) {
 
+
     function mapFacetName(facetName) {
         const capitalizeFirstLetter = (string) =>
             string[0] ? `${string[0].toUpperCase()}${string.substring(1)}` : '';
         facetName = facetName.trim();
         facetName = capitalizeFirstLetter(facetName);
-
         facetName = facetName.replace('_', ' ');
         return facetName;
     }
@@ -21,51 +21,51 @@ export default function Facets(props) {
         props.setFilters(newFilters);
     }
 
-    function removeFilter(filter) {      
+    function removeFilter(filter) {
         const newFilters = props.filters.filter((item) => item.value !== filter.value);
         props.setFilters(newFilters);
     }
 
     var facets;
-    try{
+    try {
         facets = Object.keys(props.facets).map(key => {
-            return <CheckboxFacet 
+            return <CheckboxFacet
                 key={key}
-                name={key} 
+                name={key}
                 values={props.facets[key]}
                 addFilter={addFilter}
                 removeFilter={removeFilter}
                 mapFacetName={mapFacetName}
-                selectedFacets={props.filters.filter( f => f.field === key)}
-              />;
-          });
+                selectedFacets={props.filters.filter(f => f.field === key)}
+            />;
+        });
     } catch (error) {
         console.log(error);
     }
 
     const filters = props.filters.map((filter, index) => {
-            return (
+        return (
             <li key={index}>
-                <Chip 
-                    label={`${mapFacetName(filter.field)}: ${filter.value}`} 
+                <Chip
+                    label={`${mapFacetName(filter.field)}: ${filter.value}`}
                     onDelete={() => removeFilter(filter)}
                     className="chip"
-              />
+                />
             </li>);
-          });
+    });
 
 
     return (
         <div id="facetPanel" className="box">
             <div className="facetbox">
                 <div id="clearFilters">
-                <ul className="filterlist">
-                    {filters}
-                </ul>
+                    <ul className="filterlist">
+                        {filters}
+                    </ul>
                 </div>
                 <FacetList component="nav" className="listitem" >
                     {facets}
-                </FacetList>    
+                </FacetList>
             </div>
         </div>
     );

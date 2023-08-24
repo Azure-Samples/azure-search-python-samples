@@ -1,12 +1,12 @@
 .result {
-    width: 250px;
-    padding: 16px;
+    width: 300px;
+    padding: 20px;
     text-align: center;
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;
-    margin: 10px;
-    margin-bottom: 3px;
-    padding-bottom: 3px;
+    margin: 20px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
     box-sizing: border-box;
     cursor: pointer;
 }
