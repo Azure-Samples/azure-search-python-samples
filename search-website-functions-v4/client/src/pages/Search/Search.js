@@ -24,6 +24,7 @@ export default function Search() {
   const [filters, setFilters] = useState([]);
   const [facets, setFacets] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [semanticEnabled, setSemanticEnabled] = useState(false);
 
   let resultsPerPage = top;
 
@@ -34,12 +35,13 @@ export default function Search() {
       q: q,
       top: top,
       skip: skip,
-      filters: filters
+      filters: filters,
+      semantic_enabled: semanticEnabled,
     };
+
 
     axios.post('/api/search', body)
       .then(response => {
-        console.log(JSON.stringify(response.data))
         setResults(response.data.results);
         setFacets(response.data.facets);
         setResultCount(response.data.count);
@@ -50,7 +52,7 @@ export default function Search() {
         setIsLoading(false);
       });
 
-  }, [q, top, skip, filters, currentPage]);
+  }, [q, top, skip, filters, currentPage, semanticEnabled]);
 
   // pushing the new search term to history when q is updated
   // allows the back button to work as expected when coming back from the details page
@@ -63,7 +65,7 @@ export default function Search() {
 
 
   let postSearchHandler = (searchTerm) => {
-    if (searchTerm !== '') {
+    if (searchTerm.q !== '') {
       setQ(searchTerm);
     } else {
       setQ('*')
@@ -92,7 +94,7 @@ export default function Search() {
       <div className="row">
         <div className="col-md-3">
           <div className="search-bar">
-            <SearchBar postSearchHandler={postSearchHandler} q={q}></SearchBar>
+            <SearchBar postSearchHandler={postSearchHandler} q={q} semantic_enabled={semanticEnabled} setSemanticEnabled={setSemanticEnabled}></SearchBar>
           </div>
           <Facets facets={facets} filters={filters} setFilters={setFilters}></Facets>
         </div>

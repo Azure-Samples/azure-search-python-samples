@@ -10,10 +10,17 @@ export default function SearchBar(props) {
     let [suggestions, setSuggestions] = useState([]);
     let [showSuggestions, setShowSuggestions] = useState(false);
 
+
+
     const onSearchHandler = () => {
-        props.postSearchHandler(q);
+        const queryParams = {
+            q: q,
+            semantic_enabled: props.semantic_enabled, // Add this parameter
+        };
+        console.log({ queryParams })
+        props.postSearchHandler(queryParams);
         setShowSuggestions(false);
-    }
+    };
 
     const suggestionClickHandler = (s) => {
         document.getElementById("search-box").value = s;
@@ -37,6 +44,9 @@ export default function SearchBar(props) {
             props.searchChangeHandler(searchTerm);
         }
     }
+    const handleSemanticToggle = () => {
+        props.setSemanticEnabled(prevSemanticEnabled => !prevSemanticEnabled);
+    };
 
     useEffect(_ => {
         const timer = setTimeout(() => {
@@ -92,6 +102,19 @@ export default function SearchBar(props) {
                         Buscar
                     </button>
                 </div>
+            </div>
+            <div className="flex flex-row mt-2">
+                <label className="label cursor-pointer gap-3">
+
+                    <input
+                        type="checkbox"
+                        checked={props.semanticEnabled}
+                        onChange={handleSemanticToggle}
+                        className='checkbox'
+                    />
+                    <span className="label-text">Semantic Search</span>
+
+                </label>
             </div>
         </div>
     );
