@@ -25,7 +25,9 @@ export const ChatMessages = ({ messages }) => {
               message.role === "user" ? "chat-end" : "chat-start"
             }`}
           >
-            <div className="chat-bubble">{message.content}</div>
+            <div className="chat-bubble whitespace-pre-wrap">
+              {message.content}
+            </div>
           </div>
         ))}
       </div>
