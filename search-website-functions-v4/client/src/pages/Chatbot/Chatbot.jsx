@@ -41,6 +41,10 @@ export const Chatbot = () => {
       console.error(error);
     }
   };
+  const handleClearChat = () => {
+    setMessages([]);
+    localStorage.removeItem("chatMessages");
+  };
 
   useEffect(() => {
     console.log(messages);
@@ -48,7 +52,7 @@ export const Chatbot = () => {
 
   return (
     <div className="flex-grow bg-slate-100 ml-64 mr-64 p-4 flex flex-col">
-      <div className="bg-white rounded shadow-md overflow-hidden flex-1 flex flex-col">
+      <div className="bg-white rounded shadow-md flex-1 flex flex-col overflow-hidden">
         <h1 className="bg-neutral text-2xl text-white p-3 text-center">
           Chatbot
         </h1>
@@ -56,7 +60,11 @@ export const Chatbot = () => {
       </div>
 
       <div className="h-full">
-        <ChatInput onSendMessage={handleMessageSubmit} />
+        <ChatInput
+          onSendMessage={handleMessageSubmit}
+          onClearChat={handleClearChat}
+          messages={messages}
+        />
       </div>
     </div>
   );

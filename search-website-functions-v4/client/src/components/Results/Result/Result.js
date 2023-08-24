@@ -2,7 +2,6 @@ import React from 'react';
 import './Result.css';
 
 export default function Result(props) {
-    console.log(props.document)
 
     return (
         // <div className="card result">

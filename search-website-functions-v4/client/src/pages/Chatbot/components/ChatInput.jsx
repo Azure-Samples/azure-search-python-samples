@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const ChatInput = ({ onSendMessage }) => {
+export const ChatInput = ({ onSendMessage, onClearChat, messages }) => {
   const [inputText, setInputText] = useState("");
 
   const handleInputChange = (event) => {
@@ -15,8 +15,15 @@ export const ChatInput = ({ onSendMessage }) => {
     }
   };
 
+  const handleClearChatClick = () => {
+    const shouldClear = window.confirm("¿Seguro que quieres borrar el chat?");
+    if (shouldClear) {
+      onClearChat();
+    }
+  };
+
   return (
-    <form className="flex p-3" onSubmit={handleSubmit}>
+    <form className="flex p-3 gap-3" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Escribe aqui"
@@ -26,6 +33,13 @@ export const ChatInput = ({ onSendMessage }) => {
       />
       <button type="submit" className="btn btn-neutral">
         Enviar
+      </button>
+      <button
+        className="btn btn-error"
+        onClick={handleClearChatClick}
+        disabled={messages.length === 0}
+      >
+        Limpiar Chat
       </button>
     </form>
   );
