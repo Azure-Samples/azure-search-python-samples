@@ -1,0 +1,32 @@
+### lookup
+GET http://localhost:7071/api/lookup?id=100
+
+### search
+POST http://localhost:7071/api/search
+content-type: application/json
+
+{
+    "q":"book",
+    "top":8,
+    "skip":0,
+    "filters":[
+        {
+            "field":"authors",
+            "value":"James Patterson"
+        },
+        {
+            "field":"language_code",
+            "value":"en-US"
+        }
+    ]
+}
+
+### suggest
+POST http://localhost:7071/api/suggest
+content-type: application/json
+
+{
+    "q":"w",
+    "top":5,
+    "suggester":"sg"
+}
