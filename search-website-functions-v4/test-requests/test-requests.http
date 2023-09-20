@@ -27,6 +27,14 @@ content-type: application/json
 
 {
     "q":"w",
-    "top":5,
+    "top":8,
     "suggester":"sg"
+}
+
+### suggest
+POST http://localhost:7071/api/suggest
+content-type: application/json
+
+{
+    "q":"w"
 }
