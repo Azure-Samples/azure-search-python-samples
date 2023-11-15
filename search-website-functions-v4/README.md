@@ -16,9 +16,9 @@ urlFragment: python-sample-search-web-app
 
 ![Flask sample MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
 
-This Python sample shows you how to add document search to a web app using Azure Cognitive Search.
+This Python sample shows you how to add document search to a web app using Azure AI Search.
 
-For this sample, you will use the [**azure-search-documents**](https://pypi.org/project/azure-search-documents/) library in the Azure SDK for Python to create, load, and query a search index containing the goodbooks-10k dataset, publicly available at [https://github.com/zygmuntz/goodbooks-10k](https://github.com/zygmuntz/goodbooks-10k). The search index runs on an [Azure Cognitive Search](https://docs.microsoft.com/azure/search/search-what-is-azure-search) service that you create. You can use the free tier for this sample.
+For this sample, you will use the [**azure-search-documents**](https://pypi.org/project/azure-search-documents/) library in the Azure SDK for Python to create, load, and query a search index containing the goodbooks-10k dataset, publicly available at [https://github.com/zygmuntz/goodbooks-10k](https://github.com/zygmuntz/goodbooks-10k). The search index runs on an [Azure AI Search](https://docs.microsoft.com/azure/search/search-what-is-azure-search) service that you create. You can use the free tier for this sample.
 
 Optionally, this sample includes a devcontainer.json file so that you can run the code locally, as a developer, with the assurance that the environment is correctly configured and your local system doesn't need anything beyond docker. You'll need the [Docker extension](https://code.visualstudio.com/docs/containers/overview) to do this. If you don't want to us Docker, you can run your code in a virtual environment instead. 
 
@@ -49,7 +49,7 @@ You can deploy the sample onto Azure or run it locally by following the steps be
 * [Visual Studio  Code extension: Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 * [Visual Studio  Code extension: Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions&WT.mc_id=shopathome-github-jopapa)
 * [Visual Studio Code extension: Azure Static Web Apps](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps)
-* [Azure Cognitive Search](https://learn.microsoft.com/azure/search/search-create-service-portal)
+* [Azure AI Search](https://learn.microsoft.com/azure/search/search-create-service-portal)
 
 [Visual Studio Code extension: Docker](https://code.visualstudio.com/docs/containers/overview) is optional, but necessary if you want to run the Python code in a container.
 
@@ -140,7 +140,11 @@ The following instructions create and configure the Azure Static Web App resourc
 
 1. Select **Save** to save the settings. 
 
-1. Return to Visual Studio Code. 
+1. Return to Visual Studio Code.
+
+1. Select **Terminal** > **New Terminal** to get a command line.
+
+1. Type `git pull origin main` to pull down the changes from your forked main branch.
 
 1. Refresh your Static web app to see the Static web app's application settings. 
 
@@ -160,4 +164,4 @@ The following instructions create and configure the Azure Static Web App resourc
 
 ## Clean up
 
-If you no longer need Azure Cognitive Search or Azure Static Web Apps, remember to delete both resources in your subscription.
+If you no longer need Azure AI Search or Azure Static Web Apps, remember to delete both resources in your subscription.

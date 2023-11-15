@@ -7,15 +7,15 @@ products:
   - azure-cognitive-search
 name: AI enrichment tutorial - Jupyter Notebook
 description: |
-  Create an AI enrichment pipeline in Azure Cognitive Search to extract text, structure, and information from raw content, including images and unstructured text.
+  Create an AI enrichment pipeline in Azure AI Search to extract text, structure, and information from raw content, including images and unstructured text.
 urlFragment: python-tutorial-cognitive-search
 ---
 
-# Get started with skillsets and AI enrichment in Azure Cognitive Search
+# Get started with skillsets and AI enrichment in Azure AI Search
 
-Demonstrates AI enrichment by building a [skillset](https://docs.microsoft.com/azure/search/cognitive-search-working-with-skillsets) that detects and extracts text and text representations of images and scanned documents stored as blobs in Azure Blob storage. This sample leverages cognitive skills that are based on he Cognitive Services APIs, such as entity recognition and language detection. It uses the REST APIs to make calls to Azure Cognitive Search, including index definition, data ingestion and AI enrichment, and query execution.
+Demonstrates AI enrichment by building a [skillset](https://docs.microsoft.com/azure/search/cognitive-search-working-with-skillsets) that detects and extracts text and text representations of images and scanned documents stored as blobs in Azure Blob storage. This sample leverages cognitive skills that are based on the Azure AI Services APIs, such as entity recognition and language detection. It uses the REST APIs to make calls to Azure AI Search, including index definition, data ingestion and AI enrichment, and query execution.
 
-This Python sample is in a notebook. For an explanation of each step, see [Python Tutorial: Call Cognitive Services APIs in an enrichment pipeline](https://docs.microsoft.com/azure/search/cognitive-search-tutorial-blob-python). 
+This Python sample is in a notebook. For an explanation of each step, see [Python Tutorial: Call Azure AI Services APIs in an enrichment pipeline](https://docs.microsoft.com/azure/search/cognitive-search-tutorial-blob-python). 
 
 ## Contents
 
@@ -32,7 +32,7 @@ This Python sample is in a notebook. For an explanation of each step, see [Pytho
 - [Anaconda 3.x](https://www.anaconda.com/distribution/#download-section) providing Python 3.x and Jupyter Notebooks
 - [Sample file set (mixed content types)](https://github.com/Azure-Samples/azure-search-sample-data/tree/master/mixedContent)
 - [Azure Storage account](https://docs.microsoft.com/azure/storage/common/storage-quickstart-create-account) 
-- [Azure Cognitive Search service](https://docs.microsoft.com/en-us/azure/search/search-create-service-portal)
+- [Azure AI Search service](https://docs.microsoft.com/en-us/azure/search/search-create-service-portal)
 
 ## Setup
 

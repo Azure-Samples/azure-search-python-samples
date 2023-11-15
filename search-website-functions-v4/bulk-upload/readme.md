@@ -1,4 +1,4 @@
-# Create Cognitive Search Index from CSV file
+# Create Azure AI Search Index from CSV file
 
 1. Change the following values in the `bulk_upload.py` file:
 
