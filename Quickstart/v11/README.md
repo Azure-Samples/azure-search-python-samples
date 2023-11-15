@@ -7,17 +7,17 @@ products:
   - azure
   - azure-cognitive-search
 description: |
-  Learn how to create, load, and query an Azure Cognitive Search index using Python.
+  Learn how to create, load, and query an Azure AI Search index using Python.
 urlFragment: python-quickstart
 ---
 
-# Python quickstart for Azure Cognitive Search
+# Python quickstart for Azure AI Search
 
 ![Flask sample MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
 
-Demonstrates using Python and the Azure SDK for Python to create an Azure Cognitive Search index, load it with documents, and execute a few queries. The index is modeled on a subset of the Hotels dataset, reduced for readability and comprehension. Index definition and documents are included in the code.
+Demonstrates using Python and the Azure SDK for Python to create an Azure AI Search index, load it with documents, and execute a few queries. The index is modeled on a subset of the Hotels dataset, reduced for readability and comprehension. Index definition and documents are included in the code.
 
-This sample is a Jupyter Python3 .ipynb file to perform the actions against the Cognitive Search service.
+This sample is a Jupyter Python3 .ipynb file to perform the actions against the Azure AI Search service.
 
 ## Prerequisites
 
@@ -46,4 +46,4 @@ This sample is a Jupyter Python3 .ipynb file to perform the actions against the 
 
 ## Next steps
 
-You can learn more about Azure Cognitive Search on the [official documentation site](https://docs.microsoft.com/azure/search).
+You can learn more about Azure AI Search on the [official documentation site](https://docs.microsoft.com/azure/search).
