@@ -2,7 +2,7 @@
 page_type: sample
 languages:
   - python
-name: Quickstart in Python
+name: Python quickstart for Azure AI Search
 products:
   - azure
   - azure-cognitive-search
