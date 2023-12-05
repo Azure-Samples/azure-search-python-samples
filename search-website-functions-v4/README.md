@@ -2,7 +2,7 @@
 page_type: sample
 languages:
   - python
-name: Add search to a Python app
+name: Add Azure AI Search to a fullstack app (JS frontend + PY backend)
 products:
   - azure
   - azure-cognitive-search
