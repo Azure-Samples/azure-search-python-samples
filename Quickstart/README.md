@@ -21,7 +21,7 @@ This sample is a Jupyter Python3 .ipynb file to perform the actions against the 
 
 ## Prerequisites
 
-* Visual Studio Code with the Python extension (or equivalent tool), with Python 3.7 or later
+* Visual Studio Code with the Python extension (or equivalent tool), with Python 3.10 or later
 
 * [azure-search-documents package](https://pypi.org/project/azure-search-documents/) from the Azure SDK for Python
 
@@ -34,8 +34,6 @@ This sample is a Jupyter Python3 .ipynb file to perform the actions against the 
 ## Run the sample
 
 1. Open the azure-search-quickstart.ipynb file in Visual Studio Code.
-
-1. Open an integrated terminal and run `pip install azure-search-documents`.
 
 1. Set the service endpoint and API key for your search service:
 
