@@ -88,7 +88,7 @@ export default function SearchBar(props) {
                     {suggestionDiv}
                 </div>
                 <div className="input-group-btn">
-                    <button className="btn btn-primary rounded-0" type="submit" onClick={onSearchHandler}>
+                    <button className="btn btn-dark rounded-sm ml-10 p-10" type="submit" onClick={onSearchHandler}>
                         Search
                     </button>
                 </div>
