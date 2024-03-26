@@ -31,39 +31,32 @@ export default function Search() {
   useEffect(() => {
     setIsLoading(true);
     setSkip((currentPage-1) * top);
-    setResults(searchResponse.results);
-    setFacets(searchResponse.facets);
-    setResultCount(searchResponse.count);
-    setIsLoading(false);
-    // const body = {
-    //   q: q,
-    //   top: top,
-    //   skip: skip,
-    //   filters: filters
-    // };
+    const body = {
+      q: q,
+      top: top,
+      skip: skip,
+      filters: filters
+    };
 
-    // axios.post( 'https://witty-hill-0f88f920f.4.azurestaticapps.net/api/search', body)
-    //   .then(response => {
-    //         console.log(JSON.stringify(response.data))
-    //         setResults(response.data.results);
-    //         setFacets(response.data.facets);
-    //         setResultCount(response.data.count);
-    //         setIsLoading(false);
-    //     } )
-    //     .catch(error => {
-    //         console.log(error);
-    //         setIsLoading(false);
-    //     });
+    axios.post( 'https://witty-hill-0f88f920f.4.azurestaticapps.net/api/search', body)
+      .then(response => {
+            console.log(JSON.stringify(response.data))
+            setResults(response.data.results);
+            setFacets(response.data.facets);
+            setResultCount(response.data.count);
+            setIsLoading(false);
+        } )
+        .catch(error => {
+            console.log(error);
+            setIsLoading(false);
+        });
     
   }, [q, top, skip, filters, currentPage]);
 
-  // pushing the new search term to history when q is updated
-  // allows the back button to work as expected when coming back from the details page
   useEffect(() => {
     navigate('/search?q=' + q);  
     setCurrentPage(1);
     setFilters([]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q]);
 
 
