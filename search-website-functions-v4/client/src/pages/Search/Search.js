@@ -89,9 +89,9 @@ export default function Search() {
 
   return (
     <main className="main main--search container-fluid">
-      
+     
       <div className="row">
-        <div className="col-md-3">
+        <div className="col-md-3"> 
           <div className="search-bar">
             <SearchBar postSearchHandler={postSearchHandler} q={q}></SearchBar>
           </div>

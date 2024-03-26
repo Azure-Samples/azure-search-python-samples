@@ -6,6 +6,8 @@
 .navbar-logo {
     width: 80%;
     height: auto;
+    margin-left: 20px;
+    margin-top: 8px;
 }
 
 .nav-link { color: #fff; }

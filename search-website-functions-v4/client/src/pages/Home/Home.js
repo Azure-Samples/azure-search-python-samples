@@ -19,7 +19,6 @@ export default function Home() {
   return (
     <main className="main main--home">
       <div className="row home-search">
-
         <SearchBar postSearchHandler={navigateToSearchPage}></SearchBar>
       </div>
     </main>

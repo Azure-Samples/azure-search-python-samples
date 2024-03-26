@@ -45,9 +45,10 @@ export default function SearchBar(props) {
                 top: 5,
                 suggester: 'sg'
             };
-
+            setSuggestions([]);
+{/*
             if (q === '') {
-                setSuggestions([]);
+
             } else {
                 axios.post( '/api/suggest', body)
                 .then(response => {
@@ -59,6 +60,7 @@ export default function SearchBar(props) {
                     setSuggestions([]);
                 });
             }
+        */}
         }, 300);
         return () => clearTimeout(timer);
     }, [q, props]);
@@ -73,20 +75,20 @@ export default function SearchBar(props) {
     return (
         <div >
             <div className="input-group" onKeyDown={e => onEnterButton(e)}>
-                <div className="suggestions" >
-                    <input 
-                        autoComplete="off" // setting for browsers; not the app
-                        type="text" 
-                        id="search-box" 
-                        className="form-control rounded-0" 
-                        placeholder="What are you looking for?" 
-                        onChange={onChangeHandler} 
-                        defaultValue={props.q}
-                        onBlur={() => setShowSuggestions(false)}
-                        onClick={() => setShowSuggestions(true)}>
-                    </input>
-                    {suggestionDiv}
-                </div>
+            <div className="suggestions margin-right" > {/* Apply margin here if affecting dropdown */}
+                <input 
+                    autoComplete="off"
+                    type="text" 
+                    id="search-box" 
+                    className="form-control rounded-0" 
+                    placeholder="What are you looking for?" 
+                    onChange={onChangeHandler} 
+                    defaultValue={props.q}
+                    onBlur={() => setShowSuggestions(false)}
+                    onClick={() => setShowSuggestions(true)}>
+                </input>
+                {suggestionDiv}
+            </div>
                 <div className="input-group-btn">
                     <button className="btn btn-dark rounded-sm ml-10 p-10" type="submit" onClick={onSearchHandler}>
                         Search

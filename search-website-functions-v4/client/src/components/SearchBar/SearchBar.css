@@ -12,3 +12,7 @@ div.container a.input-group-btn {
 .input-group {
     flex-wrap: nowrap;
 }
+
+.margin-right {
+    margin-right: 8px; /* Adjust the space as needed */
+}
