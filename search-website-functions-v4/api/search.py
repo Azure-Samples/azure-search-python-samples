@@ -134,14 +134,14 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             include_total_count=True,
         )
 
-        returned_docs = new_shape(search_results)
+        # returned_docs = new_shape(search_results)
 
         # format the React app expects
         full_response = {}
 
         full_response["count"] = search_results.get_count()
         full_response["facets"] = search_results.get_facets()
-        full_response["results"] = returned_docs
+        # full_response["results"] = returned_docs
 
         return func.HttpResponse(
             body=json.dumps(full_response), mimetype="application/json", status_code=200
