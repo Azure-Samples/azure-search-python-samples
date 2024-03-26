@@ -89,12 +89,14 @@ export default function Search() {
 
   return (
     <main className="main main--search container-fluid">
-     
       <div className="row">
+        {/* <div style={{"width": "60%", "alignContent": "center"}}> */}
+          <SearchBar postSearchHandler={() => {}}></SearchBar>
+        {/* </div> */}
         <div className="col-md-3"> 
-          <div className="search-bar">
-            <SearchBar postSearchHandler={postSearchHandler} q={q}></SearchBar>
-          </div>
+          {/* <div className="search-bar"> */}
+            {/* <SearchBar postSearchHandler={postSearchHandler} q={q}></SearchBar> */}
+          {/* </div> */}
           <Facets facets={facets} filters={filters} setFilters={setFilters}></Facets>
         </div>
         {body}

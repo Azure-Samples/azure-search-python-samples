@@ -1,6 +1,29 @@
 export const searchResponse = {
     "count": 70,
     "facets": {
+        "Model Group": [
+            {
+                "value": "Lawn Tractor",
+                "count": 4
+            },
+            {
+                "value": "Refrigerator",
+                "count": 4
+            },
+            {
+                "value": "Lawn Mower",
+                "count": 1
+            }
+        ],
+        "Part Type": [
+                {"value": "LADDER- CE", "count": 6},
+                // {"value": "Decal, Ce", "count": 15},
+                // {"value": "Cord-C", "count": 3},
+                {"value": "Handle Channel C-Clip", "count": 19},
+                {"value": "BLADE, FAN", "count": 6},
+                {"value": "SOLENOIDS AND WATER VALVE", "count": 4},
+                {"value": "RESERVOIR", "count": 17}            
+        ],
         "models": [
             {
                 "value": "CEA1M1WSTB",
@@ -22,26 +45,6 @@ export const searchResponse = {
                 "value": "CEB3M2WSTB",
                 "count": 7
             },
-            // {
-            //     "value": " J.K. Rowling",
-            //     "count": 2
-            // },
-            // {
-            //     "value": " James  Marshall",
-            //     "count": 2
-            // },
-            // {
-            //     "value": "Harry Allard",
-            //     "count": 2
-            // },
-            // {
-            //     "value": " Andrew Williamson",
-            //     "count": 1
-            // },
-            // {
-            //     "value": " Harry Bliss",
-            //     "count": 1
-            // }
         ],
         "parts": [
             {
@@ -94,8 +97,8 @@ export const searchResponse = {
             "score": 12.605612,
             "highlights": null,
             "document": {
-                "id": "5240",
-                "description": "LADDER- CE 67006358",
+            "id": "5240",
+            "description": "LADDER- CE 67006358",
             "manufacturer": "Whirlpool",
             "partNum": "67006358",
             "InventoryID": 2069901,
@@ -140,6 +143,67 @@ export const searchResponse = {
                 "InventoryID": 9893313,
                 "imageURL": "https://www.partselect.com/assets/images/noimage_s.jpg",
                 "url": "https://www.partselect.com/ps9893313-weed-eater-145437-decal,-ce.htm"
+            }
+        },
+        {  
+            "score": 10.853247,
+            "highlights": null,
+            "document": {
+            
+                "description": "Cord-C 5292529-01",
+                "manufacturer": "Husqvarna",
+                "partNum": "5292529-01",
+                "InventoryID": 9966575,
+                "imageURL": "https://www.partselect.com/assets/images/noimage_s.jpg",
+                "url": "https://www.partselect.com/ps9966575-husqvarna-5292529-01-cord-c.htm"
+            }
+        },
+        {
+            "score": 10.853247,
+            "highlights": null,
+            "document": {
+                "description": "Handle Channel C-Clip 67007059",
+                "manufacturer": "Whirlpool",
+                "partNum": "67007059",
+                "InventoryID": 2070536,
+                "imageURL": "https://www.partselect.com/assets/partimages/2070536_1_s.jpg",
+                "url": "https://www.partselect.com/ps2070536-whirlpool-67007059-handle-channel-c-clip.htm"
+            },
+        },
+            {
+                "score": 10.853247,
+                "highlights": null,
+                "document": {
+                "description": "BLADE, FAN C0879501",
+                "manufacturer": "Whirlpool",
+                "partNum": "C0879501",
+                "InventoryID": 2110594,
+                "imageURL": "https://www.partselect.com/assets/images/noimage_s.jpg",
+                "url": "https://www.partselect.com/ps2110594-whirlpool-c0879501-blade,-fan.htm"
+            },
+        },
+            {
+                "score": 10.853247,
+                "highlights": null,
+                "document": {
+                "description": "SOLENOIDS AND WATER VALVE, 115 B0175009",
+                "manufacturer": "Maytag",
+                "partNum": "B0175009",
+                "InventoryID": 532470,
+                "imageURL": "https://www.partselect.com/assets/images/noimage_s.jpg",
+                "url": "https://www.partselect.com/ps532470-maytag-b0175009-solenoids-and-water-valve,-115.htm"
+            },
+        },
+            {
+                "score": 10.853247,
+                "highlights": null,
+                "document": {
+                "description": "RESERVOIR D7697801",
+                "manufacturer": "Whirlpool",
+                "partNum": "D7697801",
+                "InventoryID": 2120497,
+                "imageURL": "https://www.partselect.com/assets/images/noimage_s.jpg",
+                "url": "https://www.partselect.com/ps2120497-whirlpool-d7697801-reservoir.htm"
             }
         },
         // {
