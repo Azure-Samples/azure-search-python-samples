@@ -1,7 +1,7 @@
 import React from 'react';
 import AppHeaderAuth from '../AppHeaderAuth/AppHeaderAuth';
 
-import logo from '../../images/microsoft_small.png';
+import logo from '../../images/partselect.svg';
 
 import './AppHeader.css';
 
