@@ -92,10 +92,10 @@ def new_shape(docs):
         # new_api_shape["ratings_5"] = item["ratings_5"]
         # new_api_shape["image_url"] = item["image_url"]
         # new_api_shape["small_image_url"] = item["small_image_url"]
-        new_api_shape["id"] = item["pid"]
-        new_api_shape["description"] = item["Description"]
-        new_api_shape["partNum"] = item["partNum"]
-        new_api_shape["InventoryID"] = item["kInventoryID"]
+        # new_api_shape["id"] = item["pid"]
+        # new_api_shape["description"] = item["Description"]
+        # new_api_shape["partNum"] = item["partNum"]
+        # new_api_shape["InventoryID"] = item["kInventoryID"]
         # new_api_shape["imageURL"] = item["pid"]
         new_document["document"] = new_api_shape
 
@@ -134,17 +134,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             include_total_count=True,
         )
 
-        # returned_docs = new_shape(search_results)
+        returned_docs = new_shape(search_results)
 
         # format the React app expects
         full_response = {}
 
         full_response["count"] = search_results.get_count()
         full_response["facets"] = search_results.get_facets()
-        full_response["results"] = search_results
+        full_response["results"] = returned_docs
 
         return func.HttpResponse(
-            body=json.dumps(search_results), mimetype="application/json", status_code=200
+            body=json.dumps(full_response), mimetype="application/json", status_code=200
         )
     else:
         return func.HttpResponse("No query param found.", status_code=200)
