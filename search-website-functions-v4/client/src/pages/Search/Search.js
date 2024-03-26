@@ -31,6 +31,10 @@ export default function Search() {
   useEffect(() => {
     setIsLoading(true);
     setSkip((currentPage-1) * top);
+    // setResults(searchResponse.results);
+    // setFacets(searchResponse.facets);
+    // setResultCount(searchResponse.count);
+    // setIsLoading(false);
     const body = {
       q: q,
       top: top,
@@ -74,7 +78,7 @@ export default function Search() {
   } else {
     body = (
       <div className="col-md-9">
-        <Results documents={results} top={top} skip={skip} count={resultCount}></Results>
+        <Results documents={results} top={top} skip={skip} count={resultCount} q={q}></Results>
         <Pager className="pager-style" currentPage={currentPage} resultCount={resultCount} resultsPerPage={resultsPerPage} setCurrentPage={setCurrentPage}></Pager>
       </div>
     )
@@ -83,13 +87,12 @@ export default function Search() {
   return (
     <main className="main main--search container-fluid">
       <div className="row">
-        {/* <div style={{"width": "60%", "alignContent": "center"}}> */}
+        <div class="search-container">
+        <div class="search-group">
           <SearchBar postSearchHandler={() => {}}></SearchBar>
-        {/* </div> */}
+          </div>
+        </div>
         <div className="col-md-3"> 
-          {/* <div className="search-bar"> */}
-            {/* <SearchBar postSearchHandler={postSearchHandler} q={q}></SearchBar> */}
-          {/* </div> */}
           <Facets facets={facets} filters={filters} setFilters={setFilters}></Facets>
         </div>
         {body}

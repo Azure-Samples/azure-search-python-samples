@@ -21,3 +21,13 @@
     margin-bottom: 1em;
     margin-top: 2em;
 }
+
+.search-container {
+    display: flex;
+    justify-content: center; /* Centers the child horizontally */
+    width: 100%;
+  }
+
+.search-group {
+    width: 60%;
+}

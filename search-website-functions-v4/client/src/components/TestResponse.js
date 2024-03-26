@@ -1,7 +1,7 @@
 export const searchResponse = {
     "count": 70,
     "facets": {
-        "Model Group": [
+        "Equipment Type": [
             {
                 "value": "Lawn Tractor",
                 "count": 4
@@ -17,46 +17,13 @@ export const searchResponse = {
         ],
         "Part Type": [
                 {"value": "LADDER- CE", "count": 6},
-                // {"value": "Decal, Ce", "count": 15},
-                // {"value": "Cord-C", "count": 3},
                 {"value": "Handle Channel C-Clip", "count": 19},
                 {"value": "BLADE, FAN", "count": 6},
                 {"value": "SOLENOIDS AND WATER VALVE", "count": 4},
                 {"value": "RESERVOIR", "count": 17}            
         ],
-        "models": [
-            {
-                "value": "CEA1M1WSTB",
-                "count": 26
-            },
-            {
-                "value": "CEE2M4WSAA",
-                "count": 13
-            },
-            {
-                "value": "CEA3M2WSTB",
-                "count": 10
-            },
-            {
-                "value": " CEB3M2WSTB",
-                "count": 9
-            },
-            {
-                "value": "CEB3M2WSTB",
-                "count": 7
-            },
-        ],
-        "parts": [
-            {
-                "value": "CE42",
-                "count": 54
-            },
-            {
-                "value": "CER",
-                "count": 4
-            },
-        ],
-        "manufacturers": [
+       
+        "Brand Name": [
             {
                 "value": "Maytag",
                 "count": 4
