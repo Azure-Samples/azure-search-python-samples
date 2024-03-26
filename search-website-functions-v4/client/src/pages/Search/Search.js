@@ -38,7 +38,7 @@ export default function Search() {
       filters: filters
     };
 
-    axios.post( 'https://witty-hill-0f88f920f.4.azurestaticapps.net/api/search', body)
+    axios.post( '/api/search', body)
       .then(response => {
             console.log(JSON.stringify(response.data))
             setResults(response.data.results);
