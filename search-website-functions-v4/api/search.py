@@ -55,6 +55,19 @@ def create_filter_expression(filter_list, facets):
 
     return return_string
 
+def get_url(inventory_id, manufacturer_name, part_number, description):
+    return f"https://www.partselect.com/{hyphenate_text(f'PS{inventory_id} {manufacturer_name} {part_number} {description}')}.htm"
+def hyphenate_text(text):
+    return text.replace(" ", "-").lower()
+def get_image_url(
+    inventory_id, image_order, part_image_size, has_image=False, is_webp=False
+):
+    image_extension = ".webp" if is_webp else ".jpg"
+    if not has_image:
+        return f"https://www.partselect.com/assets/images/noimage_{part_image_size.lower()}{image_extension}"
+    else:
+        return f"https://www.partselect.com/assets/partimages/{inventory_id}_{image_order}_{part_image_size.lower()}{image_extension}"
+
 
 def new_shape(docs):
 
@@ -92,13 +105,32 @@ def new_shape(docs):
         # new_api_shape["ratings_5"] = item["ratings_5"]
         # new_api_shape["image_url"] = item["image_url"]
         # new_api_shape["small_image_url"] = item["small_image_url"]
-        # new_api_shape["id"] = item["pid"]
+        new_api_shape["id"] = item["pid"]
         new_api_shape["description"] = item["Description"]
-        # new_api_shape["partNum"] = item["partNum"]
-        # new_api_shape["InventoryID"] = item["kInventoryID"]
+        new_api_shape["partNum"] = item["PartNum"]
+        new_api_shape["InventoryID"] = item["kInventoryID"]
+        #calculate imageURL
+        image_url = get_image_url(
+                    item['kInventoryID'],
+                    item['MIN_ImageOrder'],
+                    "S",
+                    item.get('Has_Image', False),
+                    False
+                )
+        #calculate url
+        
+        url = get_url(
+                        item.get('kInventoryID'),
+                        item.get('PartMFG'),
+                        #PartMFG
+                        item.get('PartNum'),
+                        item.get('Description')
+                    )
+        new_api_shape["imageURL"] = image_url
+        new_api_shape["url"] = url
         # new_api_shape["imageURL"] = item["pid"]
         new_document["document"] = new_api_shape
-
+        
         client_side_expected_shape.append(new_document)
 
     return list(client_side_expected_shape)
