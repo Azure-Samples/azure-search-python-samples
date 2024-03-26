@@ -9,6 +9,7 @@ import Facets from '../../components/Facets/Facets';
 import SearchBar from '../../components/SearchBar/SearchBar';
 
 import "./Search.css";
+import { searchResponse } from '../../components/TestResponse';
 
 export default function Search() {
   
@@ -30,25 +31,29 @@ export default function Search() {
   useEffect(() => {
     setIsLoading(true);
     setSkip((currentPage-1) * top);
-    const body = {
-      q: q,
-      top: top,
-      skip: skip,
-      filters: filters
-    };
+    setResults(searchResponse.results);
+    setFacets(searchResponse.facets);
+    setResultCount(searchResponse.count);
+    setIsLoading(false);
+    // const body = {
+    //   q: q,
+    //   top: top,
+    //   skip: skip,
+    //   filters: filters
+    // };
 
-    axios.post( '/api/search', body)
-      .then(response => {
-            console.log(JSON.stringify(response.data))
-            setResults(response.data.results);
-            setFacets(response.data.facets);
-            setResultCount(response.data.count);
-            setIsLoading(false);
-        } )
-        .catch(error => {
-            console.log(error);
-            setIsLoading(false);
-        });
+    // axios.post( 'https://witty-hill-0f88f920f.4.azurestaticapps.net/api/search', body)
+    //   .then(response => {
+    //         console.log(JSON.stringify(response.data))
+    //         setResults(response.data.results);
+    //         setFacets(response.data.facets);
+    //         setResultCount(response.data.count);
+    //         setIsLoading(false);
+    //     } )
+    //     .catch(error => {
+    //         console.log(error);
+    //         setIsLoading(false);
+    //     });
     
   }, [q, top, skip, filters, currentPage]);
 
