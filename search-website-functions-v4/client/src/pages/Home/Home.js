@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import SearchBar from '../../components/SearchBar/SearchBar';
-
+import "../../components/SearchBar/SearchBar.css";
 import "./Home.css";
 import "../../pages/Search/Search.css";
 import logo from '../../images/cognitive_search.jpg';
@@ -18,9 +18,11 @@ export default function Home() {
 
   return (
     <main className="main main--home">
-      <div className="row home-search">
-        <SearchBar postSearchHandler={navigateToSearchPage}></SearchBar>
-      </div>
+      <div className="SearchApp">
+      <header className="App-header">
+        <SearchBar navigateToSearchPage={navigateToSearchPage}/>
+      </header>
+    </div>
     </main>
   );
 };

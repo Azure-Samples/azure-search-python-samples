@@ -1,18 +1,274 @@
-div.container a.input-group-btn {
-    font-size: 14px;
-}
-
-.suggestions {
+.SearchApp {
+    height: 100vh;
+    /* border: 4px solid green; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    font-family: system-ui, sans-serif; 
+    background-image: url('/public/bkd.png');
+    background-repeat: no-repeat;
+    background-position: top center;
+    overflow: hidden;
+    background-attachment: scroll;
+    background-size: 1181px auto;
+  }
+  
+  .search-bar-container {
     position: relative;
-    display: inline-block;
-    width: inherit;
-    z-index:99
-}
-
-.input-group {
-    flex-wrap: nowrap;
-}
-
-.margin-right {
-    margin-right: 8px; /* Adjust the space as needed */
-}
+    width: 1170px;
+    height: 100vh;
+    /* border: 2px solid blue; */
+  }
+  
+  .search-bar {
+    position: absolute;
+    top: 123px;
+    left: 0;
+    width: 100%;
+    background-color: #337778;
+    border-radius: 0px 16px 16px 16px;
+    /* border: 2px solid red; */
+  }
+  
+  .search-bar-container form {
+    display: flex;
+    height: 60px;
+  }
+  
+  .search-bar-container input,
+  .search-bar-container button {
+    padding: 14px 24px;
+  }
+  
+  .search-bar-container input {
+    flex-grow: 1;
+    border: 8px solid #337778;
+    border-radius: 16px 16px 16px 16px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: -6px;
+  }
+  
+  .button-container {
+    background-color: #337778;
+    border-radius: 0px 0px 16px 0px;
+  }
+  
+  .search-bar-container button {
+    background-color: #181818;
+    box-shadow: inset 0 0 0 4px #337778;
+    color: white;
+    border: 2px solid #337778;
+    border-radius: 16px 0px 16px 16px;
+    font-size: 18px;
+    font-weight: 600;
+    height: 60px;
+    margin-right: 4px;
+  }
+  
+  .search-bar-container input:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px #F3C04C;
+  }
+  
+  .suggestions-dropdown {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    width: 97%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    z-index: 1000;
+    padding: 10px;
+    box-sizing: border-box; 
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 16px 16px 16px 16px;
+  }
+  
+  .suggestions-column {
+    flex: 1;
+    padding: 0px 20px 12px 20px;
+    line-height: 1.4;
+    /* min-width : 0; Allows flex items to shrink below their intrinsic width */
+  }
+  
+  .suggestions-column h4 {
+    margin-bottom: 10px;
+  }
+  
+  .suggestions-column ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .suggestions-column li {
+    padding: 4px 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .suggestions-column li:last-child {
+    border-bottom: none;
+  }
+  
+  .suggestions-column li:hover,
+  .placeholder-item:hover {
+    background-color: rgba(51, 119, 120, 0.25); 
+    border-radius: 8px;
+  }
+  
+  .placeholder-item {
+    color: #aaa;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #337778;
+  }
+  
+  .loader {
+    border: 5px solid #181818; /* Light grey background */
+    border-top: 5px solid #fff; /* Blue */
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .bar-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    gap: 5px;
+    align-self: flex-start;
+    background-color: var(--bot-message);
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    padding: 14px;
+    font-size: 13px;
+    margin: 2px 0;
+  }
+  
+  .bar {
+    height: 20px;
+    border-radius: 10px;
+    background: linear-gradient(270deg, #ebebeb, #f1f1f1, #d1d1d1);
+    background-size: 200% 200%;
+    animation: moving-gradient 3s linear infinite;
+  }
+  
+  .bar-short {
+    width: 50%;
+  }
+  
+  .bar-medium {
+    width: 75%;
+  }
+  
+   .bar-long {
+    width: 100%;
+  }
+  
+  
+  @media (max-width: 768px) {
+  
+    .App {
+      height: 500vh;
+      background-image: url('/public/mobile.png');
+      background-size: 374px auto;
+      display: grid;
+      align-content: start; 
+    }
+  
+    .button-container {
+      display: none;
+    }
+  
+    .suggestions-dropdown {
+      flex-direction: column; /* Stack children vertically */
+      justify-content: flex-start; /* Align children to the start */
+      top: 50px; /* Position dropdown below the search bar */
+      left: 0; /* Reset left position */
+      transform: translateX(0%); /* Reset transform */
+      width: 100%; /* Full width */
+      padding: 10px; /* Adjust padding if needed */
+      box-sizing: border-box; /* Include padding in width */
+    }
+  
+    .suggestions-column {
+      display: block; /* Ensure block display for stacking */
+      width: 100%; /* Full width for each column */
+      padding: 10px; /* Adjust padding for mobile */
+      margin-bottom: 10px; /* Space between columns */
+    }
+    
+    .search-bar {
+      left: 0; /* Align search bar to the edge */
+      top: 66px;
+      width: 99%;
+      background-color: #fff;
+    }
+  
+    .search-bar-container {
+      width: 96vw;
+    }
+  
+    .search-bar-container input {
+      border: 2px solid #337778;
+    }
+  
+    .search-bar-container form {
+      flex-direction: column; /* Stack input and button vertically */
+        height: 60px;
+    }
+  
+    .search-bar-container button {
+      width: 100%; /* Full width for the button */
+      margin-top: 10px; /* Space between input and button */
+      border-radius: 16px; /* Adjust border-radius as needed */
+    }
+  
+    /* If there's a flex container wrapping the search input and button,
+       ensure it stacks children vertically too. */
+    .search-bar-container form {
+      flex-direction: column;
+      height: 50px;
+    }
+  
+    .search-bar-container input,
+    .search-bar-container button {
+      padding: 0px 20px;
+    }
+  
+    .suggestions-column {
+      margin-bottom: 10px; /* Reduce the bottom margin to decrease vertical space */
+      padding: 10px 20px; /* Adjust padding as needed, this example tightens the padding */
+      width: 88%;
+    }
+  
+    .suggestions-column h3 {
+      margin-top: 0; /* Remove top margin from headings if it's contributing to vertical space */
+      margin-bottom: 10px; /* Reduce bottom margin of headings */
+    }
+  
+    /* If there are specific margins/paddings set on lists or other elements within your sections, adjust them here as well */
+    .suggestions-column ul {
+      padding-top: 0; /* Example: Remove top padding from lists */
+    }
+  
+  }
+  
+  
