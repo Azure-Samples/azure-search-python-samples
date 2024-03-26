@@ -144,7 +144,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         full_response["results"] = search_results
 
         return func.HttpResponse(
-            body=json.dumps(full_response), mimetype="application/json", status_code=200
+            body=json.dumps(search_results), mimetype="application/json", status_code=200
         )
     else:
         return func.HttpResponse("No query param found.", status_code=200)
