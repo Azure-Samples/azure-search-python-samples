@@ -93,7 +93,7 @@ def new_shape(docs):
         # new_api_shape["image_url"] = item["image_url"]
         # new_api_shape["small_image_url"] = item["small_image_url"]
         # new_api_shape["id"] = item["pid"]
-        # new_api_shape["description"] = item["Description"]
+        new_api_shape["description"] = item["Description"]
         # new_api_shape["partNum"] = item["partNum"]
         # new_api_shape["InventoryID"] = item["kInventoryID"]
         # new_api_shape["imageURL"] = item["pid"]
