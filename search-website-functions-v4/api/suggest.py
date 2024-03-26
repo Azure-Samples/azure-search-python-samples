@@ -69,7 +69,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     if q:
         logging.info("/Suggest q = %s", q)
-        suggestions = search_client.suggest(search_text=q, suggester_name="modelsuggest", top=top)
+        suggestions = search_client.suggest(search_text=q, suggester_name="modelsuggest", top=top,search_fields=["PartNum"] )
         
         # format the React app expects
         full_response = {}
