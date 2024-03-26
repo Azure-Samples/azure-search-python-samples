@@ -12,7 +12,7 @@ endpoint = f'https://{environment_vars["search_service_name"]}.search.windows.ne
 key = environment_vars["search_api_key"]
 
 # Your index name
-index_name = "good-books"
+index_name = "partselectfacet"
 
 # Create Azure SDK client
 search_client = SearchClient(endpoint, index_name, AzureKeyCredential(key))
@@ -69,30 +69,34 @@ def new_shape(docs):
         new_document["highlights"] = item["@search.highlights"]
 
         new_api_shape = {}
-        new_api_shape["id"] = item["id"]
-        new_api_shape["goodreads_book_id"] = item["goodreads_book_id"]
-        new_api_shape["best_book_id"] = item["best_book_id"]
-        new_api_shape["work_id"] = item["work_id"]
-        new_api_shape["books_count"] = item["books_count"]
-        new_api_shape["isbn"] = item["isbn"]
-        new_api_shape["isbn13"] = item["isbn13"]
-        new_api_shape["authors"] = item["authors"]
-        new_api_shape["original_publication_year"] = item["original_publication_year"]
-        new_api_shape["original_title"] = item["original_title"]
-        new_api_shape["title"] = item["title"]
-        new_api_shape["language_code"] = item["language_code"]
-        new_api_shape["average_rating"] = item["average_rating"]
-        new_api_shape["ratings_count"] = item["ratings_count"]
-        new_api_shape["work_ratings_count"] = item["work_ratings_count"]
-        new_api_shape["work_text_reviews_count"] = item["work_text_reviews_count"]
-        new_api_shape["ratings_1"] = item["ratings_1"]
-        new_api_shape["ratings_2"] = item["ratings_2"]
-        new_api_shape["ratings_3"] = item["ratings_3"]
-        new_api_shape["ratings_4"] = item["ratings_4"]
-        new_api_shape["ratings_5"] = item["ratings_5"]
-        new_api_shape["image_url"] = item["image_url"]
-        new_api_shape["small_image_url"] = item["small_image_url"]
-
+        # new_api_shape["id"] = item["id"]
+        # new_api_shape["goodreads_book_id"] = item["goodreads_book_id"]
+        # new_api_shape["best_book_id"] = item["best_book_id"]
+        # new_api_shape["work_id"] = item["work_id"]
+        # new_api_shape["books_count"] = item["books_count"]
+        # new_api_shape["isbn"] = item["isbn"]
+        # new_api_shape["isbn13"] = item["isbn13"]
+        # new_api_shape["authors"] = item["authors"]
+        # new_api_shape["original_publication_year"] = item["original_publication_year"]
+        # new_api_shape["original_title"] = item["original_title"]
+        # new_api_shape["title"] = item["title"]
+        # new_api_shape["language_code"] = item["language_code"]
+        # new_api_shape["average_rating"] = item["average_rating"]
+        # new_api_shape["ratings_count"] = item["ratings_count"]
+        # new_api_shape["work_ratings_count"] = item["work_ratings_count"]
+        # new_api_shape["work_text_reviews_count"] = item["work_text_reviews_count"]
+        # new_api_shape["ratings_1"] = item["ratings_1"]
+        # new_api_shape["ratings_2"] = item["ratings_2"]
+        # new_api_shape["ratings_3"] = item["ratings_3"]
+        # new_api_shape["ratings_4"] = item["ratings_4"]
+        # new_api_shape["ratings_5"] = item["ratings_5"]
+        # new_api_shape["image_url"] = item["image_url"]
+        # new_api_shape["small_image_url"] = item["small_image_url"]
+        new_api_shape["id"] = item["pid"]
+        new_api_shape["description"] = item["Description"]
+        new_api_shape["partNum"] = item["partNum"]
+        new_api_shape["InventoryID"] = item["kInventoryID"]
+        # new_api_shape["imageURL"] = item["pid"]
         new_document["document"] = new_api_shape
 
         client_side_expected_shape.append(new_document)
