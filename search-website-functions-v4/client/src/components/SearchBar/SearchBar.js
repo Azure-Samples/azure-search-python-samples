@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import Suggestions from './Suggestions/Suggestions';
 
 import "./SearchBar.css";
@@ -40,27 +40,7 @@ export default function SearchBar(props) {
 
     useEffect(_ =>{
         const timer = setTimeout(() => {
-            const body = {
-                q: q,
-                top: 5,
-                suggester: 'sg'
-            };
             setSuggestions([]);
-{/*
-            if (q === '') {
-
-            } else {
-                axios.post( '/api/suggest', body)
-                .then(response => {
-                    console.log(JSON.stringify(response.data))
-                    setSuggestions(response.data.suggestions);
-                } )
-                .catch(error => {
-                    console.log(error);
-                    setSuggestions([]);
-                });
-            }
-        */}
         }, 300);
         return () => clearTimeout(timer);
     }, [q, props]);
