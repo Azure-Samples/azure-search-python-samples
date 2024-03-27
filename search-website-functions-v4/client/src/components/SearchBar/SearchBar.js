@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
-// import Suggestions from './Suggestions/Suggestions';
+import useOutsideClick from './useOutsideClick';
 import "./SearchBar.css";
 
 export default function SearchBar(props) {
@@ -13,10 +13,19 @@ export default function SearchBar(props) {
     const [recommendations, setRecommendations] = useState([]);
     const [error, setError] = useState(null);
     const [custServResponse, setCustServResponse] = useState("");
+    const [isDropdownVisible, setIsDropdownVisible] = useState(true);
+    const searchBarRef = useRef(null);
+
     const handleSearchChange = (event) => {
         const value = event.target.value;
         setSearchTerm(value);
     };
+
+    const onOutsideClick = () => {
+      setIsDropdownVisible(false);
+    };
+
+    useOutsideClick(searchBarRef, onOutsideClick);
 
     useEffect(() => {
         setCustServResponse("");
@@ -140,11 +149,12 @@ export default function SearchBar(props) {
         setManufacturers([]);
         setRecommendations([]);
         props.onSearchHandler(searchTerm);
+        setSearchTerm("");
     };
     
 
     return (
-        <div className="search-bar-container">
+        <div className="search-bar-container" ref={searchBarRef}>
           <div className="search-bar">
           <form onSubmit={handleSubmit}>
             <input
@@ -152,8 +162,23 @@ export default function SearchBar(props) {
               placeholder="Search model or part number"
               value={searchTerm}
               onChange={handleSearchChange}
+              onFocus={() => setIsDropdownVisible(true)}
               style={{ padding: '10px', paddingRight: '10px' }}
             />
+            {searchTerm && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  right: '12%',
+                  transform: 'translateY(-50%)',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleSearchChange({ target: { value: '' } })}
+              >
+                &#x2715;
+              </div>
+            )}
           <div className="button-container">
             <button type="submit">
               {!isLoading ? "Search" : <div className="loader"></div>}
@@ -164,7 +189,7 @@ export default function SearchBar(props) {
           {(modelSuggestions.length > 0 ||
             partSuggestions.length > 0 ||
             manufacturers.length ||
-            recommendations.length > 0) && !(searchTerm.match(/how to replace.*element.*/)) && !(searchTerm.match(/how to test.*element.*/)) && (
+            recommendations.length > 0) && (isDropdownVisible) && !(searchTerm.match(/how to replace.*element.*/)) && !(searchTerm.match(/how to test.*element.*/)) && (
             <div className="suggestions-dropdown">
               {modelSuggestions.length > 0 && <div className="suggestions-column">
                 <h3>Matching Models</h3>

@@ -8,7 +8,7 @@
     margin-bottom: 3px;
     padding-bottom: 3px;
     box-sizing: border-box;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .result:hover,
@@ -28,3 +28,26 @@
     max-height: 12em;
     vertical-align: middle;
 }
+
+.centered-content {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    height: 100%; 
+  }
+
+  .add-to-cart-button {
+    background-color: #F7C52B; 
+    color: #000; 
+    padding: 10px 20px;
+    margin: 14px;
+    width: 65%;
+    align-self: center;
+    border: none; 
+    font-size: 16px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }  

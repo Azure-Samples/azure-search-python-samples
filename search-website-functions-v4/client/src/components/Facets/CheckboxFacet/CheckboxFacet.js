@@ -57,7 +57,7 @@ const FacetValueListItem= styled(ListItem)({
 });
 
 const FacetValuesList= styled(List)({
-    maxHeight: 340,
+    maxHeight: 300,
     overflowY: 'auto !important',
     marginRight: '18px !important'
 })

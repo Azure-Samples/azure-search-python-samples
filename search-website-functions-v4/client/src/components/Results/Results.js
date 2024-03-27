@@ -19,7 +19,7 @@ export default function Results(props) {
     <div>
       {/* <div><</div> */}
       <div>
-      <p className="results-info"><h5>You searched for: <strong>{props.q}</strong></h5></p>
+      <p className="results-info"><h5>You searched for: <strong><u>{props.q}</u></strong></h5></p>
         <p className="results-info">Showing {beginDocNumber}-{endDocNumber} of {props.count.toLocaleString()} results</p>
         <div className="row row-cols-md-4 results">
           {results}
