@@ -65,7 +65,6 @@ export default function Search() {
 
 
   let postSearchHandler = (searchTerm) => {
-    //console.log(searchTerm);
     setQ(searchTerm);
   }
 
@@ -87,12 +86,9 @@ export default function Search() {
   return (
     <main className="main main--search container-fluid">
       <div className="row">
-        <div class="search-container">
-        <div class="search-group">
-          {/* <SearchBar></SearchBar> */}
-          </div>
-        </div>
+      <SearchBar onSearchHandler={postSearchHandler}></SearchBar>
         <div className="col-md-3"> 
+        {/* <SearchBar onSearchHandler={postSearchHandler}></SearchBar> */}
           <Facets facets={facets} filters={filters} setFilters={setFilters}></Facets>
         </div>
         {body}

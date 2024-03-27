@@ -139,7 +139,7 @@ export default function SearchBar(props) {
         setPartSuggestions([]);
         setManufacturers([]);
         setRecommendations([]);
-        props.navigateToSearchPage(searchTerm);
+        props.onSearchHandler(searchTerm);
     };
     
 

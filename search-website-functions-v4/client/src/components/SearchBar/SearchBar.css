@@ -18,9 +18,10 @@
   .search-bar-container {
     position: relative;
     width: 1170px;
-    height: 100vh;
-    /* border: 2px solid blue; */
-  }
+    height: 10vh;
+    /* border: 2px solid blue; 
+  } 
+ 
   
   .search-bar {
     position: absolute;
