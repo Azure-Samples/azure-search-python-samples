@@ -19,15 +19,15 @@
     position: relative;
     width: 1170px;
     height: 10vh;
-    /* border: 2px solid blue; 
+    /* border: 2px solid blue; */
   } 
  
   
   .search-bar {
     position: absolute;
-    top: 123px;
-    left: 0;
-    width: 100%;
+    top: 10%;
+    left: 20%;
+    width: 60%;
     background-color: #337778;
     border-radius: 0px 16px 16px 16px;
     /* border: 2px solid red; */

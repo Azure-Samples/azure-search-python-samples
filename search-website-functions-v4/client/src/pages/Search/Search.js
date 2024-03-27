@@ -31,29 +31,29 @@ export default function Search() {
   useEffect(() => {
     setIsLoading(true);
     setSkip((currentPage-1) * top);
-    setResults(searchResponse.results);
-    setFacets(searchResponse.facets);
-    setResultCount(searchResponse.count);
-    setIsLoading(false);
-    // const body = {
-    //   q: q,
-    //   top: top,
-    //   skip: skip,
-    //   filters: filters
-    // };
+    // setResults(searchResponse.results);
+    // setFacets(searchResponse.facets);
+    // setResultCount(searchResponse.count);
+    // setIsLoading(false);
+    const body = {
+      q: q,
+      top: top,
+      skip: skip,
+      filters: filters
+    };
 
-    // axios.post( '/api/search', body)
-    //   .then(response => {
-    //         console.log(JSON.stringify(response.data))
-    //         setResults(response.data.results);
-    //         setFacets(response.data.facets);
-    //         setResultCount(response.data.count);
-    //         setIsLoading(false);
-    //     } )
-    //     .catch(error => {
-    //         console.log(error);
-    //         setIsLoading(false);
-    //     });
+    axios.post( 'https://instaagentsearch-mwvqt7kpva-uc.a.run.app/search', body)
+      .then(response => {
+            console.log(JSON.stringify(response.data))
+            setResults(response.data.results);
+            setFacets(response.data.facets);
+            setResultCount(response.data.count);
+            setIsLoading(false);
+        } )
+        .catch(error => {
+            console.log(error);
+            setIsLoading(false);
+        });
     
   }, [q, top, skip, filters, currentPage]);
 
