@@ -42,7 +42,7 @@ export default function Search() {
       filters: filters
     };
 
-    axios.post( 'https://instaagentsearch-mwvqt7kpva-uc.a.run.app/search', body)
+    axios.post( '/api/search', body)
       .then(response => {
             console.log(JSON.stringify(response.data))
             setResults(response.data.results);
@@ -65,6 +65,9 @@ export default function Search() {
 
 
   let postSearchHandler = (searchTerm) => {
+    if (!searchTerm || searchTerm === '') {
+      searchTerm = '*'
+    }
     setQ(searchTerm);
   }
 
