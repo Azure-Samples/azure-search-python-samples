@@ -7,7 +7,8 @@ import Results from '../../components/Results/Results';
 import Pager from '../../components/Pager/Pager';
 import Facets from '../../components/Facets/Facets';
 import SearchBar from '../../components/SearchBar/SearchBar';
-
+import logo from '../../images/partselect.svg';
+import "../../components/SearchBar/SearchBar.css"
 import "./Search.css";
 import { searchResponse } from '../../components/TestResponse';
 
@@ -65,9 +66,6 @@ export default function Search() {
 
 
   let postSearchHandler = (searchTerm) => {
-    if (!searchTerm || searchTerm === '') {
-      searchTerm = '*'
-    }
     setQ(searchTerm);
   }
 
@@ -87,15 +85,33 @@ export default function Search() {
   }
 
   return (
+    <div>
+    <header className="header">
+      <nav className="navbar navbar-expand-lg">
+        <a className="navbar-brand" href="/">
+          <img src={logo} height="50" className="navbar-logo" alt="Microsoft" />
+        </a>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        </div>
+      </nav>
+    </header>
+    <div className="search-bar-container-searchpage">
+      <div className="search-bar-searchpage">
+      <SearchBar onSearchHandler={postSearchHandler} page="searchpage"></SearchBar>
+      </div>
+    </div>
     <main className="main main--search container-fluid">
       <div className="row">
-      <SearchBar onSearchHandler={postSearchHandler}></SearchBar>
         <div className="col-md-3"> 
-        {/* <SearchBar onSearchHandler={postSearchHandler}></SearchBar> */}
           <Facets facets={facets} filters={filters} setFilters={setFilters}></Facets>
         </div>
         {body}
       </div>
     </main>
+    </div>
   );
 }

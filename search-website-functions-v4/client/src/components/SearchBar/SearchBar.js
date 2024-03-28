@@ -154,9 +154,8 @@ export default function SearchBar(props) {
     
 
     return (
-        <div className="search-bar-container" ref={searchBarRef}>
-          <div className="search-bar">
-          <form onSubmit={handleSubmit}>
+          <div>
+          <form onSubmit={handleSubmit} ref={searchBarRef}>
             <input
               type="text"
               placeholder="Search model or part number"
@@ -179,7 +178,7 @@ export default function SearchBar(props) {
                 &#x2715;
               </div>
             )}
-          <div className="button-container">
+          <div className={props.page==="searchpage"? "button-container-searchpage": "button-container"}>
             <button type="submit">
               {!isLoading ? "Search" : <div className="loader"></div>}
               {error && <div>{error}</div>}
@@ -356,7 +355,7 @@ export default function SearchBar(props) {
             </div>
           </div>
           }
-          </div>
         </div>
+        // </div>
       );
 };

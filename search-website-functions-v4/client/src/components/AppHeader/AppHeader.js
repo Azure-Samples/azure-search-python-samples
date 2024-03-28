@@ -8,7 +8,7 @@ import './AppHeader.css';
 export default function AppHeader() {
   return (
     <header className="header">
-      <nav className="navbar navbar-expand-lg">
+      {/* <nav className="navbar navbar-expand-lg">
         <a className="navbar-brand" href="/">
           <img src={logo} height="50" className="navbar-logo" alt="Microsoft" />
         </a>
@@ -20,7 +20,7 @@ export default function AppHeader() {
         </div>
 
         <AppHeaderAuth />
-      </nav>
+      </nav> */}
       
     </header>
   );

@@ -20,7 +20,11 @@ export default function Home() {
     <main className="main main--home">
       <div className="SearchApp">
       <header className="App-header">
+      <div className="search-bar-container">
+          <div className="search-bar">
         <SearchBar onSearchHandler={navigateToSearchPage}/>
+        </div>
+        </div>
       </header>
     </div>
     </main>
