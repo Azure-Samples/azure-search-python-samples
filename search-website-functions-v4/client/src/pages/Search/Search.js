@@ -40,12 +40,13 @@ export default function Search() {
       q: q,
       top: top,
       skip: skip,
-      filters: filters
+      filters: filters,
+      fuzzy: true
     };
 
     axios.post( 'https://instaagentsearch-mwvqt7kpva-uc.a.run.app/search', body)
       .then(response => {
-            console.log(JSON.stringify(response.data))
+            // console.log(JSON.stringify(response.data))
             setResults(response.data.results);
             setFacets(response.data.facets);
             setResultCount(response.data.count);

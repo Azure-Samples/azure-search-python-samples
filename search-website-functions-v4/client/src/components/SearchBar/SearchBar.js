@@ -29,7 +29,7 @@ export default function SearchBar(props) {
 
     useEffect(() => {
         setCustServResponse("");
-        if (searchTerm.length < 2) {
+        if (searchTerm.length < 3) {
           setIsLoading(true);
           setModelSuggestions([]);
           setPartSuggestions([]);
