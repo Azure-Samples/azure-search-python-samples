@@ -1,5 +1,5 @@
 .sui-layout-header {
-    background-color: #0078d7;
+    background-color: #337778;
     color: #eee;
 }
 .sui-search-box__submit {
@@ -16,8 +16,18 @@
     max-width: fit-content;
 }
 
-.search-bar {
+/* .search-bar {
     margin: 1em;
     margin-bottom: 1em;
     margin-top: 2em;
+} */
+
+.search-container {
+    display: flex;
+    justify-content: center; /* Centers the child horizontally */
+    width: 100%;
+  }
+
+.search-group {
+    width: 60%;
 }

@@ -14,6 +14,10 @@
 }
 
 .results .result {
-    width: 10rem;
-    max-height: 18rem;
+    width: 20rem;
+    max-height: 32rem;
+}
+
+.results .result a {
+    color: #181818; /* Dark color for the hyperlinks */
 }

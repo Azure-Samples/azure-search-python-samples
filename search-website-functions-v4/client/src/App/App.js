@@ -50,7 +50,6 @@ export default function App() {
           <Routes>
             <Route path={`/`} element={<Home />} />
             <Route path={`/search`} element={<Search />} />
-            <Route path={`/details/:id`} element={<Details />}/>
             <Route path={`*`} element={<Home />} />
           </Routes>
         </BrowserRouter>

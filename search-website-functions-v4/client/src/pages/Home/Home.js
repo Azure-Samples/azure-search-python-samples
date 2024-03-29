@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import SearchBar from '../../components/SearchBar/SearchBar';
-
+import "../../components/SearchBar/SearchBar.css";
 import "./Home.css";
 import "../../pages/Search/Search.css";
 import logo from '../../images/cognitive_search.jpg';
@@ -18,11 +18,15 @@ export default function Home() {
 
   return (
     <main className="main main--home">
-      <div className="row home-search">
-        <img className="logo" src={logo} alt="Cognitive Search"></img>
-        <p className="poweredby lead">Powered by Azure AI Search</p>
-        <SearchBar postSearchHandler={navigateToSearchPage}></SearchBar>
-      </div>
+      <div className="SearchApp">
+      <header className="App-header">
+      <div className="search-bar-container">
+          <div className="search-bar">
+        <SearchBar onSearchHandler={navigateToSearchPage}/>
+        </div>
+        </div>
+      </header>
+    </div>
     </main>
   );
 };
