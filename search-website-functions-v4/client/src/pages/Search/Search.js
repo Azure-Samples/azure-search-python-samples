@@ -75,6 +75,7 @@ export default function Search() {
 
   let postSearchHandler = (searchTerm) => {
     setQ(searchTerm);
+    setPreSelectedFlag(false);
   }
 
   var body;
