@@ -44,7 +44,7 @@ export default function Search() {
         setIsLoading(false);
       }
       else {
-        axios.post('http://0.0.0.0:8080/search', body)
+        axios.post('https://instaagentsearch-mwvqt7kpva-uc.a.run.app/search', body)
             .then(response => {
               // console.log(JSON.stringify(response.data))
               setResults(response.data.results);
