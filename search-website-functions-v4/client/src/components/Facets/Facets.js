@@ -27,6 +27,7 @@ export default function Facets(props) {
     }
 
     var facets;
+
     try{
         facets = Object.keys(props.facets).map(key => {
             return <CheckboxFacet 

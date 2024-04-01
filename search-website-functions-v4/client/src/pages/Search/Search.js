@@ -26,38 +26,45 @@ export default function Search() {
   const [ filters, setFilters ] = useState([]);
   const [ facets, setFacets ] = useState({});
   const [ isLoading, setIsLoading ] = useState(true);
-
+  const [ preSelectedFilters, setPreSelectedFilters ] = useState([]);
+  const [ preSelectedFlag, setPreSelectedFlag] = useState(false);
   let resultsPerPage = top;
   
   useEffect(() => {
-    setIsLoading(true);
-    setSkip((currentPage-1) * top);
-    // setResults(searchResponse.results);
-    // setFacets(searchResponse.facets);
-    // setResultCount(searchResponse.count);
-    // setIsLoading(false);
-    const body = {
-      q: q,
-      top: top,
-      skip: skip,
-      filters: filters,
-      fuzzy: true
-    };
-
-    axios.post( 'https://instaagentsearch-mwvqt7kpva-uc.a.run.app/search', body)
-      .then(response => {
-            // console.log(JSON.stringify(response.data))
-            setResults(response.data.results);
-            setFacets(response.data.facets);
-            setResultCount(response.data.count);
-            setIsLoading(false);
-        } )
-        .catch(error => {
-            console.log(error);
-            setIsLoading(false);
-        });
-    
+      setIsLoading(true);
+      setSkip((currentPage-1) * top);
+      const body = {
+        q: q,
+        top: top,
+        skip: skip,
+        filters: filters,
+        // fuzzy: true
+      };
+      if (filters === preSelectedFilters && preSelectedFlag===true) {
+        setIsLoading(false);
+      }
+      else {
+        axios.post('http://0.0.0.0:8080/search', body)
+            .then(response => {
+              // console.log(JSON.stringify(response.data))
+              setResults(response.data.results);
+              setFacets(response.data.facets);
+              setResultCount(response.data.count);
+              if (!preSelectedFlag) {
+                setPreSelectedFilters(response.data.preselectedFilters);
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
+            setIsLoading(false); 
+      }
   }, [q, top, skip, filters, currentPage]);
+
+  useEffect(() => {
+    setFilters(preSelectedFilters);
+    setPreSelectedFlag(true);
+  }, [preSelectedFilters]);
 
   useEffect(() => {
     navigate('/search?q=' + q);  
@@ -108,7 +115,7 @@ export default function Search() {
     <main className="main main--search container-fluid">
       <div className="row">
         <div className="col-md-3"> 
-          <Facets facets={facets} filters={filters} setFilters={setFilters}></Facets>
+          <Facets facets={facets} filters={filters} preSelectedFilters={preSelectedFilters} setFilters={setFilters}></Facets>
         </div>
         {body}
       </div>
