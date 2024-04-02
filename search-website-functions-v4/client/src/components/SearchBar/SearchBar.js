@@ -12,7 +12,6 @@ export default function SearchBar(props) {
     const [manufacturers, setManufacturers] = useState([]);
     const [recommendations, setRecommendations] = useState([]);
     const [error, setError] = useState(null);
-    const [custServResponse, setCustServResponse] = useState("");
     const [isDropdownVisible, setIsDropdownVisible] = useState(true);
     const maxQueryLen = 20;
     const searchBarRef = useRef(null);
@@ -29,7 +28,6 @@ export default function SearchBar(props) {
     useOutsideClick(searchBarRef, onOutsideClick);
 
     useEffect(() => {
-        setCustServResponse("");
         if (searchTerm.length < 3 || searchTerm.length >= maxQueryLen) {
           setIsLoading(true);
           setModelSuggestions([]);
@@ -40,6 +38,12 @@ export default function SearchBar(props) {
           setIsLoading(false);
           return;
         }
+        setIsLoading(true);
+        setModelSuggestions([]);
+        setPartSuggestions([]);
+        setManufacturers([]);
+        setRecommendations([]);
+        setError(null);
         const debounceTimeout = setTimeout(() => {
           setIsLoading(true);
           if (searchTerm && !searchTerm.match(/how to replace.*element.*/) && !searchTerm.match(/how to test.*element.*/)) {
@@ -88,56 +92,6 @@ export default function SearchBar(props) {
               source.cancel("Operation canceled by the user.");
             };  
           }
-          if (searchTerm.match(/how to test.*element.*/)) {
-            
-            setError(null);
-            setTimeout(() => {
-            setIsLoading(false);
-            setCustServResponse(`<p style={{
-              backgroundColor: 'white',
-              padding: '15px',
-              borderRadius: '8px',
-              margin: '10px 0',
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-              fontWeight: 'bold',
-            }}
-          >
-          Disconnect the power source to your dryer before you conduct this or any other test. Either unplug the unit from the wall outlet, remove the appropriate fuse from the fuse box, or flip the appropriate breaker in the circuit breaker panel.
-          Disconnect the power source to your dryer before you conduct this or any other test. Either unplug the unit from the wall outlet, remove the appropriate fuse from the fuse box, or flip the appropriate breaker in the circuit breaker panel.
-          </p>
-          <p>Dryer heating elements come in various shapes and sizes. They are all strung with a coiled wire made of a nickel and a chrome alloy. This wire receives, but resists, a controlled electric current and as a result, the wire heats up. The heat produced is used to dry the clothes in your dryer.</p>
-          
-          <p>Depending on your model, you may need to disassemble your dryer's cabinet in order to access and replace the heating element. If you have not yet disassembled your dryer to access your heating element, you can learn how to do so by referring to our <a href="https://www.partselect.com/dryer+open-cabinet+repair.htm">How to open your dryer's cabinet section</a>.</p>
-          
-          <p>Also depending on your model, you may not have to replace the entire heater assembly. You may need to replace only the wire coil. Most dryer heating elements are held in place with just a few screws. Sometimes as few as two. Remove each of the screws retaining the element in order to be able to remove it. Install a new heating element in place of the old one. Secure it in place with the required amount of screws. Reassemble the dryer's cabinet, and restore power to the unit.</p>
-          `);
-            }, 1800); 
-          }
-          if (searchTerm.match(/how to replace.*element.*/)) {
-            
-            setError(null);
-            setTimeout(() => {
-            setIsLoading(false);
-            setCustServResponse(`<p style={{
-              backgroundColor: 'white', // String values must be in quotes
-              padding: '15px',
-              borderRadius: '8px',
-              margin: '10px 0',
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-              fontWeight: 'bold',
-            }}
-          >
-          Note:
-          Disconnect the power source to your dryer before you conduct this or any other test. Either unplug the unit from the wall outlet, remove the appropriate fuse from the fuse box, or flip the appropriate breaker in the circuit breaker panel.
-          </p>
-          
-          <p>Dryer heating elements come in various shapes and sizes. They are all strung with a coiled wire made of a nickel and a chrome alloy. This wire receives, but resists, a controlled electric current and as a result, the wire heats up. The heat produced is used to heat and dry the clothes in your dryer.</p>
-          
-          <p>Depending on your model, you may need to disassemble your dryer's cabinet in order to access and replace the heating element. If you have not yet disassembled your dryer to access your heating element, you can learn how to do so by referring to our <a href="https://www.partselect.com/dryer+open-cabinet+repair.htm">How to open your dryer's cabinet section</a></p>
-          
-          <p>Once you have gained access to your dryer's heating element, set your multimeter to the R x 1 resistance scale. Touch each meter probe and to one end of the element. If you receive a reading of infinite resistance, then your heating element is no longer functioning properly and you will have to replace it.`);
-            }, 1800); 
-          }
         }, 500);
         return () => clearTimeout(debounceTimeout);
       }, [searchTerm]);
@@ -170,7 +124,7 @@ export default function SearchBar(props) {
                 style={{
                   position: 'absolute',
                   top: '50%',
-                  right: '12%',
+                  right: '11%',
                   transform: 'translateY(-50%)',
                   cursor: 'pointer'
                 }}
@@ -188,8 +142,8 @@ export default function SearchBar(props) {
           </form>
           {(modelSuggestions.length > 0 ||
             partSuggestions.length > 0 ||
-            manufacturers.length ||
-            recommendations.length > 0) && (isDropdownVisible) && !(searchTerm.match(/how to replace.*element.*/)) && !(searchTerm.match(/how to test.*element.*/)) && (
+            manufacturers.length > 0 ||
+            recommendations.length > 0) && (isDropdownVisible) && (
             <div className="suggestions-dropdown">
               {modelSuggestions.length > 0 && <div className="suggestions-column">
                 <h3>Matching Models</h3>
@@ -265,9 +219,9 @@ export default function SearchBar(props) {
               {recommendations.length > 0 && <div
                 className="suggestions-column"
                 style={{
-                  backgroundColor: "#f2f2f2",
+                  // backgroundColor: "#f2f2f2",
                   borderRadius: "16px",
-                  width: "88%",
+                  width: "100%",
                   flex: "2",
     
                 }}
@@ -331,32 +285,34 @@ export default function SearchBar(props) {
               </div>}
             </div>
           )}
-          {(searchTerm.match(/how to replace.*element.*/) || searchTerm.match(/how to test.*element.*/)) && 
-          <div className="suggestions-dropdown">
-             <div
-                className="suggestions-column"
-                style={{
-                  backgroundColor: "#f2f2f2",
-                  borderRadius: "16px",
-                  width: "88%",
-                  flex: "2",
-                }}>
-                  <h3>InstaAgent Insights</h3>
-                  <h4>{searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1)}</h4>
-                  <hr></hr>
-                  {isLoading===true ? (
-                    <div>
-                      <div className="bar-container">
-                        <div className="bar bar-short"></div>
-                        <div className="bar bar-long"></div>
-                        <div className="bar bar-medium"></div>
-                      </div>
-                    </div>
-                ): <div dangerouslySetInnerHTML={{ __html: custServResponse }} />}
-            </div>
-          </div>
+          {
+            (searchTerm && searchTerm.length>0 && searchTerm.length<3 && searchTerm.length<maxQueryLen) && (modelSuggestions.length === 0 &&
+              partSuggestions.length === 0 &&
+              manufacturers.length === 0 &&
+              recommendations.length === 0) && (!isLoading)
+              &&
+              (
+                <div className="suggestions-dropdown">
+                  <div className="suggestions-column" >
+                    <h3>Keep typing for more specific results...</h3>
+                  </div>
+                </div>
+              )
+          }
+          {
+            (searchTerm && searchTerm.length>0 && searchTerm.length>3 && searchTerm.length<maxQueryLen) && (modelSuggestions.length === 0 &&
+              partSuggestions.length === 0 &&
+              manufacturers.length === 0 &&
+              recommendations.length === 0) && (!isLoading)
+              &&
+              (
+                <div className="suggestions-dropdown">
+                  <div className="suggestions-column" >
+                    <h3>No search results found.</h3>
+                  </div>
+                </div>
+              )
           }
         </div>
-        // </div>
       );
 };

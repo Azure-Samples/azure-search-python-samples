@@ -1,13 +1,12 @@
 .result {
     width: 250px;
-    padding: 32px;
-    text-align: center;
+    padding: 16px;
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;
     margin: 10px;
-    margin-bottom: 3px;
-    padding-bottom: 3px;
+    margin-bottom: 18px;
     box-sizing: border-box;
+    
     /* cursor: pointer; */
 }
 
@@ -32,8 +31,7 @@
 .centered-content {
     display: flex;
     flex-direction: column; 
-    align-items: center;
-    justify-content: center;
+    padding-left: 16px;
     height: 100%; 
   }
 
