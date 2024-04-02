@@ -14,6 +14,7 @@ export default function SearchBar(props) {
     const [error, setError] = useState(null);
     const [custServResponse, setCustServResponse] = useState("");
     const [isDropdownVisible, setIsDropdownVisible] = useState(true);
+    const maxQueryLen = 20;
     const searchBarRef = useRef(null);
 
     const handleSearchChange = (event) => {
@@ -29,7 +30,7 @@ export default function SearchBar(props) {
 
     useEffect(() => {
         setCustServResponse("");
-        if (searchTerm.length < 3) {
+        if (searchTerm.length < 3 || searchTerm.length >= maxQueryLen) {
           setIsLoading(true);
           setModelSuggestions([]);
           setPartSuggestions([]);
