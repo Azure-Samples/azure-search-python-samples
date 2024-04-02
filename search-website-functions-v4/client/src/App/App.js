@@ -20,32 +20,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 export default function App() {
-  // React Hook: useState with a var name, set function, & default value
-  const [user, setUser] = useState({});
-
-  // Fetch authentication API & set user state
-  async function fetchAuth() {
-    const response = await fetch("/.auth/me");
-    if (response) {
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.indexOf("application/json") !== -1) {
-        response.json()
-          .then(response => setUser(response))
-          .catch(error => console.error('Error:', error));
-      }
-    }
-  }
-
-  // React Hook: useEffect when component changes
-  // Empty array ensure this only runs once on mount
-  useEffect(() => {
-    fetchAuth()
-  }, []);
 
   return (
-    <AuthContext.Provider value={user}>
       <div className="container-fluid app">
-        <AppHeader />
         <BrowserRouter>
           <Routes>
             <Route path={`/`} element={<Home />} />
@@ -55,6 +32,5 @@ export default function App() {
         </BrowserRouter>
         {<AppFooter />}
       </div>
-    </AuthContext.Provider>
   );
 }

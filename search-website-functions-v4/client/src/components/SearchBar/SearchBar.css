@@ -29,7 +29,6 @@
   width: 100%;
   background-color: #337778;
   border-radius: 0px 16px 16px 16px;
-  /* border: 2px solid red; */
 }
 
 /* SEARCH PAGE SEARCH BAR */
@@ -44,13 +43,11 @@
 
 .search-bar-searchpage {
   position: absolute;
-  top: 10%;
+  top: 20%;
   left: 20%;
   width: 100%;
-}
-.button-container-searchpage {
-  background-color: #337778;
-  border-radius: 0px 0px 16px 0px; 
+
+  border-radius: 16px 16px 16px 16px;
 }
 
 .search-bar-container-searchpage form {
@@ -65,8 +62,6 @@
 
 .search-bar-container-searchpage input {
   flex-grow: 1;
-  border: 8px solid #337778;
-  border-radius: 16px 16px 16px 16px;
   font-size: 18px;
   font-weight: 600;
   margin-right: -6px;
@@ -74,24 +69,18 @@
 
 .search-bar-container-searchpage button {
   background-color: #181818;
-  box-shadow: inset 0 0 0 4px #337778;
   color: white;
-  border: 2px solid #337778;
-  border-radius: 16px 0px 16px 16px;
   font-size: 18px;
   font-weight: 600;
   height: 60px;
-  margin-right: 4px;
 }
 
 .search-bar-container-searchpage input:focus {
   outline: none;
   box-shadow: inset 0 0 0 2px #F3C04C;
 }
-/* 
- /*
- */
 
+/* *** */
 .search-bar-container form {
   display: flex;
   height: 60px;
@@ -156,7 +145,11 @@
   flex: 1;
   padding: 0px 20px 12px 20px;
   line-height: 1.4;
-  /* min-width : 0; Allows flex items to shrink below their intrinsic width */
+}
+
+.suggestions-column h3 {
+  font-size: large;
+  font-weight: 650;
 }
 
 .suggestions-column h4 {
@@ -189,7 +182,7 @@
   color: #aaa;
 }
 
-a {
+a:link {
   text-decoration: none;
   color: #337778;
 }
@@ -257,6 +250,14 @@ a {
     display: none;
   }
 
+  .button-container-searchpage {
+    display: none;
+  }
+  a:link {
+    text-decoration: none;
+    color: #337778;
+  }
+
   .suggestions-dropdown {
     flex-direction: column; /* Stack children vertically */
     justify-content: flex-start; /* Align children to the start */
@@ -283,6 +284,17 @@ a {
   }
 
   .search-bar-container {
+    width: 96vw;
+  }
+
+  .search-bar-searchpage {
+    left: 6.5px;
+    /* top: 66px; */
+    width: 99%;
+    background-color: #fff;
+  }
+
+  .search-bar-container-searchpage {
     width: 96vw;
   }
 
@@ -357,6 +369,8 @@ a {
   .suggestions-column h3 {
     margin-top: 0; /* Remove top margin from headings if it's contributing to vertical space */
     margin-bottom: 10px; /* Reduce bottom margin of headings */
+    font-size: medium;
+    font-weight: 650;
   }
 
   /* If there are specific margins/paddings set on lists or other elements within your sections, adjust them here as well */
