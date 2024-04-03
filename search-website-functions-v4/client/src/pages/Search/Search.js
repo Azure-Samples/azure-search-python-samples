@@ -38,32 +38,34 @@ export default function Search() {
         top: top,
         skip: skip,
         filters: filters,
-        // fuzzy: true
       };
-      if (filters === preSelectedFilters && preSelectedFlag===true) {
-        setIsLoading(false);
-      }
-      else {
+      if (!preSelectedFlag) {
         axios.post('https://instaagentsearch-mwvqt7kpva-uc.a.run.app/search', body)
             .then(response => {
               // console.log(JSON.stringify(response.data))
               setResults(response.data.results);
               setFacets(response.data.facets);
               setResultCount(response.data.count);
-              if (!preSelectedFlag) {
+              if (!preSelectedFlag && response.data.preselectedFilters && response.data.preselectedFilters.length>0) {
                 setPreSelectedFilters(response.data.preselectedFilters);
+                setPreSelectedFlag(true);
               }
             })
             .catch(error => {
               console.log(error);
             });
-            setIsLoading(false); 
       }
+      else {
+        setPreSelectedFlag(false);
+      }
+      setIsLoading(false);
   }, [q, top, skip, filters, currentPage]);
 
   useEffect(() => {
-    setFilters(preSelectedFilters);
-    setPreSelectedFlag(true);
+    if (preSelectedFilters.length>0) {
+      setFilters(preSelectedFilters);
+      setPreSelectedFlag(true);
+    }
   }, [preSelectedFilters]);
 
   useEffect(() => {
