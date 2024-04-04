@@ -11,7 +11,11 @@ export default function Results(props) {
         document={result.document}
       />;
   });
-
+  let filterDesc = props.filters.map(filter => filter.value).join(' ');
+  console.log(filterDesc);
+  let userSearchDesc = props.keywords.length > 0 ? 
+                          `<h5>You searched for: <strong><u>${props.keywords}</u></strong></h5>`:
+                          `<h2>${filterDesc} Parts</h2><hr/>`; 
   let beginDocNumber = Math.min(props.skip + 1, props.count);
   let endDocNumber = Math.min(props.skip + props.top, props.count);
 
@@ -19,7 +23,7 @@ export default function Results(props) {
     <div>
       {/* <div><</div> */}
       <div>
-      <p className="results-info"><h5>You searched for: <strong><u>{props.q}</u></strong></h5></p>
+      <p className="results-info" dangerouslySetInnerHTML={{__html: userSearchDesc}}/>
         <p className="results-info">Showing {beginDocNumber}-{endDocNumber} of {props.count.toLocaleString()} results</p>
         <div className="row row-cols-md-4 results">
           {results}

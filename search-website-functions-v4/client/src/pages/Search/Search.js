@@ -25,48 +25,59 @@ export default function Search() {
   const [ skip, setSkip ] = useState(new URLSearchParams(location.search).get('skip') ?? 0);
   const [ filters, setFilters ] = useState([]);
   const [ facets, setFacets ] = useState({});
+  // var isLoading = true;
   const [ isLoading, setIsLoading ] = useState(true);
   const [ preSelectedFilters, setPreSelectedFilters ] = useState([]);
-  const [ preSelectedFlag, setPreSelectedFlag] = useState(false);
+  const [ preSelectedFlag, setPreSelectedFlag ] = useState(false);
+  const [ keywords, setKeywords ] = useState(q);
   let resultsPerPage = top;
   
   useEffect(() => {
       setIsLoading(true);
+      // isLoading = true;
       setSkip((currentPage-1) * top);
-      const body = {
-        q: q,
-        top: top,
-        skip: skip,
-        filters: filters,
-      };
-      if (!preSelectedFlag) {
-        axios.post('https://instaagentsearch-mwvqt7kpva-uc.a.run.app/search', body)
+      if (preSelectedFlag) {
+        setPreSelectedFlag(false);
+        setIsLoading(false);
+      }
+      else {
+        const body = {
+          q: keywords,
+          top: top,
+          skip: skip,
+          filters: filters,
+        };
+        axios.post('http://0.0.0.0:8000/search', body)
             .then(response => {
               // console.log(JSON.stringify(response.data))
               setResults(response.data.results);
               setFacets(response.data.facets);
               setResultCount(response.data.count);
-              if (!preSelectedFlag && response.data.preselectedFilters && response.data.preselectedFilters.length>0) {
+              if (response.data.preselectedFilters && response.data.preselectedFilters.length>0) {
                 setPreSelectedFilters(response.data.preselectedFilters);
                 setPreSelectedFlag(true);
               }
+                setKeywords(response.data.keywords);
+              setIsLoading(false);
             })
             .catch(error => {
               console.log(error);
             });
       }
-      else {
-        setPreSelectedFlag(false);
-      }
-      setIsLoading(false);
+      
+      // isLoading = false;
   }, [q, top, skip, filters, currentPage]);
 
   useEffect(() => {
-    if (preSelectedFilters.length>0) {
+    if (preSelectedFilters && preSelectedFilters.length > 0) {
       setFilters(preSelectedFilters);
-      setPreSelectedFlag(true);
+      setPreSelectedFilters([]);
     }
   }, [preSelectedFilters]);
+
+  useEffect(() => {
+    setKeywords(q);
+  }, [q]);
 
   useEffect(() => {
     navigate('/search?q=' + q);  
@@ -77,7 +88,6 @@ export default function Search() {
 
   let postSearchHandler = (searchTerm) => {
     setQ(searchTerm);
-    setPreSelectedFlag(false);
   }
 
   var body;
@@ -89,7 +99,7 @@ export default function Search() {
   } else {
     body = (
       <div className="col-md-9">
-        <Results documents={results} top={top} skip={skip} count={resultCount} q={q}></Results>
+        <Results documents={results} top={top} skip={skip} count={resultCount} q={q} keywords={keywords} filters={filters}></Results>
         <Pager className="pager-style" currentPage={currentPage} resultCount={resultCount} resultsPerPage={resultsPerPage} setCurrentPage={setCurrentPage}></Pager>
       </div>
     )
