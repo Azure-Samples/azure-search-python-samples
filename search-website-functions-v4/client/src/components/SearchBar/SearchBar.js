@@ -109,8 +109,8 @@ export default function SearchBar(props) {
     
 
     return (
-          <div>
-          <form onSubmit={handleSubmit} ref={searchBarRef}>
+          <div ref={searchBarRef}>
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Search model or part number"
@@ -152,6 +152,10 @@ export default function SearchBar(props) {
                     modelSuggestions.map((suggestion, index) => (
                         <li
                           key={index}
+                          onClick={() => {
+                            props.onSearchHandler(suggestion);
+                            setSearchTerm("");
+                          }}
                         >
                           <span
                                     dangerouslySetInnerHTML={{
@@ -161,6 +165,7 @@ export default function SearchBar(props) {
                                       ),
                                     }}
                                   />
+                  
                         </li>
                       ))}
                 </ul>
@@ -172,6 +177,10 @@ export default function SearchBar(props) {
                     partSuggestions.map((suggestion, index) => (
                         <li
                           key={index}
+                          onClick={() => {
+                            props.onSearchHandler(suggestion);
+                            setSearchTerm("");
+                          }}
                         >
                           <span
                                     dangerouslySetInnerHTML={{
@@ -196,6 +205,11 @@ export default function SearchBar(props) {
                     return (
                       <li
                         key={index}
+                        onClick={() => {
+                          console.log("clickled on model")
+                          props.onSearchHandler(manufacturerName);
+                          setSearchTerm("");
+                        }}
                       >
                         <div style={{ display: "flex", paddingTop: "8px", alignItems: "center" }}>
                           <div style={{ marginRight: "20px" }}>
@@ -219,7 +233,6 @@ export default function SearchBar(props) {
               {recommendations.length > 0 && <div
                 className="suggestions-column"
                 style={{
-                  // backgroundColor: "#f2f2f2",
                   borderRadius: "16px",
                   width: "100%",
                   flex: "2",
@@ -260,7 +273,11 @@ export default function SearchBar(props) {
                                 }}
                               >
                                 <a
-                                  href={rec.url}
+                                  href={`/search?q=${encodeURIComponent(rec.partNum)}`}
+                                  onClick={() => {
+                                    console.log(encodeURIComponent(rec.partNum))
+                                    setSearchTerm("");
+                                  }}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >

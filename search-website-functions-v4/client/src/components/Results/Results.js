@@ -29,9 +29,8 @@ export default function Results(props) {
     return filter.value;
   }).join(' ');
 
-  console.log(filterDesc);
   let userSearchDesc = (props.keywords.length > 0 && props.keywords !== "*") ?
-                          `<h5>You searched for: <strong><u>${props.keywords}</u></strong></h5>`
+                          `<h5>You searched for: <strong><u>${props.keywords.toLowerCase()}</u></strong>  </h5>`
                           :
                           (filterDesc.length > 0 ? `<h2>${filterDesc} Parts</h2><hr/>`: `<h5>No results found for your query.</h5>`);
   if (props.keywords === "*") {
@@ -49,7 +48,10 @@ export default function Results(props) {
     <div>
       {/* <div><</div> */}
       <div>
-      <p className="results-info" dangerouslySetInnerHTML={{__html: userSearchDesc}}/>
+      <div>
+        <p className="results-info" dangerouslySetInnerHTML={{__html: userSearchDesc}}></p>
+        {/* {props.keywords.length > 0 && props.keywords !== "*" && <span className="centered-symbol" id="clickableSymbol" onClick={() => { props.setQ("*"); }}>&#x2715;</span>} */}
+      </div> 
         <p className="results-info">Showing {beginDocNumber}-{endDocNumber} of {props.count.toLocaleString()} results</p>
         <div className="row row-cols-md-4 results">
           {results}

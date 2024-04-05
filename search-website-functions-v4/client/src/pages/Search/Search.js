@@ -25,7 +25,6 @@ export default function Search() {
   const [ skip, setSkip ] = useState(new URLSearchParams(location.search).get('skip') ?? 0);
   const [ filters, setFilters ] = useState([]);
   const [ facets, setFacets ] = useState({});
-  // var isLoading = true;
   const [ isLoading, setIsLoading ] = useState(true);
   const [ preSelectedFilters, setPreSelectedFilters ] = useState([]);
   const [ preSelectedFlag, setPreSelectedFlag ] = useState(false);
@@ -34,7 +33,6 @@ export default function Search() {
   
   useEffect(() => {
       setIsLoading(true);
-      // isLoading = true;
       setSkip((currentPage-1) * top);
       if (preSelectedFlag) {
         setPreSelectedFlag(false);
@@ -49,7 +47,6 @@ export default function Search() {
         };
         axios.post('https://instaagentsearch-mwvqt7kpva-uc.a.run.app/search', body)
             .then(response => {
-              // console.log(JSON.stringify(response.data))
               setResults(response.data.results);
               setFacets(response.data.facets);
               setResultCount(response.data.count);
@@ -64,8 +61,6 @@ export default function Search() {
               console.log(error);
             });
       }
-      
-      // isLoading = false;
   }, [q, top, skip, filters, currentPage]);
 
   useEffect(() => {
@@ -76,13 +71,10 @@ export default function Search() {
   }, [preSelectedFilters]);
 
   useEffect(() => {
-    setKeywords(q);
-  }, [q]);
-
-  useEffect(() => {
     navigate('/search?q=' + q);  
     setCurrentPage(1);
     setFilters([]);
+    setKeywords(q);
   }, [q]);
 
 
@@ -99,7 +91,7 @@ export default function Search() {
   } else {
     body = (
       <div className="col-md-9">
-        <Results documents={results} top={top} skip={skip} count={resultCount} q={q} keywords={keywords} filters={filters}></Results>
+        <Results documents={results} top={top} skip={skip} count={resultCount} q={q} keywords={keywords} setQ={setQ} filters={filters}></Results>
         <Pager className="pager-style" currentPage={currentPage} resultCount={resultCount} resultsPerPage={resultsPerPage} setCurrentPage={setCurrentPage}></Pager>
       </div>
     )
