@@ -273,10 +273,11 @@ export default function SearchBar(props) {
                                 }}
                               >
                                 <a
-                                  href={`/search?q=${encodeURIComponent(rec.partNum)}`}
+                                  className="partDesc"
                                   onClick={() => {
-                                    console.log(encodeURIComponent(rec.partNum))
+                                    props.onSearchHandler(rec.partNum);
                                     setSearchTerm("");
+                                  
                                   }}
                                   target="_blank"
                                   rel="noopener noreferrer"
