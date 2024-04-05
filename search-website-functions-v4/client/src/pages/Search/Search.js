@@ -27,55 +27,59 @@ export default function Search() {
   const [ facets, setFacets ] = useState({});
   const [ isLoading, setIsLoading ] = useState(true);
   const [ preSelectedFilters, setPreSelectedFilters ] = useState([]);
-  const [ preSelectedFlag, setPreSelectedFlag] = useState(false);
+  const [ preSelectedFlag, setPreSelectedFlag ] = useState(false);
+  const [ keywords, setKeywords ] = useState(q);
   let resultsPerPage = top;
   
   useEffect(() => {
       setIsLoading(true);
       setSkip((currentPage-1) * top);
-      const body = {
-        q: q,
-        top: top,
-        skip: skip,
-        filters: filters,
-        // fuzzy: true
-      };
-      if (filters === preSelectedFilters && preSelectedFlag===true) {
+      if (preSelectedFlag) {
+        setPreSelectedFlag(false);
         setIsLoading(false);
       }
       else {
+        const body = {
+          q: keywords,
+          top: top,
+          skip: skip,
+          filters: filters,
+        };
         axios.post('https://instaagentsearch-mwvqt7kpva-uc.a.run.app/search', body)
             .then(response => {
-              // console.log(JSON.stringify(response.data))
               setResults(response.data.results);
               setFacets(response.data.facets);
               setResultCount(response.data.count);
-              if (!preSelectedFlag) {
+              if (response.data.preselectedFilters && response.data.preselectedFilters.length>0) {
                 setPreSelectedFilters(response.data.preselectedFilters);
+                setPreSelectedFlag(true);
               }
+                setKeywords(response.data.keywords);
+              setIsLoading(false);
             })
             .catch(error => {
               console.log(error);
             });
-            setIsLoading(false); 
       }
   }, [q, top, skip, filters, currentPage]);
 
   useEffect(() => {
-    setFilters(preSelectedFilters);
-    setPreSelectedFlag(true);
+    if (preSelectedFilters && preSelectedFilters.length > 0) {
+      setFilters(preSelectedFilters);
+      setPreSelectedFilters([]);
+    }
   }, [preSelectedFilters]);
 
   useEffect(() => {
     navigate('/search?q=' + q);  
     setCurrentPage(1);
     setFilters([]);
+    setKeywords(q);
   }, [q]);
 
 
   let postSearchHandler = (searchTerm) => {
     setQ(searchTerm);
-    setPreSelectedFlag(false);
   }
 
   var body;
@@ -87,7 +91,7 @@ export default function Search() {
   } else {
     body = (
       <div className="col-md-9">
-        <Results documents={results} top={top} skip={skip} count={resultCount} q={q}></Results>
+        <Results documents={results} top={top} skip={skip} count={resultCount} q={q} keywords={keywords} setQ={setQ} filters={filters}></Results>
         <Pager className="pager-style" currentPage={currentPage} resultCount={resultCount} resultsPerPage={resultsPerPage} setCurrentPage={setCurrentPage}></Pager>
       </div>
     )

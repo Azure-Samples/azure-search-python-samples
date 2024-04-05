@@ -1,6 +1,7 @@
 /* Detail Styles */
 .results-info {
     margin: 1em;
+    display: inline; 
 }
 
 .results {
@@ -21,3 +22,10 @@
 .results .result a {
     color: #181818; /* Dark color for the hyperlinks */
 }
+
+.centered-symbol {
+    font-size: 20px; /* Adjust the size of the symbol */
+    cursor: pointer; /* Change the cursor to indicate it's clickable */
+    display: inline;
+    margin-left: 10px;
+  }
