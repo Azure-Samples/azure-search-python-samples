@@ -317,11 +317,12 @@
   }
 
   .search-bar-container-searchpage {
-    width: 96vw;
+    width: 91vw;
   }
 
   .search-bar-container-searchpage input {
     border: 2px solid #337778;
+    height: 50px;
   }
 
   .search-bar-container-searchpage form {

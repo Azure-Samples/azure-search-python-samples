@@ -27,6 +27,6 @@
 /* Media query for mobile devices */
 @media (max-width: 768px) {
     .clear-filters {
-        margin-top: 40px;
+        margin-top: 20px;
     }
 }
