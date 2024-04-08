@@ -37,8 +37,7 @@
   position: relative;
   width: 1170px; 
   height: 10vh; 
-  width: 100vw;
-  
+  width: 100%;
 }
 
 
@@ -47,15 +46,14 @@
   top: 20%; 
   left: 0;
   right: 0;
-  width: 95vw; 
   margin: auto; 
-
+  
 }
 
 
 .search-bar-container-searchpage form {
   display: flex;
-  height: 50px;
+  height: 20px;
   
 }
 
@@ -76,7 +74,7 @@
   color: white;
   font-size: 16px;
   font-weight: 500;
-  height: 50px;
+  height: 44px;
   margin-left: 14px;
   padding-left: 20px;
   padding-right: 20px;
@@ -310,22 +308,10 @@
     border: 2px solid #337778;
   }
 
-  .search-bar-container form {
-    flex-direction: column; /* Stack input and button vertically */
-      height: 60px;
-  }
-
   .search-bar-container button {
     width: 100%; /* Full width for the button */
     margin-top: 10px; /* Space between input and button */
     border-radius: 16px; /* Adjust border-radius as needed */
-  }
-
-  /* If there's a flex container wrapping the search input and button,
-     ensure it stacks children vertically too. */
-  .search-bar-container form {
-    flex-direction: column;
-    height: 50px;
   }
 
   .search-bar-container input,
@@ -343,25 +329,13 @@
 
   .search-bar-container-searchpage form {
     flex-direction: column; /* Stack input and button vertically */
-      height: 60px;
+      height: 20px;
   }
 
   .search-bar-container-searchpage button {
     width: 100%; /* Full width for the button */
     margin-top: 10px; /* Space between input and button */
     border-radius: 16px; /* Adjust border-radius as needed */
-  }
-
-  /* If there's a flex container wrapping the search input and button,
-     ensure it stacks children vertically too. */
-  .search-bar-container-searchpage form {
-    flex-direction: column;
-    height: 50px;
-  }
-
-  .search-bar-container-searchpage form {
-    flex-direction: column;
-    height: 50px;
   }
   .search-bar-container-searchpage input,
   .search-bar-container-searchpage button {
