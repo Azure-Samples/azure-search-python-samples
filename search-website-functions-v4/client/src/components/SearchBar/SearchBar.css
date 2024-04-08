@@ -35,26 +35,23 @@
 
 .search-bar-container-searchpage {
   position: relative;
-  width: 1170px; 
   height: 10vh; 
-  width: 100%;
+  width: 97%;
+  margin-left: 10px;
 }
 
 
 .search-bar-searchpage {
   position: absolute;
   top: 20%; 
-  left: 0;
+  left: 10px;
   right: 0;
   margin: auto; 
-  
 }
-
 
 .search-bar-container-searchpage form {
   display: flex;
   height: 20px;
-  
 }
 
 .search-bar-container-searchpage input,
