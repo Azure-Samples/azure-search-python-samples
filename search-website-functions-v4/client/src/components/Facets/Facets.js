@@ -64,7 +64,7 @@ export default function Facets(props) {
         <div id="facetPanel" className="box">          
                 <div className="facetbox">
                 <div 
-                    style={{ width: '100%', textAlign: 'left', cursor: "pointer"}}
+                    className="clear-filters"
                     onClick={clearFilters}>
                         <u>Clear filters</u>
                 </div>  

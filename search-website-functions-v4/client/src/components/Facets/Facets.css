@@ -2,9 +2,14 @@
     border-right: 1px solid #f0f0f0;
 }
 
+.clear-filters {
+    width: 100%;
+    margin-left: 14px; 
+    cursor: pointer;
+}
+
 .box {
     height: 100%;
-
 }
 
 .listitem {
@@ -17,4 +22,11 @@
 
 .chip {
     margin: 0.25em;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    .clear-filters {
+        margin-top: 40px;
+    }
 }
