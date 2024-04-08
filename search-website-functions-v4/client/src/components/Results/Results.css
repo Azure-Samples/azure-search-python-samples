@@ -1,6 +1,6 @@
 /* Detail Styles */
 .results-info {
-    margin: 1em;
+    margin: 4px;
     display: inline; 
 }
 
@@ -12,20 +12,22 @@
     margin: auto;
     margin-left: 0em;
     margin-right: 0em;
+    padding-top: 20px;
 }
 
 .results .result {
     width: 20rem;
     max-height: 32rem;
+    border: 1px solid gray;
 }
 
 .results .result a {
-    color: #181818; /* Dark color for the hyperlinks */
+    color: #181818; 
 }
 
 .centered-symbol {
-    font-size: 20px; /* Adjust the size of the symbol */
-    cursor: pointer; /* Change the cursor to indicate it's clickable */
+    font-size: 20px;
+    cursor: pointer;
     display: inline;
     margin-left: 10px;
   }

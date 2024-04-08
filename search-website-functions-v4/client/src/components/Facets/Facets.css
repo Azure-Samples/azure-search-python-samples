@@ -1,17 +1,21 @@
 .facetbox {
     border-right: 1px solid #f0f0f0;
+    border: 1px solid red;
 }
 
 .box {
     height: 100%;
+    border: 1px solid blue;
 }
 
 .listitem {
     padding-left: 36px !important;
+    border: 1px solid purple;
 }
 
 .filterlist {
     list-style: none;
+    border: 1px solid green;
 }
 
 .chip {

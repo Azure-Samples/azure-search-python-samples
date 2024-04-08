@@ -117,7 +117,7 @@ export default function SearchBar(props) {
               value={searchTerm}
               onChange={handleSearchChange}
               onFocus={() => setIsDropdownVisible(true)}
-              style={{ padding: '10px', paddingRight: '10px' }}
+              style={{ padding: '20px', paddingRight: '10px' }}
             />
             {searchTerm && (
               <div
