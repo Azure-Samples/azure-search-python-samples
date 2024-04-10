@@ -17,12 +17,12 @@ export default function Facets(props) {
     }
 
     function addFilter(name, value) {
-        const newFilters = props.filters.concat({ field: name, value: value });
+        const newFilters = props.filters && props.filters.concat({ field: name, value: value });
         props.setFilters(newFilters);
     }
 
     function removeFilter(filter) {      
-        const newFilters = props.filters.filter((item) => item.value !== filter.value);
+        const newFilters = props.filters && props.filters.filter((item) => item.value !== filter.value);
         props.setFilters(newFilters);
     }
 
@@ -37,14 +37,14 @@ export default function Facets(props) {
                 addFilter={addFilter}
                 removeFilter={removeFilter}
                 mapFacetName={mapFacetName}
-                selectedFacets={props.filters.filter( f => f.field === key)}
+                selectedFacets={props.filters && props.filters.filter( f => f.field === key)}
               />;
           });
     } catch (error) {
         console.log(error);
     }
 
-    const filters = props.filters.map((filter, index) => {
+    const filters = props.filters && props.filters.map((filter, index) => {
             return (
             <li key={index}>
                 <Chip 
