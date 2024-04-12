@@ -122,10 +122,9 @@ export default function SearchBar(props) {
             {searchTerm && (
               <div
                 style={{
-                  position: 'absolute',
-                  top: '50%',
-                  right: '11%',
-                  transform: 'translateY(-50%)',
+                  position: 'relative',
+                  top: '30%',
+                  right: '5%',
                   cursor: 'pointer'
                 }}
                 onClick={() => handleSearchChange({ target: { value: '' } })}
