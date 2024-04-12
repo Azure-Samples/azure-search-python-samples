@@ -131,7 +131,7 @@ export default function Search() {
     </header>
     <div className="search-bar-container-searchpage">
       <div className="search-bar-searchpage">
-      <SearchBar onSearchHandler={postSearchHandler} page="searchpage"></SearchBar>
+      <SearchBar pageContext="search" onSearchHandler={postSearchHandler} page="searchpage"></SearchBar>
       </div>
     </div>
     <main className="main main--search container-fluid">

@@ -144,7 +144,7 @@ export default function SearchBar(props) {
             partSuggestions.length > 0 ||
             manufacturers.length > 0 ||
             recommendations.length > 0) && (isDropdownVisible) && (
-            <div className="suggestions-dropdown">
+              <div className={`suggestions-dropdown ${props.pageContext === 'search' ? 'search-page' : ''}`}>
               {modelSuggestions.length > 0 && <div className="suggestions-column">
                 <h3>Matching Models</h3>
                 <ul>
