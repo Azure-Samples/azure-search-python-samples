@@ -23,10 +23,11 @@ endpoint = "https://{}.search.windows.net/".format(service_name)
 
 # Give your index a name
 # You can also supply this at runtime in __main__
-index_name = "fsmone-sg"
+index_name = "fsmone-sg123"
 
 # Search Index Schema definition
 index_schema = "./dict_prodName-schema.json"
+
 batch_size = 1000
 with open("./dict_prodName.json") as file:
     product_data = json.load(file)
@@ -72,7 +73,7 @@ def create_schema_from_json_and_upload(schema, index_name, admin_client, url=Fal
 
     cors_options = CorsOptions(allowed_origins=["*"], max_age_in_seconds=60)
     scoring_profiles = []
-    schema_data = get_schema_data(schema, url)
+    schema_data = get_schema_data(schema, False)
 
     index = SearchIndex(
         name=index_name,
@@ -132,5 +133,6 @@ if __name__ == "__main__":
     schema = create_schema_from_json_and_upload(
         index_schema, index_name, admin_client, url=False
     )
+    print(schema)
     batch_upload = batch_upload_json_data_to_index(product_data, search_client)
     print("Upload complete")

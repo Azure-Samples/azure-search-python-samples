@@ -1,8 +1,8 @@
 {
-    "name": "good-books",
+    "name": "fsmone-sg",
     "fields": [
       {
-        "name": "product_id",
+        "name": "id",
         "type": "Edm.Int64",
         "facetable": false,
         "filterable": false,
@@ -15,7 +15,7 @@
         "searchAnalyzer": null,
         "synonymMaps": [],
         "fields": []
-      },
+      }, 
       {
         "name": "product_type",
         "type": "Edm.String",
@@ -23,7 +23,21 @@
         "filterable": false,
         "retrievable": true,
         "sortable": false,
-        "analyzer": null,
+        "analyzer": "standard.lucene",
+        "indexAnalyzer": null,
+        "searchAnalyzer": null,
+        "synonymMaps": [],
+        "fields": []
+      },
+      {
+        "name": "product_id",
+        "type": "Edm.Int64",
+        "facetable": false,
+        "filterable": false,
+        "retrievable": true,
+        "searchable": true,
+        "sortable": false,
+        "analyzer": "standard.lucene",
         "indexAnalyzer": null,
         "searchAnalyzer": null,
         "synonymMaps": [],
@@ -66,7 +80,8 @@
         "name": "sg",
         "searchMode": "analyzingInfixMatching",
         "sourceFields": [
-          "product_name"
+          "product_name",
+          "stock_code"
         ]
       }
     ],
