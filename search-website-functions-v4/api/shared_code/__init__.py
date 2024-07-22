@@ -4,9 +4,9 @@ import os
 def azure_config():
 
     configs = {}
-    configs["search_facets"] = os.environ.get("SearchFacets", "")
-    configs["search_index_name"] = os.environ.get("SearchIndexName", "")
-    configs["search_service_name"] = os.environ.get("SearchServiceName", "")
-    configs["search_api_key"] = os.environ.get("SearchApiKey", "")
+    configs["search_facets"] = "authors*,language_code"
+    configs["search_index_name"] = "good-books"
+    configs["search_service_name"] = "aisrch-poc-uscentral-01"
+    configs["search_api_key"] = "XE8nyqGGhtVXqmSlsrJPW0yEMiHocP7dWwktdCSclpAzSeATbtHu"
 
     return configs
