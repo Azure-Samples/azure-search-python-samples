@@ -4,10 +4,11 @@ This repository contains Python code samples used in Azure AI Search documentati
 
 | Sample | Description |
 |--------|-------------|
+| [azure-function-search](azure-function-search/readme.md) | This sample is an Azure Function that sends query requests to an Azure AI Search service. You can substitute this code to replace the contents of the `api` folder in the C# sample [azure-search-static-web-app](https://github.com/Azure-Samples/azure-search-static-web-app). |
+| [bulk-insert](bulk-insert/readme.md) | This sample shows you how to create and load an index using the push APIs and sample data. You can substitute this code to replace the contents of the `bulk-insert` folder in the C# sample [azure-search-static-web-app](https://github.com/Azure-Samples/azure-search-static-web-app) |
 | quickstart | "Day One" introduction to the fundamental tasks of working with a search index: create, load, and query. This sample is a notebook .ipynb file. The index is modeled on a subset of the Hotels dataset, widely used in Azure AI Search samples, but reduced here for readability and comprehension. |
 | quickstart-semantic-search | Extends the quickstart through modifications that invoke semantic search. This notebook adds a semantic configuration to the index and semantic query options that formulate the query and response. |
 | quickstart-rag | "Day One" introduction to LLM integration with a chat model such as GPT-3.5-turbo or equivalent. |
-| search-website-functions-v4 | Shows how to create, load, and query a search index in Python using the Azure.Search.Documents library in the Azure SDK for Python. It also includes application code and sample data so that you can see search integration in the context of a full app. The data is from [https://github.com/zygmuntz/goodbooks-10k](https://github.com/zygmuntz/goodbooks-10k). The app is an Azure Static Web app, using the React library for user interaction, and Azure Function to handle the query requests and responses in the application layer. |
 
 ## Archived samples
 
