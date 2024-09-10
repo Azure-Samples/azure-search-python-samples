@@ -1,0 +1,6 @@
+python-dotenv
+azure-search-documents==11.5.1
+azure-storage-blob
+azure-identity
+openai
+aiohttp
