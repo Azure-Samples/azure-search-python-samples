@@ -1,6 +1,6 @@
 python-dotenv
 azure-core
-azure-search-documents==11.5.1
+azure-search-documents==11.5.2
 azure-storage-blob
 azure-identity
 openai
