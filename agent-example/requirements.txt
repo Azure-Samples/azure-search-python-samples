@@ -3,3 +3,4 @@ azure-identity
 openai
 aiohttp
 ipykernel
+dotenv
