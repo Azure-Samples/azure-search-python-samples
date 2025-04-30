@@ -1,7 +1,6 @@
 azure-search-documents==11.6.0b11
 azure-ai-projects
 azure-identity
-openai
 aiohttp
 ipykernel
 dotenv
