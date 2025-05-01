@@ -4,3 +4,4 @@ azure-identity
 aiohttp
 ipykernel
 dotenv
+requests
