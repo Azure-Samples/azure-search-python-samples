@@ -1,0 +1,7 @@
+azure-identity
+aiohttp
+ipykernel
+dotenv
+requests
+msgraph-sdk
+azure-search-documents==11.6.0b12

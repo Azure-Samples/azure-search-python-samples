@@ -1,0 +1,7 @@
+azure-identity
+openai
+aiohttp
+ipykernel
+dotenv
+requests
+azure-search-documents==11.6.0b12
