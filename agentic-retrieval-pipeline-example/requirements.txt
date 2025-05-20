@@ -1,4 +1,5 @@
-azure-ai-projects
+azure-ai-projects==1.0.0b11
+azure-ai-agents==1.0.0
 azure-identity
 aiohttp
 ipykernel
