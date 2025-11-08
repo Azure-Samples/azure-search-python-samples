@@ -6,4 +6,4 @@ aiohttp
 ipykernel
 dotenv
 requests
-azure-search-documents==11.7.0a20251028004
+azure-search-documents==11.7.0a20251107005
