@@ -1,4 +1,3 @@
---extra-index-url https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-python/pypi/simple/
 azure-identity
 azure-ai-evaluation
 openai
@@ -6,4 +5,4 @@ aiohttp
 ipykernel
 dotenv
 requests
-azure-search-documents==11.7.0a20251107005
+azure-search-documents==11.7.0b2
