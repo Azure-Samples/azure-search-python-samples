@@ -1,8 +1,7 @@
---extra-index-url https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-python/pypi/simple/
-azure-ai-projects>=2.0.0a20251104004
+azure-ai-projects==2.0.0b1
 azure-mgmt-cognitiveservices
 azure-identity
 ipykernel
 dotenv
-azure-search-documents==11.7.0a20251107005
+azure-search-documents==11.7.0b2
 requests
