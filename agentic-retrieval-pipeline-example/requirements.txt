@@ -1,7 +1,7 @@
-azure-ai-projects==1.1.0b3
-azure-ai-agents==1.2.0b3
+azure-ai-projects==2.0.0b1
+azure-mgmt-cognitiveservices
 azure-identity
-aiohttp
 ipykernel
 dotenv
-azure-search-documents==11.7.0b1
+azure-search-documents==11.7.0b2
+requests
