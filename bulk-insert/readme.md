@@ -4,7 +4,7 @@ This folder contains source code for a bulk-insert program that creates and load
 
 You can also run this code standalone to create a good-books index on your search service.
 
-1. Check your search service to make sure you have room for an extra index. The Usage tab in the Azure portal's search service page provides this information. The maximum limit on the free tier is 3 indexes. The maximum limit on the basic tier is 15 indexes.
+1. Check your search service to make sure you have room for an extra index. The **Usage** tab on the Azure portal's search service page provides this information. The maximum limit on the free tier is 3 indexes. The maximum limit on the Basic tier is 15 indexes.
 
 1. Change the following values in the `bulk-insert.py` file:
 

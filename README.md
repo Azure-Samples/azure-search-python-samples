@@ -2,7 +2,7 @@
 
 This repository contains Python code samples used in Azure AI Search documentation. Unless noted otherwise, all samples run on the shared (free) pricing tier of a [search service](https://learn.microsoft.com/azure/search/search-create-service-portal).
 
-If your configuration uses a search service managed identity for indexer connections, or if the samples uses semantic ranker, your search service must be on the Basic tier or higher.
+If your configuration uses a search service managed identity for indexer connections, your search service must be on the Basic tier or higher.
 
 ## Day-one quickstarts and tutorials
 

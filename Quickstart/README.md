@@ -15,9 +15,9 @@ urlFragment: python-quickstart
 
 ![Flask sample MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
 
-This sample demonstrates how to use the Azure SDK for Python to create an Azure AI Search index, load it with documents, and execute queries. The index is modeled on a subset of the hotels dataset, which is reduced here for readability and comprehension. The code includes the index definition and documents.
+This sample demonstrates how to use the Azure SDK for Python to create an Azure AI Search index, load it with documents, and execute queries. The index is modeled on a subset of the hotels dataset, which is reduced in this sample for readability and comprehension. The code includes the index definition and documents.
 
-This sample is a Jupyter Python3 .ipynb file to perform the actions against the Azure AI Search service.
+This sample uses a Jupyter notebook (.ipynb) file to perform the actions against the Azure AI Search service.
 
 ## Prerequisites
 
