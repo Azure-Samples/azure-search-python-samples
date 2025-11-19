@@ -21,7 +21,7 @@ This sample uses a Jupyter notebook (.ipynb) file to perform the actions against
 
 ## Prerequisites
 
-* Visual Studio Code with the Python extension (or equivalent tool) and Python 3.10 or later.
+* [Visual Studio Code](https://code.visualstudio.com/download) with the [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Jupyter package](https://pypi.org/project/jupyter/).
 
 * The [azure-search-documents package](https://pypi.org/project/azure-search-documents/) from the Azure SDK for Python.
 
