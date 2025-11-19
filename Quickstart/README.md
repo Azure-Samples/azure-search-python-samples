@@ -11,19 +11,19 @@ description: |
 urlFragment: python-quickstart
 ---
 
-# Python quickstart for Azure AI Search
+# Quickstart: Python for Azure AI Search
 
 ![Flask sample MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
 
-Demonstrates using Python and the Azure SDK for Python to create an Azure AI Search index, load it with documents, and execute a few queries. The index is modeled on a subset of the Hotels dataset, reduced for readability and comprehension. Index definition and documents are included in the code.
+This sample demonstrates how to use the Azure SDK for Python to create an Azure AI Search index, load it with documents, and execute queries. The index is modeled on a subset of the hotels dataset, which is reduced here for readability and comprehension. The code includes the index definition and documents.
 
 This sample is a Jupyter Python3 .ipynb file to perform the actions against the Azure AI Search service.
 
 ## Prerequisites
 
-* Visual Studio Code with the Python extension (or equivalent tool), with Python 3.10 or later
+* Visual Studio Code with the Python extension (or equivalent tool) and Python 3.10 or later.
 
-* [azure-search-documents package](https://pypi.org/project/azure-search-documents/) from the Azure SDK for Python
+* The [azure-search-documents package](https://pypi.org/project/azure-search-documents/) from the Azure SDK for Python.
 
 ## Set up the sample
 
@@ -42,6 +42,6 @@ This sample is a Jupyter Python3 .ipynb file to perform the actions against the 
 
 1. Run each step in sequence.
 
-## Next steps
+## Next step
 
 You can learn more about Azure AI Search on the [official documentation site](https://learn.microsoft.com/azure/search).
