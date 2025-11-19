@@ -1,4 +1,4 @@
-# Python bulk-insert: Create Azure AI Search Index from CSV file
+# Create an Azure AI Search index from a CSV file
 
 This folder contains source code for a bulk-insert program that creates and loads an index using the good-books sample data in a CSV folder. It's the Python version of the `bulk-insert` content used in the [C# sample Add search to websites](https://learn.microsoft.com/azure/search/tutorial-csharp-overview). If you're a Python developer, you can substitute this code to create a Python version of the sample app.
 
