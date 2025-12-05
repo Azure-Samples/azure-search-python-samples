@@ -1,0 +1,5 @@
+azure-search-documents
+azure-core
+azure-identity
+python-dotenv
+requests
