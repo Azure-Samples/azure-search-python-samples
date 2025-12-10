@@ -15,7 +15,6 @@ If your configuration uses a search service managed identity for indexer connect
 | [Quickstart-RAG](Quickstart-RAG/quickstart-rag.ipynb) | Introduces LLM integration with a chat model, such as GPT-3.5-turbo or an equivalent model. |
 | [Quickstart-Semantic-Search](Quickstart-Semantic-Search/semantic-search-quickstart.ipynb) | Extends the quickstart through modifications that invoke semantic ranking. This notebook adds a semantic configuration to the index and semantic query options that formulate the query and response. |
 | [Quickstart-Vector-Search](Quickstart-Vector-Search/quickstart-vector-search.ipynb) | Introduces vector search in Azure AI Search. This notebook demonstrates how to create, load, and query a vector index. |
-| [Tutorial-RAG](Tutorial-RAG/tutorial-rag.ipynb) | A deeper dive into LLM integration with a chat model, such as GPT-3.5-turbo or an equivalent model. |
 
 ## Deeper dive tutorials
 
