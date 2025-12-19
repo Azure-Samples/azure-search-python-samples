@@ -5,3 +5,4 @@ ipykernel
 dotenv
 azure-search-documents==11.7.0b2
 requests
+openai
