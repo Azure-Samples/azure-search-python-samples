@@ -2,7 +2,7 @@
 page_type: sample
 languages:
   - python
-name: Python keyword search quickstart for Azure AI Search
+name: "Quickstart: Keyword search in Azure AI Search using Python"
 products:
   - azure
   - azure-cognitive-search
@@ -11,7 +11,7 @@ description: |
 urlFragment: python-quickstart-keyword
 ---
 
-# Python keyword search quickstart for Azure AI Search
+# Quickstart: Keyword search in Azure AI Search using Python
 
 ![Flask sample MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
 
