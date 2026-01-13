@@ -2,16 +2,16 @@
 page_type: sample
 languages:
   - python
-name: Python quickstart for Azure AI Search
+name: Python keyword search quickstart for Azure AI Search
 products:
   - azure
   - azure-cognitive-search
 description: |
   Learn how to create, load, and query an Azure AI Search index using Python.
-urlFragment: python-quickstart
+urlFragment: python-quickstart-keyword
 ---
 
-# Quickstart: Python for Azure AI Search
+# Python keyword search quickstart for Azure AI Search
 
 ![Flask sample MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
 
