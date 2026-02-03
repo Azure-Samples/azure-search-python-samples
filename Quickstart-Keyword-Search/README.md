@@ -29,18 +29,15 @@ This sample uses a Jupyter notebook (.ipynb) file to perform the actions against
 
 1. Clone or download this sample repository.
 
-1. Extract contents if the download is a zip file. Make sure the files are read-write.
+1. Extract contents if the download is a ZIP file. Make sure the files are read-write.
 
 ## Run the sample
 
-1. Open the azure-search-quickstart.ipynb file in Visual Studio Code.
+1. Open the `azure-search-quickstart.ipynb` file in Visual Studio Code.
 
-1. Set the service endpoint and API key for your search service:
+1. Set `search_endpoint` to the endpoint URL of your Azure AI Search service.
 
-   * service_name = "YOUR-SEARCH-SERVICE-NAME"
-   * admin_key = "YOUR-SEARCH-SERVICE-ADMIN-API-KEY"
-
-1. Run each step in sequence.
+1. Run each code cell in sequence.
 
 ## Next step
 
