@@ -15,7 +15,7 @@ urlFragment: python-agentic-retrieval-pipeline
 
 ![Flask sample MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
 
-This sample extends the agentic retrieval quickstart by integrating Foundry Agent Service. Add an AI agent and MCP tool to your Azure AI Search agentic retrieval pipeline for an end-to-end conversational search experience.
+This sample creates an agent in Foundry Agent Service that uses Azure AI Search for knowledge retrieval. You create a knowledge base, an MCP-enabled project connection, and an agent that can query the knowledge base.
 
 ## What's in this sample
 
