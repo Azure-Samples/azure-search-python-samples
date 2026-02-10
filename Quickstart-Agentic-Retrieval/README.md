@@ -21,7 +21,7 @@ This sample demonstrates the fundamentals of agentic retrieval using Azure AI Se
 
 | File | Description |
 |------|-------------|
-| `quickstart-agentic-retrieval.ipynb` | Jupyter notebook that creates a knowledge base and runs agentic queries |
+| `quickstart-agentic-retrieval.ipynb` | Jupyter notebook that creates objects for agentic retrieval and runs queries |
 | `requirements.txt` | Python package dependencies |
 | `sample.env` | Environment variable template for configuration |
 
