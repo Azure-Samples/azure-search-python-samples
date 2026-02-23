@@ -1,50 +1,34 @@
-# Create an Azure AI Search index from a CSV file
+---
+page_type: sample
+languages:
+  - python
+name: "Bulk insert documents in Azure AI Search using Python"
+description: |
+  Creates and loads an Azure AI Search index using bulk insert operations with the good-books sample dataset.
+products:
+  - azure
+  - azure-cognitive-search
+urlFragment: python-bulk-insert
+---
 
-This folder contains source code for a bulk-insert program that creates and loads an index using the good-books sample data in a CSV folder. It's the Python version of the `bulk-insert` content used in the [C# sample Add search to websites](https://learn.microsoft.com/azure/search/tutorial-csharp-overview). If you're a Python developer, you can substitute this code to create a Python version of the sample app.
+# Bulk insert documents in Azure AI Search using Python
 
-You can also run this code standalone to create a good-books index on your search service.
+![Flask sample MIT license badge](https://img.shields.io/badge/license-MIT-green.svg)
 
-1. Check your search service to make sure you have room for an extra index. The **Usage** tab on the Azure portal's search service page provides this information. The maximum limit on the free tier is 3 indexes. The maximum limit on the Basic tier is 15 indexes.
+This sample creates and loads a search index using bulk insert operations with the good-books sample dataset. It demonstrates efficient document indexing patterns for large datasets.
 
-1. Change the following values in the `bulk-insert.py` file:
+## What's in this sample
 
-    * YOUR-SEARCH-RESOURCE-NAME (not the full URL)
-    * YOUR-SEARCH-ADMIN-KEY
+| File | Description |
+|------|-------------|
+| `bulk-insert.py` | Python script that creates and loads the search index |
+| `good-books-index.json` | Index schema definition |
+| `requirements.txt` | Python package dependencies |
 
-1. Create a virtual environment. Press Ctrl-Shift-P to open the command palette and search for `Python: Create Environment`.
+## Documentation
 
-1. Open an integrated terminal in Visual Studio Code.
+This sample is the Python version of the `bulk-insert` content used in [Tutorial: Add search to web apps](https://learn.microsoft.com/azure/search/tutorial-csharp-overview). You can substitute this code to create a Python version of the sample app. You can also run this code on its own to create a good-books index on your search service.
 
-1. Make sure the path is "azure-search-static-web-app/python/bulk-insert".
+## Next step
 
-1. Install the dependencies:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-1. Run the program:
-
-    ```bash
-    py bulk-insert.py
-    ```
-
-1. You should see the following output:
-
-    ```bash
-    Schema uploaded; Index created for good-books.
-    Batch sent! - #1
-    Batch sent! - #2
-    Batch sent! - #3
-    Batch sent! - #4
-    Batch sent! - #5
-    Batch sent! - #6
-    Batch sent! - #7
-    Batch sent! - #8
-    Batch sent! - #9
-    Batch sent! - #10
-    Done!
-    Upload complete
-    ```
-
-If you get a "file not found error" on good-books-index.json, try adding the "Terminal: Execute in File Directory" in **Settings** > **Extensions** > **Python**.
+You can learn more about Azure AI Search on the [official documentation site](https://learn.microsoft.com/azure/search).
