@@ -27,7 +27,7 @@ This sample demonstrates the fundamentals of agentic retrieval using Azure AI Se
 
 ## Documentation
 
-This sample accompanies [Quickstart: Agentic retrieval using Python](https://learn.microsoft.com/azure/search/search-get-started-agentic-retrieval). Follow the documentation for prerequisites, setup instructions, and detailed explanations.
+This sample accompanies [Quickstart: Agentic retrieval using Python](https://learn.microsoft.com/azure/search/search-get-started-agentic-retrieval?pivots=python). Follow the documentation for prerequisites, setup instructions, and detailed explanations.
 
 ## Next step
 
