@@ -1,0 +1,22 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "AzureWebJobsFeatureFlags": "EnableWorkerIndexing",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "COSMOS_DATABASE_NAME": "pulse-rag",
+    "COSMOS_CONTAINER_NAME": "devices",
+    "COSMOS_LEASE_CONTAINER_NAME": "leases",
+    "COSMOS_CONNECTION__accountEndpoint": "https://YOUR-COSMOS-ACCOUNT.documents.azure.com:443/",
+    "SearchServiceEndpoint": "https://YOUR-SEARCH-SERVICE.search.windows.net",
+    "SearchServiceName": "YOUR-SEARCH-SERVICE-NAME",
+    "SearchIndexName": "pulse-device-chunks",
+    "SearchApiKey": "",
+    "DLQ_QUEUE_NAME": "pulse-rag-indexing-dlq",
+    "ChunkSize": "1000",
+    "ChunkOverlap": "150"
+  },
+  "Host": {
+    "CORS": "*"
+  }
+}
