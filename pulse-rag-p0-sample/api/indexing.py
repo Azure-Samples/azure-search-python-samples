@@ -5,10 +5,11 @@ import json
 import logging
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from typing import Any, Iterable
+from typing import TYPE_CHECKING, Any, Iterable
 from uuid import uuid4
 
-from azure.search.documents import SearchClient
+if TYPE_CHECKING:
+    from azure.search.documents import SearchClient
 
 
 DEFAULT_CHUNK_WORDS = 220
@@ -183,7 +184,7 @@ def _escape_filter_value(value: str) -> str:
 
 
 def _delete_stale_chunks(
-    search_client: SearchClient,
+    search_client: "SearchClient",
     source_id: str,
     device_version: str,
     current_ids: set[str],
@@ -213,7 +214,7 @@ def _delete_stale_chunks(
 
 
 class SearchIngestionService:
-    def __init__(self, search_client: SearchClient):
+    def __init__(self, search_client: "SearchClient"):
         self.search_client = search_client
 
     def sync_source_document(self, source_document: dict[str, Any]) -> dict[str, Any]:
