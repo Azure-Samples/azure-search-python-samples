@@ -44,6 +44,9 @@ This initial slice scaffolds the backend ingestion and query layers:
 | `api/dlq.py` | Dead-letter queue helpers for failed source documents |
 | `api/shared_code/config.py` | Shared configuration and authenticated client creation |
 | `api/shared_code/p0_pipeline.py` | Pure helper functions with unit tests for stable IDs, chunking, and stale cleanup filters |
+| `app/server.py` | Flask chat app that persists the Foundry conversation ID in the user session |
+| `app/foundry_chat.py` | Foundry project client wrapper that sends messages to a named agent |
+| `app/templates/index.html` | Browser chat interface for demoing the persistent agent experience |
 | `tests/test_p0_pipeline.py` | Focused tests for the P0 planning helpers |
 
 ## P0 behaviors called out in code
@@ -60,6 +63,15 @@ Each search chunk key is derived from the Cosmos source ID, a version token, and
 
 The Cosmos DB trigger processes one changed source document at a time. A single bad document is logged and sent to the DLQ while the remaining documents continue through the pipeline.
 
+## File-to-behavior map
+
+| Customer pain point | Implementation file | Behavior to demo |
+|------|-------------|-------------|
+| Delete-before-upload causes data loss | `api/indexing.py` | `SearchIngestionService.sync_source_document` upserts replacement chunks first and deletes stale chunks only after the upsert succeeds |
+| Retries create duplicate search chunks | `api/shared_code/p0_pipeline.py` | `stable_chunk_id` and the version-aware chunk metadata keep repeated processing idempotent |
+| One poison document stalls the batch | `api/ingest.py` and `api/dlq.py` | The change feed handler catches per-document failures and routes them to the DLQ path |
+| Need a simple persistent agent demo | `app/server.py` and `app/foundry_chat.py` | The browser session stores a Foundry conversation ID so the chat continues across page refreshes |
+
 ## Validation target for this slice
 
 The sample is considered valid for this slice when:
@@ -67,6 +79,22 @@ The sample is considered valid for this slice when:
 1. The helper tests pass locally.
 2. The new Function App modules parse cleanly.
 3. The sample documentation makes the P0 intent explicit.
+
+## Local development
+
+### Function App
+
+1. Copy `api/local.settings.json.rename` to `api/local.settings.json` and fill in the Cosmos DB and Azure AI Search values.
+2. Install the backend dependencies from `api/requirements.txt`.
+3. Start the Function App from the `api/` folder.
+
+### Chat app
+
+1. Copy `app/sample.env` to `app/.env` and fill in `PROJECT_ENDPOINT` and `AGENT_NAME`.
+2. Install the chat dependencies from `app/requirements.txt`.
+3. Start the app with `python server.py` from the `app/` folder.
+
+If the Foundry settings are missing, the app still starts and the chat API returns a clear configuration error instead of failing at import time.
 
 ## Next slices
 

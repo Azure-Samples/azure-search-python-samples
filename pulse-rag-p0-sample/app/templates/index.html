@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pulse RAG P0 Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">Cosmos DB -> Azure AI Search -> Foundry Agent</p>
+        <h1>Pulse RAG P0 Demo</h1>
+        <p class="intro">
+          A minimal chat surface over a persistent Foundry conversation, backed by Azure AI Search content that is refreshed incrementally from Cosmos DB updates.
+        </p>
+      </section>
+
+      <section class="panels">
+        <aside class="panel status-panel">
+          <h2>What This Demo Proves</h2>
+          <ul>
+            <li>Index updates happen incrementally instead of rebuilding everything.</li>
+            <li>Chunk upserts are merge-first, so failures do not blank out existing content.</li>
+            <li>Conversation state persists across page refreshes with a Foundry conversation ID.</li>
+          </ul>
+          <div class="status-pill" id="conversation-status">No conversation yet</div>
+        </aside>
+
+        <section class="panel chat-panel">
+          <div class="chat-log" id="chat-log" aria-live="polite"></div>
+          <form id="chat-form" class="composer">
+            <label class="sr-only" for="message">Ask a question</label>
+            <textarea id="message" name="message" rows="3" placeholder="Ask about a device, room status, or recent update"></textarea>
+            <div class="composer-actions">
+              <button type="button" class="secondary" id="reset-chat">Reset conversation</button>
+              <button type="submit" class="primary" id="send-message">Send</button>
+            </div>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <template id="message-template">
+      <article class="message">
+        <div class="message-role"></div>
+        <div class="message-body"></div>
+      </article>
+    </template>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>

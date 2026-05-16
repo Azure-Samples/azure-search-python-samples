@@ -22,6 +22,7 @@ If your configuration uses a search service managed identity for indexer connect
 | [agentic-retrieval-pipeline-example](agentic-retrieval-pipeline-example/agent-example.ipynb) | Extends the quickstart by integrating Foundry Agent Service. Add an AI agent and MCP tool to your Azure AI Search agentic retrieval pipeline for an end-to-end conversational search experience. |
 | [azure-function-search](azure-function-search/readme.md) | An Azure Function that sends query requests to an Azure AI Search service. You can substitute this code to replace the contents of the `api` folder in the C# sample [azure-search-static-web-app](https://github.com/Azure-Samples/azure-search-static-web-app). |
 | [bulk-insert](bulk-insert/readme.md) | Create and load an index using the push APIs and sample data. You can substitute this code to replace the contents of the `bulk-insert` folder in the C# sample [azure-search-static-web-app](https://github.com/Azure-Samples/azure-search-static-web-app) |
+| [pulse-rag-p0-sample](pulse-rag-p0-sample/README.md) | Demonstrates a customer-facing Cosmos DB -> Azure AI Search push pipeline plus a Foundry-backed chat surface that explicitly implements merge-first indexing, idempotent chunk keys, and per-document DLQ isolation. |
 | [cmk-encryption](cmk-example/cmk-example.ipynb) | Encrypt content using customer-managed keys. |
 
 ## Archived samples
