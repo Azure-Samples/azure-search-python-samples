@@ -64,6 +64,94 @@
           </form>
         </section>
       </section>
+
+      <section class="panel inspector-panel" id="sync-inspector">
+        <header class="inspector-header">
+          <div>
+            <p class="eyebrow">Sync Inspector</p>
+            <h2>Watch a Cosmos update flow into Azure AI Search</h2>
+            <p class="inspector-intro">
+              Patch one field on a device, then watch the change-feed trigger
+              upsert new chunks into the index. The middle "Upserting" phase
+              is the merge-first window: old chunks are still searchable while
+              the new ones land, so a failure here never blanks the index.
+            </p>
+          </div>
+        </header>
+
+        <form id="inspector-form" class="inspector-form">
+          <label class="inspector-field">
+            <span>Device</span>
+            <select id="inspector-device" required></select>
+          </label>
+          <label class="inspector-field">
+            <span>Field</span>
+            <select id="inspector-field">
+              <option value="status">status</option>
+              <option value="notes">notes</option>
+              <option value="room">room</option>
+              <option value="building">building</option>
+              <option value="name">name</option>
+            </select>
+          </label>
+          <label class="inspector-field inspector-field-wide">
+            <span>New value</span>
+            <input
+              type="text"
+              id="inspector-value"
+              placeholder="e.g. offline"
+              required
+            />
+          </label>
+          <div class="inspector-actions">
+            <button type="submit" class="primary" id="inspector-submit">
+              Apply update
+            </button>
+            <span class="inspector-hint" id="inspector-hint"></span>
+          </div>
+        </form>
+
+        <ol class="inspector-timeline" id="inspector-timeline">
+          <li class="step" data-step="write">
+            <span class="step-dot"></span>
+            <div class="step-body">
+              <div class="step-title">Cosmos write</div>
+              <div class="step-detail" data-role="detail">
+                Waiting for an update...
+              </div>
+            </div>
+          </li>
+          <li class="step" data-step="pending">
+            <span class="step-dot"></span>
+            <div class="step-body">
+              <div class="step-title">Change feed pending</div>
+              <div class="step-detail" data-role="detail">
+                No new chunks at the new <code>deviceVersion</code> yet.
+              </div>
+            </div>
+          </li>
+          <li class="step" data-step="upserting">
+            <span class="step-dot"></span>
+            <div class="step-body">
+              <div class="step-title">Merge-first window (P0-1)</div>
+              <div class="step-detail" data-role="detail">
+                New chunks present alongside the previous version. The index
+                is never blanked.
+              </div>
+            </div>
+          </li>
+          <li class="step" data-step="consistent">
+            <span class="step-dot"></span>
+            <div class="step-body">
+              <div class="step-title">Consistent</div>
+              <div class="step-detail" data-role="detail">
+                Stale chunks deleted. Only the new <code>deviceVersion</code>
+                remains for this source.
+              </div>
+            </div>
+          </li>
+        </ol>
+      </section>
     </main>
 
     <template id="message-template">
@@ -74,5 +162,6 @@
     </template>
 
     <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="{{ url_for('static', filename='sync-inspector.js') }}"></script>
   </body>
 </html>

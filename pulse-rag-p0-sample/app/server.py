@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, session
 
 from foundry_chat import FoundryChatError, FoundryChatService
+from sync_inspector import bp as sync_inspector_bp
 
 
 load_dotenv(override=False)
@@ -16,6 +17,7 @@ app.config["SECRET_KEY"] = os.getenv(
     "FLASK_SESSION_SECRET",
     "pulse-rag-dev-only-secret",
 )
+app.register_blueprint(sync_inspector_bp)
 
 chat_service: FoundryChatService | None = None
 chat_service_error: str | None = None

@@ -372,6 +372,10 @@ resource webApp 'Microsoft.App/containerApps@2024-03-01' = {
             { name: 'RETRIEVAL_TOP_K', value: '5' }
             { name: 'AGENT_NAME', value: '' }
             { name: 'AZURE_CLIENT_ID', value: uami.properties.clientId }
+            { name: 'COSMOS_ENDPOINT', value: cosmos.properties.documentEndpoint }
+            { name: 'COSMOS_DATABASE_NAME', value: 'pulse-rag' }
+            { name: 'COSMOS_CONTAINER_NAME', value: 'devices' }
+            { name: 'DEMO_DEFAULT_TENANT_ID', value: 'contoso' }
             { name: 'FLASK_SESSION_SECRET', secretRef: 'flask-session-secret' }
           ]
         }
