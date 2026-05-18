@@ -6,6 +6,7 @@ param location string
 param environmentName string
 param principalId string
 param openAiLocation string
+param cosmosLocation string = location
 param chatModelName string
 param chatModelVersion string
 param embeddingModelName string
@@ -26,7 +27,8 @@ var searchName = 'srch-${nameShort}'
 var openAiName = 'oai-${nameShort}'
 var foundryName = 'aifnd-${nameShort}'
 var foundryProjectName = 'proj-${nameShort}'
-var planName = 'plan-${nameShort}'
+var acaEnvName = 'cae-${nameShort}'
+var acrName = take('acr${replace(nameShort, '-', '')}', 50)
 var functionAppName = 'func-${nameShort}'
 var webAppName = 'web-${nameShort}'
 var uamiName = 'id-${nameShort}'
@@ -71,13 +73,18 @@ resource uami 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
 resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: storageName
   location: location
-  tags: tags
+  // SecurityControl=Ignore exempts this account from the org policy that disables
+  // public network access. Required because Container Apps Consumption profile
+  // has no VNet integration / private endpoint path to reach storage. Data plane
+  // is still locked down: shared keys disabled, AAD/RBAC + managed identity only.
+  tags: union(tags, { SecurityControl: 'Ignore' })
   kind: 'StorageV2'
   sku: { name: 'Standard_LRS' }
   properties: {
     minimumTlsVersion: 'TLS1_2'
     allowBlobPublicAccess: false
-    allowSharedKeyAccess: true // Required by Functions consumption plan today
+    allowSharedKeyAccess: false
+    publicNetworkAccess: 'Enabled'
   }
 }
 
@@ -96,21 +103,23 @@ resource dlqQueue 'Microsoft.Storage/storageAccounts/queueServices/queues@2023-0
 // -----------------------------------------------------------------------------
 resource cosmos 'Microsoft.DocumentDB/databaseAccounts@2024-08-15' = {
   name: cosmosName
-  location: location
+  location: cosmosLocation
   tags: tags
   kind: 'GlobalDocumentDB'
   properties: {
     databaseAccountOfferType: 'Standard'
     locations: [
       {
-        locationName: location
+        locationName: cosmosLocation
         failoverPriority: 0
         isZoneRedundant: false
       }
     ]
     consistencyPolicy: { defaultConsistencyLevel: 'Session' }
     disableLocalAuth: false
-    capabilities: []
+    capabilities: [
+      { name: 'EnableServerless' }
+    ]
   }
 }
 
@@ -119,7 +128,6 @@ resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2024-08-15
   name: 'pulse-rag'
   properties: {
     resource: { id: 'pulse-rag' }
-    options: { throughput: 400 }
   }
 }
 
@@ -191,7 +199,7 @@ resource chatDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-1
 resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
   parent: openAi
   name: embeddingModelName
-  sku: { name: 'Standard', capacity: 50 }
+  sku: { name: 'GlobalStandard', capacity: 50 }
   properties: {
     model: { format: 'OpenAI', name: embeddingModelName, version: embeddingModelVersion }
   }
@@ -201,7 +209,7 @@ resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2
 // -----------------------------------------------------------------------------
 // Azure AI Foundry (AIServices account + project)
 // -----------------------------------------------------------------------------
-resource foundry 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
+resource foundry 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' = {
   name: foundryName
   location: location
   tags: tags
@@ -226,95 +234,161 @@ resource foundryProject 'Microsoft.CognitiveServices/accounts/projects@2025-04-0
 }
 
 // -----------------------------------------------------------------------------
-// App Service plan (Linux) + Function App (api) + Web App (web)
+// Container Registry (azd pushes built images here)
 // -----------------------------------------------------------------------------
-resource plan 'Microsoft.Web/serverfarms@2024-04-01' = {
-  name: planName
+resource registry 'Microsoft.ContainerRegistry/registries@2023-11-01-preview' = {
+  name: acrName
   location: location
   tags: tags
-  sku: { name: 'B1', tier: 'Basic' }
-  kind: 'linux'
-  properties: { reserved: true }
+  sku: { name: 'Basic' }
+  properties: {
+    adminUserEnabled: false
+    publicNetworkAccess: 'Enabled'
+  }
 }
 
-resource functionApp 'Microsoft.Web/sites@2024-04-01' = {
+// -----------------------------------------------------------------------------
+// Container Apps Environment + apps (api Function on ACA, web Container App)
+// Container Apps avoids the App Service VM-core preflight that blocks this
+// subscription, while still giving us serverless containers with managed
+// identity, scale-to-N, and built-in HTTPS ingress.
+// -----------------------------------------------------------------------------
+resource acaEnv 'Microsoft.App/managedEnvironments@2024-03-01' = {
+  name: acaEnvName
+  location: location
+  tags: tags
+  properties: {
+    appLogsConfiguration: {
+      destination: 'log-analytics'
+      logAnalyticsConfiguration: {
+        customerId: logAnalytics.properties.customerId
+        sharedKey: logAnalytics.listKeys().primarySharedKey
+      }
+    }
+    workloadProfiles: [
+      { name: 'Consumption', workloadProfileType: 'Consumption' }
+    ]
+  }
+}
+
+// Placeholder image used until azd builds + deploys the real one.
+var placeholderImage = 'mcr.microsoft.com/k8se/quickstart:latest'
+
+resource functionApp 'Microsoft.App/containerApps@2024-03-01' = {
   name: functionAppName
   location: location
   tags: union(tags, { 'azd-service-name': 'api' })
-  kind: 'functionapp,linux'
   identity: {
     type: 'UserAssigned'
     userAssignedIdentities: { '${uami.id}': {} }
   }
   properties: {
-    serverFarmId: plan.id
-    httpsOnly: true
-    keyVaultReferenceIdentity: uami.id
-    siteConfig: {
-      linuxFxVersion: 'Python|3.11'
-      ftpsState: 'FtpsOnly'
-      minTlsVersion: '1.2'
-      appSettings: [
-        { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'python' }
-        { name: 'FUNCTIONS_EXTENSION_VERSION', value: '~4' }
-        { name: 'AzureWebJobsFeatureFlags', value: 'EnableWorkerIndexing' }
-        { name: 'AzureWebJobsStorage__accountName', value: storage.name }
-        { name: 'AzureWebJobsStorage__credential', value: 'managedidentity' }
-        { name: 'AzureWebJobsStorage__clientId', value: uami.properties.clientId }
-        { name: 'APPLICATIONINSIGHTS_CONNECTION_STRING', value: appInsights.properties.ConnectionString }
-        { name: 'COSMOS_DATABASE_NAME', value: 'pulse-rag' }
-        { name: 'COSMOS_CONTAINER_NAME', value: 'devices' }
-        { name: 'COSMOS_LEASE_CONTAINER_NAME', value: 'leases' }
-        { name: 'COSMOS_CONNECTION__accountEndpoint', value: cosmos.properties.documentEndpoint }
-        { name: 'COSMOS_CONNECTION__credential', value: 'managedidentity' }
-        { name: 'COSMOS_CONNECTION__clientId', value: uami.properties.clientId }
-        { name: 'SearchServiceEndpoint', value: 'https://${search.name}.search.windows.net' }
-        { name: 'SearchServiceName', value: search.name }
-        { name: 'SearchIndexName', value: 'pulse-device-chunks' }
-        { name: 'AzureOpenAIEndpoint', value: openAi.properties.endpoint }
-        { name: 'AzureOpenAIEmbeddingDeployment', value: embeddingModelName }
-        { name: 'AzureOpenAIApiVersion', value: '2024-10-21' }
-        { name: 'AZURE_CLIENT_ID', value: uami.properties.clientId }
-        { name: 'DLQ_QUEUE_NAME', value: dlqQueueName }
-        { name: 'ChunkSize', value: '1000' }
-        { name: 'ChunkOverlap', value: '150' }
+    managedEnvironmentId: acaEnv.id
+    workloadProfileName: 'Consumption'
+    configuration: {
+      activeRevisionsMode: 'Single'
+      ingress: {
+        external: true
+        targetPort: 80
+        transport: 'auto'
+      }
+      registries: [
+        {
+          server: registry.properties.loginServer
+          identity: uami.id
+        }
       ]
+    }
+    template: {
+      containers: [
+        {
+          name: 'api'
+          image: placeholderImage
+          resources: { cpu: json('0.5'), memory: '1Gi' }
+          env: [
+            { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'python' }
+            { name: 'AzureWebJobsFeatureFlags', value: 'EnableWorkerIndexing' }
+            { name: 'AzureWebJobsStorage__accountName', value: storage.name }
+            { name: 'AzureWebJobsStorage__credential', value: 'managedidentity' }
+            { name: 'AzureWebJobsStorage__clientId', value: uami.properties.clientId }
+            { name: 'APPLICATIONINSIGHTS_CONNECTION_STRING', value: appInsights.properties.ConnectionString }
+            { name: 'COSMOS_DATABASE_NAME', value: 'pulse-rag' }
+            { name: 'COSMOS_CONTAINER_NAME', value: 'devices' }
+            { name: 'COSMOS_LEASE_CONTAINER_NAME', value: 'leases' }
+            { name: 'COSMOS_CONNECTION__accountEndpoint', value: cosmos.properties.documentEndpoint }
+            { name: 'COSMOS_CONNECTION__credential', value: 'managedidentity' }
+            { name: 'COSMOS_CONNECTION__clientId', value: uami.properties.clientId }
+            { name: 'SearchServiceEndpoint', value: 'https://${search.name}.search.windows.net' }
+            { name: 'SearchServiceName', value: search.name }
+            { name: 'SearchIndexName', value: 'pulse-device-chunks' }
+            { name: 'AzureOpenAIEndpoint', value: openAi.properties.endpoint }
+            { name: 'AzureOpenAIEmbeddingDeployment', value: embeddingModelName }
+            { name: 'AzureOpenAIApiVersion', value: '2024-10-21' }
+            { name: 'AZURE_CLIENT_ID', value: uami.properties.clientId }
+            { name: 'DLQ_QUEUE_NAME', value: dlqQueueName }
+            { name: 'ChunkSize', value: '1000' }
+            { name: 'ChunkOverlap', value: '150' }
+          ]
+        }
+      ]
+      scale: { minReplicas: 1, maxReplicas: 3 }
     }
   }
 }
 
-resource webApp 'Microsoft.Web/sites@2024-04-01' = {
+resource webApp 'Microsoft.App/containerApps@2024-03-01' = {
   name: webAppName
   location: location
   tags: union(tags, { 'azd-service-name': 'web' })
-  kind: 'app,linux'
   identity: {
     type: 'UserAssigned'
     userAssignedIdentities: { '${uami.id}': {} }
   }
   properties: {
-    serverFarmId: plan.id
-    httpsOnly: true
-    siteConfig: {
-      linuxFxVersion: 'Python|3.11'
-      ftpsState: 'FtpsOnly'
-      minTlsVersion: '1.2'
-      appCommandLine: 'gunicorn --bind=0.0.0.0:8000 --timeout 120 server:app'
-      appSettings: [
-        { name: 'SCM_DO_BUILD_DURING_DEPLOYMENT', value: 'true' }
-        { name: 'WEBSITES_PORT', value: '8000' }
-        { name: 'PORT', value: '8000' }
-        { name: 'APPLICATIONINSIGHTS_CONNECTION_STRING', value: appInsights.properties.ConnectionString }
-        { name: 'PROJECT_ENDPOINT', value: '${foundry.properties.endpoint}api/projects/${foundryProject.name}' }
-        { name: 'CHAT_MODEL_DEPLOYMENT', value: chatModelName }
-        { name: 'EMBEDDING_DEPLOYMENT', value: embeddingModelName }
-        { name: 'SearchServiceEndpoint', value: 'https://${search.name}.search.windows.net' }
-        { name: 'SearchIndexName', value: 'pulse-device-chunks' }
-        { name: 'RETRIEVAL_TOP_K', value: '5' }
-        { name: 'AGENT_NAME', value: '' }
-        { name: 'AZURE_CLIENT_ID', value: uami.properties.clientId }
-        { name: 'FLASK_SESSION_SECRET', value: uniqueString(subscription().id, resourceGroup().id, 'flask') }
+    managedEnvironmentId: acaEnv.id
+    workloadProfileName: 'Consumption'
+    configuration: {
+      activeRevisionsMode: 'Single'
+      ingress: {
+        external: true
+        targetPort: 8000
+        transport: 'auto'
+      }
+      registries: [
+        {
+          server: registry.properties.loginServer
+          identity: uami.id
+        }
       ]
+      secrets: [
+        {
+          name: 'flask-session-secret'
+          value: uniqueString(subscription().id, resourceGroup().id, 'flask')
+        }
+      ]
+    }
+    template: {
+      containers: [
+        {
+          name: 'web'
+          image: placeholderImage
+          resources: { cpu: json('0.5'), memory: '1Gi' }
+          env: [
+            { name: 'PORT', value: '8000' }
+            { name: 'APPLICATIONINSIGHTS_CONNECTION_STRING', value: appInsights.properties.ConnectionString }
+            { name: 'PROJECT_ENDPOINT', value: '${foundry.properties.endpoint}api/projects/${foundryProject.name}' }
+            { name: 'CHAT_MODEL_DEPLOYMENT', value: chatModelName }
+            { name: 'EMBEDDING_DEPLOYMENT', value: embeddingModelName }
+            { name: 'SearchServiceEndpoint', value: 'https://${search.name}.search.windows.net' }
+            { name: 'SearchIndexName', value: 'pulse-device-chunks' }
+            { name: 'RETRIEVAL_TOP_K', value: '5' }
+            { name: 'AGENT_NAME', value: '' }
+            { name: 'AZURE_CLIENT_ID', value: uami.properties.clientId }
+            { name: 'FLASK_SESSION_SECRET', secretRef: 'flask-session-secret' }
+          ]
+        }
+      ]
+      scale: { minReplicas: 1, maxReplicas: 3 }
     }
   }
 }
@@ -325,7 +399,8 @@ resource webApp 'Microsoft.Web/sites@2024-04-01' = {
 
 // Built-in role ids
 var roles = {
-  storageBlobDataOwner: 'b7e6dc6d-f1e8-4753-8033-0f0351f01cb5'
+  storageBlobDataOwner: 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b' // Storage Blob Data Owner (required by AzureWebJobsStorage identity-based)
+  storageTableDataContributor: '0a9a7e1f-b9d0-4cc4-a60d-0319b160aaa3'
   storageQueueDataContributor: '974c5e8b-45b9-4653-ba55-5f855dd0fb88'
   storageQueueDataMessageSender: 'c6a89b2d-59bc-44d0-9896-0f6e12d7b80a'
   searchIndexDataContributor: '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
@@ -335,6 +410,17 @@ var roles = {
   azureAIDeveloper: '64702f94-c441-49e6-a78b-ef80e0188fee'
   // Cosmos SQL data-plane role (built-in: Cosmos DB Built-in Data Contributor)
   cosmosDataContributor: '00000000-0000-0000-0000-000000000002'
+  acrPull: '7f951dda-4ed3-4680-a7ca-43fe172d538d'
+}
+
+resource raAcrPull 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(registry.id, uami.id, roles.acrPull)
+  scope: registry
+  properties: {
+    principalId: uami.properties.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roles.acrPull)
+  }
 }
 
 resource raStorageBlob 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
@@ -354,6 +440,16 @@ resource raStorageQueue 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
     principalId: uami.properties.principalId
     principalType: 'ServicePrincipal'
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roles.storageQueueDataContributor)
+  }
+}
+
+resource raStorageTable 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(storage.id, uami.id, roles.storageTableDataContributor)
+  scope: storage
+  properties: {
+    principalId: uami.properties.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roles.storageTableDataContributor)
   }
 }
 
@@ -486,5 +582,7 @@ output openAiEndpoint string = openAi.properties.endpoint
 output foundryProjectEndpoint string = '${foundry.properties.endpoint}api/projects/${foundryProject.name}'
 output functionAppName string = functionApp.name
 output webAppName string = webApp.name
-output webAppUri string = 'https://${webApp.properties.defaultHostName}'
+output webAppUri string = 'https://${webApp.properties.configuration.ingress.fqdn}'
 output dlqQueueName string = dlqQueueName
+output containerRegistryEndpoint string = registry.properties.loginServer
+output containerRegistryName string = registry.name

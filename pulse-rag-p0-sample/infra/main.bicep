@@ -30,6 +30,9 @@ param principalId string = ''
 @description('Region for the Azure OpenAI resource. Many embedding/chat models are limited to a subset of regions.')
 param openAiLocation string = 'eastus2'
 
+@description('Region for Cosmos DB. Override if the primary region is capacity-constrained.')
+param cosmosLocation string = location
+
 @description('Azure OpenAI chat model name.')
 param chatModelName string = 'gpt-4o-mini'
 
@@ -59,6 +62,7 @@ module resources 'resources.bicep' = {
     environmentName: environmentName
     principalId: principalId
     openAiLocation: openAiLocation
+    cosmosLocation: cosmosLocation
     chatModelName: chatModelName
     chatModelVersion: chatModelVersion
     embeddingModelName: embeddingModelName
@@ -105,3 +109,7 @@ output ChunkOverlap string = '150'
 output API_FUNCTION_APP_NAME string = resources.outputs.functionAppName
 output WEB_APP_NAME string = resources.outputs.webAppName
 output WEB_URI string = resources.outputs.webAppUri
+
+// Container Registry (azd uses these to build & push images)
+output AZURE_CONTAINER_REGISTRY_ENDPOINT string = resources.outputs.containerRegistryEndpoint
+output AZURE_CONTAINER_REGISTRY_NAME string = resources.outputs.containerRegistryName

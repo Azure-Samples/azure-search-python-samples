@@ -7,11 +7,19 @@ services:
   api:
     project: ./api
     language: python
-    host: function
+    host: containerapp
+    docker:
+      path: Dockerfile
+      context: .
+      remoteBuild: true
   web:
     project: ./app
     language: python
-    host: appservice
+    host: containerapp
+    docker:
+      path: Dockerfile
+      context: .
+      remoteBuild: true
 
 hooks:
   postprovision:

@@ -10,13 +10,13 @@ bp = func.Blueprint()
 
 @bp.function_name(name="health")
 @bp.route(route="health", methods=[func.HttpMethod.GET])
-def health(_: func.HttpRequest) -> func.HttpResponse:
+def health(req: func.HttpRequest) -> func.HttpResponse:
     return func.HttpResponse("OK", status_code=200)
 
 
 @bp.function_name(name="p0Summary")
 @bp.route(route="p0/summary", methods=[func.HttpMethod.GET])
-def p0_summary(_: func.HttpRequest) -> func.HttpResponse:
+def p0_summary(req: func.HttpRequest) -> func.HttpResponse:
     settings = get_settings()
     payload = {
         "sample": "pulse-rag-p0-sample",
