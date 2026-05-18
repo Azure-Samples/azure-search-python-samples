@@ -172,46 +172,15 @@ resource search 'Microsoft.Search/searchServices@2024-06-01-preview' = {
 }
 
 // -----------------------------------------------------------------------------
-// Azure OpenAI (chat + embedding deployments)
-// -----------------------------------------------------------------------------
-resource openAi 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
-  name: openAiName
-  location: openAiLocation
-  tags: tags
-  kind: 'OpenAI'
-  sku: { name: 'S0' }
-  properties: {
-    customSubDomainName: openAiName
-    publicNetworkAccess: 'Enabled'
-    disableLocalAuth: false
-  }
-}
-
-resource chatDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
-  parent: openAi
-  name: chatModelName
-  sku: { name: 'GlobalStandard', capacity: 50 }
-  properties: {
-    model: { format: 'OpenAI', name: chatModelName, version: chatModelVersion }
-  }
-}
-
-resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
-  parent: openAi
-  name: embeddingModelName
-  sku: { name: 'GlobalStandard', capacity: 50 }
-  properties: {
-    model: { format: 'OpenAI', name: embeddingModelName, version: embeddingModelVersion }
-  }
-  dependsOn: [chatDeployment]
-}
-
-// -----------------------------------------------------------------------------
-// Azure AI Foundry (AIServices account + project)
+// Azure AI Foundry (AIServices account + project + model deployments)
+// AIServices (kind=AIServices) exposes both the Foundry projects API surface
+// AND the Azure OpenAI inference API surface, so chat + embedding deployments
+// live here and are reachable by both AIProjectClient (web) and AzureOpenAI
+// client (function app for embeddings).
 // -----------------------------------------------------------------------------
 resource foundry 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' = {
   name: foundryName
-  location: location
+  location: openAiLocation
   tags: tags
   kind: 'AIServices'
   sku: { name: 'S0' }
@@ -227,10 +196,29 @@ resource foundry 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' = {
 resource foundryProject 'Microsoft.CognitiveServices/accounts/projects@2025-04-01-preview' = {
   parent: foundry
   name: foundryProjectName
-  location: location
+  location: openAiLocation
   tags: tags
   identity: { type: 'SystemAssigned' }
   properties: {}
+}
+
+resource chatDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
+  parent: foundry
+  name: chatModelName
+  sku: { name: 'GlobalStandard', capacity: 50 }
+  properties: {
+    model: { format: 'OpenAI', name: chatModelName, version: chatModelVersion }
+  }
+}
+
+resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
+  parent: foundry
+  name: embeddingModelName
+  sku: { name: 'GlobalStandard', capacity: 50 }
+  properties: {
+    model: { format: 'OpenAI', name: embeddingModelName, version: embeddingModelVersion }
+  }
+  dependsOn: [chatDeployment]
 }
 
 // -----------------------------------------------------------------------------
@@ -321,7 +309,7 @@ resource functionApp 'Microsoft.App/containerApps@2024-03-01' = {
             { name: 'SearchServiceEndpoint', value: 'https://${search.name}.search.windows.net' }
             { name: 'SearchServiceName', value: search.name }
             { name: 'SearchIndexName', value: 'pulse-device-chunks' }
-            { name: 'AzureOpenAIEndpoint', value: openAi.properties.endpoint }
+            { name: 'AzureOpenAIEndpoint', value: foundry.properties.endpoint }
             { name: 'AzureOpenAIEmbeddingDeployment', value: embeddingModelName }
             { name: 'AzureOpenAIApiVersion', value: '2024-10-21' }
             { name: 'AZURE_CLIENT_ID', value: uami.properties.clientId }
@@ -473,9 +461,9 @@ resource raSearchService 'Microsoft.Authorization/roleAssignments@2022-04-01' = 
   }
 }
 
-resource raOpenAi 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(openAi.id, uami.id, roles.cognitiveServicesOpenAIUser)
-  scope: openAi
+resource raFoundryOpenAI 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(foundry.id, uami.id, roles.cognitiveServicesOpenAIUser)
+  scope: foundry
   properties: {
     principalId: uami.properties.principalId
     principalType: 'ServicePrincipal'
@@ -539,9 +527,9 @@ resource raSearchServicePrincipal 'Microsoft.Authorization/roleAssignments@2022-
   }
 }
 
-resource raOpenAiPrincipal 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (grantPrincipal) {
-  name: guid(openAi.id, principalId, roles.cognitiveServicesOpenAIUser)
-  scope: openAi
+resource raFoundryOpenAIPrincipal 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (grantPrincipal) {
+  name: guid(foundry.id, principalId, roles.cognitiveServicesOpenAIUser)
+  scope: foundry
   properties: {
     principalId: principalId
     principalType: 'User'
@@ -578,7 +566,7 @@ output cosmosContainerName string = devicesContainer.name
 output cosmosLeaseContainerName string = leasesContainer.name
 output searchEndpoint string = 'https://${search.name}.search.windows.net'
 output searchServiceName string = search.name
-output openAiEndpoint string = openAi.properties.endpoint
+output openAiEndpoint string = foundry.properties.endpoint
 output foundryProjectEndpoint string = '${foundry.properties.endpoint}api/projects/${foundryProject.name}'
 output functionAppName string = functionApp.name
 output webAppName string = webApp.name
