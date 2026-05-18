@@ -431,7 +431,10 @@ resource raStorageQueue 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   properties: {
     principalId: uami.properties.principalId
     principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roles.storageQueueDataContributor)
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions',
+      roles.storageQueueDataContributor
+    )
   }
 }
 
@@ -441,7 +444,10 @@ resource raStorageTable 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   properties: {
     principalId: uami.properties.principalId
     principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roles.storageTableDataContributor)
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions',
+      roles.storageTableDataContributor
+    )
   }
 }
 
@@ -451,7 +457,10 @@ resource raSearchData 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   properties: {
     principalId: uami.properties.principalId
     principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roles.searchIndexDataContributor)
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions',
+      roles.searchIndexDataContributor
+    )
   }
 }
 
@@ -471,7 +480,10 @@ resource raFoundryOpenAI 'Microsoft.Authorization/roleAssignments@2022-04-01' = 
   properties: {
     principalId: uami.properties.principalId
     principalType: 'ServicePrincipal'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roles.cognitiveServicesOpenAIUser)
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions',
+      roles.cognitiveServicesOpenAIUser
+    )
   }
 }
 
@@ -517,7 +529,10 @@ resource raSearchDataPrincipal 'Microsoft.Authorization/roleAssignments@2022-04-
   properties: {
     principalId: principalId
     principalType: 'User'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roles.searchIndexDataContributor)
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions',
+      roles.searchIndexDataContributor
+    )
   }
 }
 
@@ -537,7 +552,10 @@ resource raFoundryOpenAIPrincipal 'Microsoft.Authorization/roleAssignments@2022-
   properties: {
     principalId: principalId
     principalType: 'User'
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roles.cognitiveServicesOpenAIUser)
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions',
+      roles.cognitiveServicesOpenAIUser
+    )
   }
 }
 

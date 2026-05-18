@@ -2,17 +2,17 @@
 
 This folder deploys everything the sample needs via the Azure Developer CLI (`azd`):
 
-| Resource | Purpose |
-| --- | --- |
-| **Azure Cosmos DB** (`pulse-rag` database, `devices` + `leases` containers) | System of record for device documents. The `leases` container backs the change feed processor used by the Function App. |
-| **Azure AI Search** (Basic, RBAC auth, vector + semantic features) | Stores chunked + vectorized device content. Schema in [`index/pulse-device-chunks.json`](index/pulse-device-chunks.json). |
-| **Azure Storage** (StorageV2 LRS, shared-key disabled, RBAC only) | Functions runtime account, plus the `pulse-rag-indexing-dlq` queue used by the per-document DLQ. |
-| **Azure AI Foundry** (AIServices account + project + model deployments) | Single endpoint serving both the chat path (Flask app -> `AIProjectClient` -> OpenAI Responses) and the embedding path (Function App -> `AzureOpenAI` client -> `text-embedding-3-small`). Hosts `gpt-4o-mini` (chat) and `text-embedding-3-small` (1536-dim embeddings). |
-| **Azure Container Apps Environment** (`cae-*`) + **Azure Container Registry** (`acr*`) | Hosting platform for both containers. `azd deploy` does a remote build into ACR. |
-| **Container App: `func-*`** (`azd-service-name: api`) | Hosts the Cosmos change-feed trigger and HTTP endpoints from `api/`. Identity-based `AzureWebJobsStorage`. |
-| **Container App: `web-*`** (`azd-service-name: web`) | Hosts the Flask chat app from `app/`. Runs `gunicorn server:app`. |
-| **User-assigned managed identity** | Single identity attached to both container apps and to ACR. Holds all data-plane role assignments. |
-| **Log Analytics + Application Insights** | Telemetry for both apps. |
+| Resource                                                                               | Purpose                                                                                                                                                                                                                                                                   |
+| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Azure Cosmos DB** (`pulse-rag` database, `devices` + `leases` containers)            | System of record for device documents. The `leases` container backs the change feed processor used by the Function App.                                                                                                                                                   |
+| **Azure AI Search** (Basic, RBAC auth, vector + semantic features)                     | Stores chunked + vectorized device content. Schema in [`index/pulse-device-chunks.json`](index/pulse-device-chunks.json).                                                                                                                                                 |
+| **Azure Storage** (StorageV2 LRS, shared-key disabled, RBAC only)                      | Functions runtime account, plus the `pulse-rag-indexing-dlq` queue used by the per-document DLQ.                                                                                                                                                                          |
+| **Azure AI Foundry** (AIServices account + project + model deployments)                | Single endpoint serving both the chat path (Flask app -> `AIProjectClient` -> OpenAI Responses) and the embedding path (Function App -> `AzureOpenAI` client -> `text-embedding-3-small`). Hosts `gpt-4o-mini` (chat) and `text-embedding-3-small` (1536-dim embeddings). |
+| **Azure Container Apps Environment** (`cae-*`) + **Azure Container Registry** (`acr*`) | Hosting platform for both containers. `azd deploy` does a remote build into ACR.                                                                                                                                                                                          |
+| **Container App: `func-*`** (`azd-service-name: api`)                                  | Hosts the Cosmos change-feed trigger and HTTP endpoints from `api/`. Identity-based `AzureWebJobsStorage`.                                                                                                                                                                |
+| **Container App: `web-*`** (`azd-service-name: web`)                                   | Hosts the Flask chat app from `app/`. Runs `gunicorn server:app`.                                                                                                                                                                                                         |
+| **User-assigned managed identity**                                                     | Single identity attached to both container apps and to ACR. Holds all data-plane role assignments.                                                                                                                                                                        |
+| **Log Analytics + Application Insights**                                               | Telemetry for both apps.                                                                                                                                                                                                                                                  |
 
 ## Role assignments
 
