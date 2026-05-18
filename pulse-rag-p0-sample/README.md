@@ -10,7 +10,7 @@ products:
   - azure-ai-foundry
 name: "Pulse RAG P0 sample: Cosmos DB to Azure AI Search with a Foundry chat surface"
 description: |
-  A customer-demo-ready RAG sample where Azure Cosmos DB is the system of record, Azure AI Search is updated incrementally via an Azure Functions change feed trigger, and a Flask chat app talks to a Microsoft Foundry agent. The pipeline explicitly addresses three P0 reliability pain points: merge-first indexing (no delete-before-upload data loss), idempotent chunk keys (safe retries), and per-document failure isolation with a dead-letter queue.
+  A customer-demo-ready RAG sample where Azure Cosmos DB is the system of record, Azure AI Search is updated incrementally via an Azure Functions change feed trigger, and a Flask chat app talks to an Azure AI Foundry project. The pipeline explicitly addresses three P0 reliability pain points: merge-first indexing (no delete-before-upload data loss), idempotent chunk keys (safe retries), and per-document failure isolation with a dead-letter queue.
 urlFragment: pulse-rag-p0-sample
 ---
 
@@ -18,10 +18,12 @@ urlFragment: pulse-rag-p0-sample
 
 This sample is a customer-demo reference architecture for a Retrieval Augmented Generation app where:
 
-- **Azure Cosmos DB** is the system of record for device documents.
-- **Azure Functions** subscribes to the Cosmos DB change feed and incrementally syncs changes into Azure AI Search.
-- **Azure AI Search** stores chunked, vectorized content with stable IDs so retries are safe and partial failures never blank the index.
-- **Microsoft Foundry** hosts an agent that the Flask chat app talks to, persisting the conversation ID in the browser session so chat history survives refreshes.
+- **Azure Cosmos DB (NoSQL API)** is the system of record for device documents.
+- **Azure Functions** subscribes to the Cosmos DB change feed and incrementally syncs each changed document into Azure AI Search using `mergeOrUpload`, never a delete-then-upload.
+- **Azure AI Search** stores chunked, vectorized content with stable, content-versioned IDs so retries are safe and partial failures never blank the index.
+- **Azure AI Foundry** (an AIServices account with a project) hosts both the chat and embedding model deployments. The Flask chat app calls the project endpoint via `AIProjectClient` and persists the conversation ID in the browser session so chat history survives refreshes.
+
+The goal is to give a customer a small, readable codebase that proves you can run a production-grade RAG ingestion path without the three failure modes that most demos hide: stale-index blanking on partial failures, duplicate chunks from retries, and one bad document poisoning a whole batch.
 
 The implementation is shaped around the P0 recommendations in [claude-recs.md](../claude-recs.md).
 
@@ -94,9 +96,9 @@ azd up
 
 `azd up` will:
 
-1. Deploy Cosmos DB (with a lease container), Azure AI Search (with vector + keyword index), Azure Storage (for the DLQ and Functions runtime), and a Microsoft Foundry project + agent.
-2. Deploy the Function App with managed-identity access to Cosmos, Search, Storage, and Azure OpenAI (for embeddings).
-3. Deploy the Flask chat app to Azure Container Apps.
+1. Deploy Cosmos DB (with a `devices` container and a `leases` container for the change-feed processor), Azure AI Search (with the vector + keyword index in [`infra/index/pulse-device-chunks.json`](infra/index/pulse-device-chunks.json)), Azure Storage (for the Functions runtime and the DLQ), and an Azure AI Foundry account + project hosting `gpt-4o-mini` and `text-embedding-3-small` model deployments.
+2. Deploy the Function App (container) to Azure Container Apps with managed-identity access to Cosmos, Search, Storage, and the Foundry account (used for both chat retrieval and embedding generation during ingestion).
+3. Deploy the Flask chat app (container) to Azure Container Apps, wired to the same managed identity and the Foundry project endpoint.
 4. Print the chat URL and a seed command you can run.
 
 See [`infra/README.md`](infra/README.md) for what each resource does and how the RBAC role assignments line up with the code.

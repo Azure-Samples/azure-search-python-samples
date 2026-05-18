@@ -1,3 +1,13 @@
+"""HTTP endpoints exposed by the Function App for demos, probes, and ad-hoc search.
+
+* ``GET  /api/health`` -- liveness probe returning ``"OK"``.
+* ``GET  /api/p0/summary`` -- machine-readable summary of which P0 controls
+  are implemented and where, for use in demos and reviews.
+* ``POST /api/search/preview`` -- thin wrapper over the AI Search index
+  (keyword search only) so reviewers can confirm that the change-feed-driven
+  ingestion path is actually writing documents.
+"""
+
 import json
 
 import azure.functions as func

@@ -1,3 +1,13 @@
+"""Dead-letter queue helpers for the per-document failure-isolation P0 control.
+
+When ``api/ingest.py`` fails to index a single source document it constructs a
+``DeadLetterRecord`` (source id, failure timestamp, error message, original
+payload) and enqueues it onto the ``pulse-rag-indexing-dlq`` Azure Storage
+queue. The queue is created by ``infra/resources.bicep`` and the Function
+App authenticates with its managed identity (Storage Queue Data Contributor),
+so no connection strings or SAS tokens are required.
+"""
+
 from __future__ import annotations
 
 import json

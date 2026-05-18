@@ -1,3 +1,23 @@
+"""Chunk, embed, and incrementally index Cosmos device documents into AI Search.
+
+This module implements the two indexing-side P0 controls:
+
+* **P0-1 merge-first indexing** (``SearchIngestionService.sync_source_document``):
+  replacement chunks are written with ``merge_or_upload_documents`` first;
+  only after the upsert call returns with no per-document failures do we
+  query for and delete the stale chunks from the previous device version.
+  This means a mid-flight failure leaves the previous content fully
+  available to retrieval rather than blanking the index.
+* **P0-2 idempotent chunk IDs** (``build_chunk_id``): every chunk key is
+  ``{sourceId}_{sha256(deviceVersion)[:16]}_{chunkIndex:04d}``, so retrying
+  the same change deterministically overwrites the same documents instead of
+  inserting duplicates.
+
+Embeddings are optional: if ``shared_code.embeddings`` is configured we
+vectorize each chunk for hybrid search; if not, the chunks are still indexed
+for keyword retrieval so the demo degrades gracefully.
+"""
+
 from __future__ import annotations
 
 import hashlib

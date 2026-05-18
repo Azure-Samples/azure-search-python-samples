@@ -1,3 +1,17 @@
+"""Azure Functions Python v2 entry point for the Pulse RAG ingestion API.
+
+This module wires two blueprints into a single Function App:
+
+* ``query`` -- HTTP endpoints (`/api/health`, `/api/p0/summary`,
+  `/api/search/preview`) used by demos and probes.
+* ``ingest`` -- the Cosmos DB change-feed trigger that drives incremental,
+  merge-first indexing into Azure AI Search.
+
+The Function App relies on the v2 worker-indexing model
+(``AzureWebJobsFeatureFlags=EnableWorkerIndexing``) and identity-based
+storage; secrets and connection strings are never required at runtime.
+"""
+
 import azure.functions as func
 
 from ingest import bp as ingest_bp

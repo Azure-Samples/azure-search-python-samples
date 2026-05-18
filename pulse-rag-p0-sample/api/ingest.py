@@ -1,3 +1,18 @@
+"""Cosmos DB change-feed trigger that drives incremental Azure AI Search updates.
+
+Implements **P0-3 per-document failure isolation**: the trigger receives a
+batch of changed documents from the Cosmos change feed and processes them one
+at a time. Any exception raised by ``SearchIngestionService.sync_source_document``
+for a single document is logged and enqueued to the Azure Storage dead-letter
+queue (see ``api/dlq.py``); sibling documents in the same batch are still
+indexed. This prevents one malformed source document from stalling the
+entire pipeline.
+
+Authentication to Cosmos is identity-based via the configured connection
+name (``%COSMOS_CONNECTION_NAME%__accountEndpoint`` + managed identity); no
+shared keys are required.
+"""
+
 import logging
 
 import azure.functions as func
