@@ -28,18 +28,18 @@ def p0_summary(_: func.HttpRequest) -> func.HttpResponse:
         "p0Controls": [
             {
                 "name": "merge-first indexing",
-                "status": "implemented in ingestion service",
-                "implementation": "SearchIngestionService.sync_source_document",
+                "status": "implemented",
+                "implementation": "api/indexing.py :: SearchIngestionService.sync_source_document",
             },
             {
                 "name": "idempotent chunk keys",
-                "status": "implemented in helper layer",
-                "implementation": "stable_chunk_id",
+                "status": "implemented",
+                "implementation": "api/indexing.py :: build_chunk_id",
             },
             {
                 "name": "per-document failure isolation",
-                "status": "implemented in change feed handler",
-                "implementation": "cosmos_search_sync",
+                "status": "implemented",
+                "implementation": "api/ingest.py :: cosmos_search_sync + api/dlq.py",
             },
         ],
     }

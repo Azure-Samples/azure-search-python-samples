@@ -67,7 +67,6 @@ def chat():
 
     try:
         service = get_chat_service()
-        
         reply = service.send_message(message, conversation_id=conversation_id)
     except FoundryChatError as exc:
         return jsonify({"error": str(exc)}), 400
@@ -80,6 +79,7 @@ def chat():
             "conversationId": reply.conversation_id,
             "answer": reply.answer,
             "responseId": reply.response_id,
+            "citations": reply.citations,
         }
     )
 

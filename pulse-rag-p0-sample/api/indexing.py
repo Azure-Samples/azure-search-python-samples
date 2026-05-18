@@ -8,6 +8,11 @@ from datetime import datetime, timezone
 from typing import TYPE_CHECKING, Any, Iterable
 from uuid import uuid4
 
+try:  # Optional dependency: embeddings are skipped if not configured.
+    from shared_code import embeddings as _embeddings
+except Exception:  # noqa: BLE001
+    _embeddings = None  # type: ignore[assignment]
+
 if TYPE_CHECKING:
     from azure.search.documents import SearchClient
 
@@ -139,28 +144,40 @@ def prepare_index_batch(
     ingestion_run_id = ingestion_run_id or str(uuid4())
     ingestion_timestamp = now.isoformat()
 
+    embedding_vectors: list[list[float]] | None = None
+    if _embeddings is not None:
+        try:
+            embedding_vectors = _embeddings.embed_texts(chunks)
+        except Exception:  # noqa: BLE001
+            logging.exception(
+                "Embedding generation failed for source %s; indexing without vectors.",
+                source_id,
+            )
+            embedding_vectors = None
+
     search_documents: list[dict[str, Any]] = []
     for chunk_index, chunk_text in enumerate(chunks):
         content_hash = _chunk_content_hash(chunk_text)
-        search_documents.append(
-            {
-                "id": build_chunk_id(source_id, device_version, chunk_index),
-                "sourceId": source_id,
-                "sourcePartitionKey": partition_key,
-                "sourceETag": normalized.get("_etag"),
-                "chunkIndex": chunk_index,
-                "contentHash": content_hash,
-                "ingestionRunId": ingestion_run_id,
-                "ingestionTimestamp": ingestion_timestamp,
-                "deviceVersion": device_version,
-                "title": normalized.get("name") or source_id,
-                "room": normalized.get("room"),
-                "building": normalized.get("building"),
-                "status": normalized.get("status"),
-                "tags": normalized.get("tags"),
-                "content": chunk_text,
-            }
-        )
+        document: dict[str, Any] = {
+            "id": build_chunk_id(source_id, device_version, chunk_index),
+            "sourceId": source_id,
+            "sourcePartitionKey": partition_key,
+            "sourceETag": normalized.get("_etag"),
+            "chunkIndex": chunk_index,
+            "contentHash": content_hash,
+            "ingestionRunId": ingestion_run_id,
+            "ingestionTimestamp": ingestion_timestamp,
+            "deviceVersion": device_version,
+            "title": normalized.get("name") or source_id,
+            "room": normalized.get("room"),
+            "building": normalized.get("building"),
+            "status": normalized.get("status"),
+            "tags": normalized.get("tags"),
+            "content": chunk_text,
+        }
+        if embedding_vectors is not None and chunk_index < len(embedding_vectors):
+            document["contentVector"] = embedding_vectors[chunk_index]
+        search_documents.append(document)
 
     return PreparedIndexBatch(
         source_id=source_id,

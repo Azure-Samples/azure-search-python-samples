@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+name: pulse-rag-p0-sample
+metadata:
+  template: pulse-rag-p0-sample@0.1.0
+
+services:
+  api:
+    project: ./api
+    language: python
+    host: function
+  web:
+    project: ./app
+    language: python
+    host: appservice
+
+hooks:
+  postprovision:
+    windows:
+      shell: pwsh
+      run: |
+        Write-Host "Creating Azure AI Search index..."
+        $env:AZURE_SEARCH_ENDPOINT = $env:SearchServiceEndpoint
+        python ./scripts/create_index.py
+        Write-Host ""
+        Write-Host "To seed sample devices into Cosmos DB and watch them flow into AI Search, run:"
+        Write-Host "  python ./scripts/seed_cosmos.py"
+    posix:
+      shell: sh
+      run: |
+        echo "Creating Azure AI Search index..."
+        export AZURE_SEARCH_ENDPOINT="$SearchServiceEndpoint"
+        python ./scripts/create_index.py
+        echo ""
+        echo "To seed sample devices into Cosmos DB and watch them flow into AI Search, run:"
+        echo "  python ./scripts/seed_cosmos.py"

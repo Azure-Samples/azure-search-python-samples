@@ -12,6 +12,9 @@
     "SearchServiceName": "YOUR-SEARCH-SERVICE-NAME",
     "SearchIndexName": "pulse-device-chunks",
     "SearchApiKey": "",
+    "AzureOpenAIEndpoint": "https://YOUR-OPENAI.openai.azure.com",
+    "AzureOpenAIEmbeddingDeployment": "text-embedding-3-small",
+    "AzureOpenAIApiVersion": "2024-10-21",
     "DLQ_QUEUE_NAME": "pulse-rag-indexing-dlq",
     "ChunkSize": "1000",
     "ChunkOverlap": "150"

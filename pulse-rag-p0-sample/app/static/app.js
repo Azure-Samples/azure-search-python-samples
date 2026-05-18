@@ -80,7 +80,10 @@ chatForm.addEventListener("submit", async (event) => {
 
   try {
     const payload = await sendMessage(message);
-    messages.push({ role: "assistant", content: payload.answer });
+    const answerText = payload.citations && payload.citations.length
+      ? `${payload.answer}\n\nSources: ${payload.citations.join(", ")}`
+      : payload.answer;
+    messages.push({ role: "assistant", content: answerText });
     saveMessages(messages);
     renderMessages(messages);
     statusPill.textContent = `Conversation active: ${payload.conversationId}`;
