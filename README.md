@@ -9,6 +9,7 @@ If your configuration uses a search service managed identity for indexer connect
 | Sample | Description |
 |--------|-------------|
 | [Quickstart-Agentic-Retrieval](Quickstart-Agentic-Retrieval/quickstart-agentic-retrieval.ipynb) | Create a knowledge base in Azure AI Search to integrate LLM reasoning into query planning. |
+| [Foundry-IQ-Multi-Source](Foundry-IQ-Multi-Source/README.md) | Query one Foundry IQ knowledge base across an Azure AI Search index and an external MCP server, with trace verification that both sources contributed. |
 | [Quickstart-Document-Permissions-Pull-API](Quickstart-Document-Permissions-Pull-API/document-permissions-pull-api.ipynb) | Using an indexer "pull API" approach, flow access control lists from a data source to search results and apply permission filters that restrict access to authorized content. Indexer support is limited to Azure Data Lake Storage (ADLS) Gen2 permission metadata. |
 | [Quickstart-Document-Permissions-Push-API](Quickstart-Document-Permissions-Push-API/document-permissions-push-api.ipynb) | Using the push APIs for indexing a JSON payload, flow embedded permission metadata to indexed documents and search results that are filtered based on user access to authorized content. |
 | [Quickstart-Keyword-Search](Quickstart-Keyword-Search/README.md) | Introduces the fundamental tasks of working with a classic search index: create, load, and query. The index is modeled on a subset of the hotels dataset, which is widely used in Azure AI Search samples but reduced in this sample for readability and comprehension. |
