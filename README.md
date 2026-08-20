@@ -4,7 +4,7 @@ This repository contains Python code samples used in Azure AI Search documentati
 
 If your configuration uses a search service managed identity for indexer connections, your search service must be on the Basic tier or higher.
 
-## Day-one quickstarts and tutorials
+## Day-one quickstarts
 
 | Sample | Description |
 |--------|-------------|
@@ -15,7 +15,7 @@ If your configuration uses a search service managed identity for indexer connect
 | [Quickstart-Semantic-Ranking](Quickstart-Semantic-Ranking/semantic-ranking-quickstart.ipynb) | Extends the quickstart through modifications that invoke semantic ranking. This notebook adds a semantic configuration to the index and semantic query options that formulate the query and response. |
 | [Quickstart-Vector-Search](Quickstart-Vector-Search/quickstart-vector-search.ipynb) | Introduces vector search in Azure AI Search. This notebook demonstrates how to create, load, and query a vector index. |
 
-## Deeper dive tutorials
+## Deeper dive tutorials and examples
 
 | Sample | Description |
 |--------|-------------|
@@ -23,6 +23,7 @@ If your configuration uses a search service managed identity for indexer connect
 | [azure-function-search](azure-function-search/readme.md) | An Azure Function that sends query requests to an Azure AI Search service. You can substitute this code to replace the contents of the `api` folder in the C# sample [azure-search-static-web-app](https://github.com/Azure-Samples/azure-search-static-web-app). |
 | [bulk-insert](bulk-insert/readme.md) | Create and load an index using the push APIs and sample data. You can substitute this code to replace the contents of the `bulk-insert` folder in the C# sample [azure-search-static-web-app](https://github.com/Azure-Samples/azure-search-static-web-app) |
 | [cmk-encryption](cmk-example/cmk-example.ipynb) | Encrypt content using customer-managed keys. |
+| [image-serving-example](image-serving-example/image_serving.ipynb) | Runs managed ingestion, compares retrieval with image serving disabled and enabled, and independently queries and downloads an indexed image asset from Azure Blob Storage. |
 
 ## Archived samples
 
