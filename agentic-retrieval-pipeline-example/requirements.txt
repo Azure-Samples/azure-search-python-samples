@@ -3,6 +3,6 @@ azure-mgmt-cognitiveservices
 azure-identity
 ipykernel
 dotenv
-azure-search-documents==12.1.0b1
+azure-search-documents==12.1.0b2
 requests
 openai
