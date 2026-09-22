@@ -1,0 +1,20 @@
+[
+  {
+    "id": "trail-release-wave-b",
+    "title": "Contoso Trail Guide public release brief",
+    "content": "Wave B of the Contoso Trail Guide public demo is scheduled for August 18, 2026. The end-to-end response-time service objective is 75 seconds. The go-live reviewer must confirm that the final recommendation combines the release brief with current platform guidance rather than answering from either source alone.",
+    "source_url": "data/release-brief.json#trail-release-wave-b"
+  },
+  {
+    "id": "trail-release-evidence",
+    "title": "Contoso Trail Guide evidence checklist",
+    "content": "The release gate requires machine-readable evidence that both the indexed release brief and the external documentation source contributed to the answer. A prose claim that both sources ran is not sufficient.",
+    "source_url": "data/release-brief.json#trail-release-evidence"
+  },
+  {
+    "id": "trail-release-data-policy",
+    "title": "Contoso Trail Guide sample data policy",
+    "content": "This Contoso demonstration uses only fictional release facts and public Microsoft documentation. It must not store credentials, tenant content, or customer data in the index or repository.",
+    "source_url": "data/release-brief.json#trail-release-data-policy"
+  }
+]
