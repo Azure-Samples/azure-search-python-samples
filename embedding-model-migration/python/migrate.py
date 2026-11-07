@@ -16,7 +16,7 @@ import time
 from datetime import datetime, timezone
 from decimal import Decimal
 from email.utils import parsedate_to_datetime
-from urllib.parse import quote, urlparse
+from urllib.parse import parse_qsl, quote, urlparse
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "function"))
 from identity_auth import credential as identity_credential, function_audience
@@ -26,6 +26,10 @@ from embedding_engine import (EmbeddingEngine, ProviderError, TransientProviderE
 API_VERSION = "2025-09-01"
 MAX_BYTES = 16 * 1024 * 1024
 MAX_ATTEMPTS = 6
+SENSITIVE_QUERY_NAMES = {
+    "api-key", "apikey", "authorization", "code", "connectionstring",
+    "password", "sig", "token", "access_token", "client_secret", "x-functions-key"
+}
 
 
 def encoded(value):
@@ -122,18 +126,35 @@ def guard_retrievable(fields, prefix=""):
         guard_retrievable(field.get("fields", []), name + "/")
 
 
-def guard_no_secrets(value):
+def guard_url_credentials(url):
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        return
+    if parsed.username or parsed.password:
+        raise ValueError("Schema contains URL user credentials; refuse to persist credentials")
+    for name, _ in parse_qsl(parsed.query, keep_blank_values=True):
+        if name.lower() in SENSITIVE_QUERY_NAMES:
+            raise ValueError("Schema contains credential-bearing URL query parameters; refuse to persist credentials")
+
+
+def guard_no_secrets(value, path=()):
     if isinstance(value, dict):
         for key, child in value.items():
+            key_lower = key.lower()
+            current_path = path + (key_lower,)
             if key.lower() in ("apikey", "connectionstring", "httpheaders", "authorization",
                                "x-functions-key", "api-key") and child:
                 raise ValueError(f"Schema contains {key}; refuse to persist credentials")
-            if isinstance(child, str) and ("?code=" in child.lower() or "&code=" in child.lower()):
-                raise ValueError("Schema contains a function key URL; refuse to persist credentials")
-            guard_no_secrets(child)
+            if (key_lower == "applicationsecret"
+                    and path[-2:] == ("encryptionkey", "accesscredentials")
+                    and child):
+                raise ValueError("Schema contains encryptionKey.accessCredentials.applicationSecret; refuse to persist credentials")
+            if isinstance(child, str):
+                guard_url_credentials(child)
+            guard_no_secrets(child, current_path)
     elif isinstance(value, list):
         for child in value:
-            guard_no_secrets(child)
+            guard_no_secrets(child, path)
 
 
 def sanitize_schema(schema):

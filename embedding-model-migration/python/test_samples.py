@@ -787,9 +787,16 @@ class MigrationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             migrate.schema_key(schema)
         for value in ({"apiKey": "secret"}, {"httpHeaders": {"x-functions-key": "secret"}},
-                      {"uri": "https://example/api?code=secret"}):
+                      {"uri": "https://example/api?code=secret"},
+                      {"uri": "https://example/api?api-key=secret"},
+                      {"uri": "https://example/api?%63ode=secret"},
+                      {"uri": "https://user:pass@example/api/embed"}):
             with self.assertRaises(ValueError):
                 migrate.guard_no_secrets(value)
+        schema = copy.deepcopy(SCHEMA)
+        schema["encryptionKey"] = {"accessCredentials": {"applicationSecret": "cmk-secret"}}
+        with self.assertRaises(ValueError):
+            migrate.sanitize_schema(schema)
 
     def test_identity_schema_backup_restore_without_secret_artifacts(self):
         source = self.client.schemas["source"]
@@ -840,6 +847,15 @@ class MigrationTests(unittest.TestCase):
             "name": "legacy", "kind": "customWebApi", "customWebApiParameters": {
                 "uri": "https://example/api/embed/pro/query",
                 "httpHeaders": {"x-functions-key": "must-not-persist"}}}]
+        with self.assertRaises(ValueError):
+            self.make_backup()
+        self.assertEqual(list(self.directory.iterdir()), [])
+
+    def test_cmk_application_secret_refused_before_any_backup_artifact(self):
+        source = self.client.schemas["source"]
+        source["encryptionKey"] = {
+            "accessCredentials": {"applicationSecret": "must-not-persist"}
+        }
         with self.assertRaises(ValueError):
             self.make_backup()
         self.assertEqual(list(self.directory.iterdir()), [])
