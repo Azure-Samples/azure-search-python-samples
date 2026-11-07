@@ -21,6 +21,9 @@ This sample provides a keyless migration path for vector indexes:
 2. **Embedding Function (`function/`)** with Entra-gated document/query routes.
 3. **Deployment helpers (`deployment/`)** to configure keyless hosting and end-to-end setup.
 
+> [!IMPORTANT]
+> This is a reference sample, not a production-ready drop-in. Validate E2E behavior in a representative test environment that mirrors your tenant auth, network, model deployments, quotas, and index schema before rollout.
+
 ## Choose your path
 
 | If you need to... | Use |
@@ -80,3 +83,4 @@ Execution contract:
 - This sample verifies index content and schema compatibility, but does not back up indexers, data sources, aliases, or external model resources.
 - Non-retrievable/unstored fields are treated as non-recoverable and fail backup.
 - Function query route and dimensions are validated before migration mutations.
+- Review and adjust settings, retry policies, naming, and operational controls to your environment and requirements.
