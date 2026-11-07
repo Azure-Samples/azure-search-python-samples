@@ -218,7 +218,10 @@ if ($PackagePath) {
         $succeeded = $false
         do {
             Start-Sleep -Seconds 5
-            $poll = Invoke-WebRequest -Uri "https://$scmHost/api/deployments/latest" -Headers $headers -SkipHttpErrorCheck
+            $remainingSeconds = [int][Math]::Ceiling(($deadline - [DateTime]::UtcNow).TotalSeconds)
+            if ($remainingSeconds -le 0) { break }
+            $poll = Invoke-WebRequest -Uri "https://$scmHost/api/deployments/latest" -Headers $headers `
+                -SkipHttpErrorCheck -TimeoutSec $remainingSeconds
             if ($poll.StatusCode -eq 404) { continue }
             if ($poll.StatusCode -notin @(200, 202)) { throw "OneDeploy status request failed (HTTP $($poll.StatusCode))." }
             $status = $poll.Content | ConvertFrom-Json
