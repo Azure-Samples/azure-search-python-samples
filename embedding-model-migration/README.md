@@ -24,6 +24,48 @@ This sample provides a keyless migration path for vector indexes:
 > [!IMPORTANT]
 > This is a reference sample, not a production-ready drop-in. Validate E2E behavior in a representative test environment that mirrors your tenant auth, network, model deployments, quotas, and index schema before rollout.
 
+## Problem this sample solves
+
+When customers need to move from one embedding model/dimension setup to another, a direct in-place change can break query compatibility and make rollback hard. They need a safe way to:
+
+1. create a verified baseline copy,
+2. regenerate vectors with the new model path, and
+3. publish to a new target index with controlled cutover.
+
+## Architecture (what connects to what)
+
+```text
+Source Search Index
+  -> python/migrate.py backup (schema + docs + manifest)
+  -> python/migrate.py reembed (calls Function /document route)
+  -> migrated backup artifacts
+  -> python/migrate.py restore/reembed
+  -> New Target Search Index (new vectorizer/query route)
+
+Query-time path after migration:
+Search vectorizer (customWebApi /query route) -> Function -> embedding model
+```
+
+## Example customer migration flow
+
+Example: customer has `products-v1` with old vectors and wants `fast` model vectors.
+
+1. Run `migrate.py backup` against `products-v1` (source frozen).
+2. Run `migrate.py restore` to validate baseline reproducibility on a new test index.
+3. Run `migrate.py reembed` with:
+   - `--model fast`
+   - `--dimensions <measured fast dimension>`
+   - Function auth/resource settings
+4. Create `products-v2-fast` as a new target index.
+5. Validate retrieval quality and operational behavior, then cut traffic to `products-v2-fast`.
+
+## What happens after migration
+
+- The migrated index is expected to become the active index for reads.
+- Ongoing ingestion must produce vectors compatible with the migrated vector field and dimensions.
+- Query vectorization must keep using the migrated customWebApi query route and same model family.
+- Keep the old index only for rollback window; retire it after acceptance.
+
 ## Choose your path
 
 | If you need to... | Use |
