@@ -18,19 +18,19 @@ urlFragment: python-embedding-model-migration
 This sample provides a keyless migration path for vector indexes:
 
 1. **Baseline pipeline (`python/`)** for backup, restore, and re-embedding.
-2. **Embedding Function (`function/`)** with Entra-gated document/query routes.
-3. **Deployment helpers (`deployment/`)** to configure keyless hosting and end-to-end setup.
+2. **In-place additive pipeline (`python-inplace/`)** for same-index vector-field migration.
+3. **Embedding Function (`function/`)** with Entra-gated document/query routes.
+4. **Deployment helpers (`deployment/`)** to configure keyless hosting and end-to-end setup.
 
 > [!IMPORTANT]
 > This is a reference sample, not a production-ready drop-in. Validate E2E behavior in a representative test environment that mirrors your tenant auth, network, model deployments, quotas, and index schema before rollout.
 
 ## Problem this sample solves
 
-When customers need to move from one embedding model/dimension setup to another, a direct in-place change can break query compatibility and make rollback hard. They need a safe way to:
+When customers need to move from one embedding model/dimension setup to another, they usually need one of two patterns:
 
-1. create a verified baseline copy,
-2. regenerate vectors with the new model path, and
-3. publish to a new target index with controlled cutover.
+1. create a verified baseline copy and publish to a new target index, or
+2. keep the same index and run an additive in-place migration with a new vector field.
 
 ## Architecture (what connects to what)
 
@@ -71,6 +71,7 @@ Example: customer has `products-v1` with old vectors and wants `fast` model vect
 | If you need to... | Use |
 |---|---|
 | Back up, restore, and migrate vectors | [`python/README.md`](python/README.md) |
+| Keep index identity and add/backfill a new vector field | [`python-inplace/README.md`](python-inplace/README.md) |
 | Run the embedding Function app | [`function/README.md`](function/README.md) |
 | Configure auth/hosting and optional deployment wiring | [`deployment/README.md`](deployment/README.md) |
 | Start from one environment template | [`sample.env`](sample.env) |
@@ -85,6 +86,7 @@ Example: customer has `products-v1` with old vectors and wants `fast` model vect
 ## Folder structure
 
 - `python/`: migration scripts, fixtures, and tests
+- `python-inplace/`: same-index additive migration script and tests
 - `function/`: Function implementation and auth/runtime helpers
 - `deployment/`: PowerShell setup/config scripts
 - `sample.env`: consolidated non-secret environment template
@@ -115,6 +117,12 @@ python .\embedding-model-migration\python\migrate.py --search-endpoint "https://
 
 ```powershell
 python .\embedding-model-migration\python\migrate.py --search-endpoint "https://<target>.search.windows.net" reembed --target "<new-migrated-index>" --backup-dir ".\backup" --migration-dir ".\migration-output" --text-field "<text-field>" --vector-field "<vector-field>" --model fast --dimensions <D> --function-base "https://<function-app>.azurewebsites.net" --function-auth-resource-id "api://<app-id>"
+```
+
+5. Optional same-index additive migration:
+
+```powershell
+python .\embedding-model-migration\python-inplace\migrate_inplace.py --search-endpoint "https://<search>.search.windows.net" --index "<existing-index>" --text-field "<text-field>" --source-vector-field "<old-vector-field>" --new-vector-field "<new-vector-field>" --model fast --dimensions <D> --function-base "https://<function-app>.azurewebsites.net" --function-auth-resource-id "api://<app-id>" --marker-field "migrationVectorVersion"
 ```
 
 ## Quickstart (agents/automation)
