@@ -1,0 +1,38 @@
+{
+  "algorithms": [
+    {
+      "name": "migration-fast-hnsw",
+      "kind": "hnsw",
+      "hnswParameters": {
+        "metric": "cosine",
+        "m": 4,
+        "efConstruction": 400,
+        "efSearch": 500
+      },
+      "exhaustiveKnnParameters": null
+    }
+  ],
+  "profiles": [
+    {
+      "name": "migration-fast-profile",
+      "algorithm": "migration-fast-hnsw",
+      "vectorizer": "migration-fast-vectorizer",
+      "compression": null
+    }
+  ],
+  "vectorizers": [
+    {
+      "name": "migration-fast-vectorizer",
+      "kind": "customWebApi",
+      "azureOpenAIParameters": null,
+      "customWebApiParameters": {
+        "httpMethod": "POST",
+        "uri": "https://offline.invalid/api/embed/fast/query",
+        "timeout": "PT3M50S",
+        "authResourceId": "api://example-app",
+        "httpHeaders": {},
+        "authIdentity": null
+      }
+    }
+  ]
+}
