@@ -122,7 +122,7 @@ python .\embedding-model-migration\python\migrate.py --search-endpoint "https://
 5. Optional same-index additive migration:
 
 ```powershell
-python .\embedding-model-migration\python-inplace\migrate_inplace.py --search-endpoint "https://<search>.search.windows.net" --index "<existing-index>" --text-field "<text-field>" --source-vector-field "<old-vector-field>" --new-vector-field "<new-vector-field>" --model fast --dimensions <D> --function-base "https://<function-app>.azurewebsites.net" --function-auth-resource-id "api://<app-id>" --marker-field "migrationVectorVersion"
+python .\embedding-model-migration\python-inplace\migrate_inplace.py --search-endpoint "https://<search>.search.windows.net" --index "<existing-index>" --text-field "<text-field>" --source-vector-field "<old-vector-field>" --new-vector-field "<new-vector-field>" --model fast --dimensions <D> --function-base "https://<function-app>.azurewebsites.net" --function-auth-resource-id "api://<app-id>" --marker-field "migrationVectorVersion" --source-writes-frozen
 ```
 
 ## Quickstart (agents/automation)
