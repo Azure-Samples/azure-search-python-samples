@@ -6,6 +6,8 @@
 - `configure_pipeline.py`: optional end-to-end Search indexer + skill + vectorizer setup
 - `test_samples.py`: offline regression tests for script and Function contracts
 
+For same-index additive migration (new vector field in the same index), use [`../python-inplace/README.md`](../python-inplace/README.md).
+
 ## What methods are used
 
 - **Read path**: Search REST calls for schema, counts, and keyset-paged document reads.

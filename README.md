@@ -23,7 +23,7 @@ If your configuration uses a search service managed identity for indexer connect
 | [azure-function-search](azure-function-search/readme.md) | An Azure Function that sends query requests to an Azure AI Search service. You can substitute this code to replace the contents of the `api` folder in the C# sample [azure-search-static-web-app](https://github.com/Azure-Samples/azure-search-static-web-app). |
 | [bulk-insert](bulk-insert/readme.md) | Create and load an index using the push APIs and sample data. You can substitute this code to replace the contents of the `bulk-insert` folder in the C# sample [azure-search-static-web-app](https://github.com/Azure-Samples/azure-search-static-web-app) |
 | [cmk-encryption](cmk-example/cmk-example.ipynb) | Encrypt content using customer-managed keys. |
-| [embedding-model-migration](embedding-model-migration/README.md) | Back up and restore an index, regenerate vectors with a new embedding model through a keyless Function path, and publish to a new target index. |
+| [embedding-model-migration](embedding-model-migration/README.md) | Back up and restore an index, run additive in-place vector migration, or regenerate vectors through a keyless Function path into a new target index. |
 | [image-serving-example](image-serving-example/image_serving.ipynb) | Runs managed ingestion, compares retrieval with image serving disabled and enabled, and independently queries and downloads an indexed image asset from Azure Blob Storage. |
 
 ## Archived samples
