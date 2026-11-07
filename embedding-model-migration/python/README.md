@@ -1,9 +1,13 @@
+---
+ai-usage: ai-assisted
+---
+
 # python (backup/restore/migrate pipeline)
 
 `python/` contains the primary migration scripts:
 
 - `migrate.py`: baseline backup, restore, and vector re-embedding
-- `configure_pipeline.py`: optional end-to-end Search indexer + skill + vectorizer setup
+- `configure_pipeline.py`: optional end-to-end Search indexer + skill + vectorizer setup for a new, fixed-schema index, not an existing migrated index
 - `test_samples.py`: offline regression tests for script and Function contracts
 
 ## What methods are used
@@ -47,8 +51,10 @@ python .\embedding-model-migration\python\migrate.py --search-endpoint "https://
 
 ### 4. Optional full pipeline creation
 
+Use this helper only to create a separate pipeline with a new, fixed-schema index. All index, data source, skillset, and indexer names must be new. The helper rejects existing resources, including a migrated target index; it doesn't attach ingestion to that index.
+
 ```powershell
-python .\embedding-model-migration\python\configure_pipeline.py --search-endpoint "https://<search>.search.windows.net" --function-base "https://<function-app>.azurewebsites.net" --function-auth-resource-id "api://<app-id>" --storage-resource-id "/subscriptions/<sub>/resourceGroups/<rg>/providers/Microsoft.Storage/storageAccounts/<account>" --container "<container>" --index "<index>" --datasource "<datasource>" --skillset "<skillset>" --indexer "<indexer>" --model fast --dimensions <D>
+python .\embedding-model-migration\python\configure_pipeline.py --search-endpoint "https://<search>.search.windows.net" --function-base "https://<function-app>.azurewebsites.net" --function-auth-resource-id "api://<app-id>" --storage-resource-id "/subscriptions/<sub>/resourceGroups/<rg>/providers/Microsoft.Storage/storageAccounts/<account>" --container "<container>" --index "<new-pipeline-index>" --datasource "<new-datasource>" --skillset "<new-skillset>" --indexer "<new-indexer>" --model fast --dimensions <D>
 ```
 
 ## After migration: how indexing should work
@@ -60,7 +66,7 @@ python .\embedding-model-migration\python\configure_pipeline.py --search-endpoin
 - Query-time vectorization should use the migrated `customWebApi` vectorizer route.
 - For new/updated documents, either:
   1. run your normal ingestion pipeline configured to emit vectors with the migrated model settings, or
-  2. adapt the indexer and skillset definitions in `configure_pipeline.py` to your migrated schema and provision those ingestion resources separately. The helper itself only creates a new, fixed-schema index; it cannot attach ingestion to an existing migrated target.
+  2. use the definitions in `configure_pipeline.py` as a starting point, adapting the skillset and indexer mappings to your migrated schema and document keys. Provision the data source, skillset, and indexer separately, with the indexer targeting the existing migrated index. Don't run the helper unchanged or recreate the migrated index.
 - Do not mix old/new embedding dimensions in the same target index.
 
 ## Human and agent guidance
