@@ -33,6 +33,13 @@ This sample provides a keyless migration path for vector indexes:
 | Configure auth/hosting and optional deployment wiring | [`deployment/README.md`](deployment/README.md) |
 | Start from one environment template | [`sample.env`](sample.env) |
 
+## How this Python sample works (high level)
+
+- **Backup path**: reads schema + documents from Search and writes local backup artifacts.
+- **Restore path**: reads local backup artifacts and pushes documents into a new target index.
+- **Migration path**: reads backup artifacts, regenerates vectors through the Function endpoints, writes a new migration artifact, then restores to a new target.
+- **Pipeline helper**: can create an index + datasource + skillset + indexer + query vectorizer aligned to the Function routes.
+
 ## Folder structure
 
 - `python/`: migration scripts, fixtures, and tests
@@ -84,3 +91,4 @@ Execution contract:
 - Non-retrievable/unstored fields are treated as non-recoverable and fail backup.
 - Function query route and dimensions are validated before migration mutations.
 - Review and adjust settings, retry policies, naming, and operational controls to your environment and requirements.
+- After migration, keep indexing and query vectorization on the same model/dimensions path to avoid drift.
