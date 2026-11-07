@@ -60,7 +60,7 @@ python .\embedding-model-migration\python\configure_pipeline.py --search-endpoin
 - Query-time vectorization should use the migrated `customWebApi` vectorizer route.
 - For new/updated documents, either:
   1. run your normal ingestion pipeline configured to emit vectors with the migrated model settings, or
-  2. use `configure_pipeline.py` to create a compatible indexer+skill+vectorizer path.
+  2. adapt the indexer and skillset definitions in `configure_pipeline.py` to your migrated schema and provision those ingestion resources separately. The helper itself only creates a new, fixed-schema index; it cannot attach ingestion to an existing migrated target.
 - Do not mix old/new embedding dimensions in the same target index.
 
 ## Human and agent guidance
