@@ -54,8 +54,10 @@ python .\embedding-model-migration\python\migrate.py --search-endpoint "https://
 Use this helper only to create a separate pipeline with a new, fixed-schema index. All index, data source, skillset, and indexer names must be new. The helper rejects existing resources, including a migrated target index; it doesn't attach ingestion to that index.
 
 ```powershell
-python .\embedding-model-migration\python\configure_pipeline.py --search-endpoint "https://<search>.search.windows.net" --function-base "https://<function-app>.azurewebsites.net" --function-auth-resource-id "api://<app-id>" --storage-resource-id "/subscriptions/<sub>/resourceGroups/<rg>/providers/Microsoft.Storage/storageAccounts/<account>" --container "<container>" --index "<new-pipeline-index>" --datasource "<new-datasource>" --skillset "<new-skillset>" --indexer "<new-indexer>" --model fast --dimensions <D>
+python .\embedding-model-migration\python\configure_pipeline.py --search-endpoint "https://<search>.search.windows.net" --function-base "https://<function-app>.azurewebsites.net" --function-auth-resource-id "api://<app-id>" --storage-resource-id "/subscriptions/<sub>/resourceGroups/<rg>/providers/Microsoft.Storage/storageAccounts/<account>" --container "<container>" --index "<new-pipeline-index>" --datasource "<new-datasource>" --skillset "<new-skillset>" --indexer "<new-indexer>" --model fast --dimensions <D> --wait-seconds 300
 ```
+
+`--wait-seconds` waits for the initial indexing run and rejects document failures, errors, or warnings. An indexer can report success with enrichment warnings while leaving documents without vectors; resolve those warnings before accepting the pipeline. Without this option, creation returns before the indexing result is verified.
 
 ## After migration: how indexing should work
 

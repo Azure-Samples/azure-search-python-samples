@@ -23,8 +23,10 @@ def wait_for_indexer(client, name, seconds):
         status = client.request("GET", "indexers/" + quote(name, safe="") + "/status")
         result = status.get("lastResult") or {}
         if result.get("status") == "success":
-            if result.get("itemsFailed", 0) or result.get("errors"):
-                raise RuntimeError("Indexer reported document failures; inspect its status in Azure")
+            if result.get("itemsFailed", 0) or result.get("errors") or result.get("warnings"):
+                raise RuntimeError(
+                    "Indexer reported document failures or enrichment warnings; "
+                    "inspect its status in Azure")
             print(f"Indexer succeeded: {result.get('itemsProcessed', 0)} documents processed")
             return
         if result.get("status") in ("transientFailure", "persistentFailure", "reset"):

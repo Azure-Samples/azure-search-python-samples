@@ -949,6 +949,15 @@ class MigrationTests(unittest.TestCase):
             "status": "success", "itemsProcessed": 2, "itemsFailed": 0}}
         configure_pipeline.wait_for_indexer(client, "indexer", 1)
 
+    def test_pipeline_wait_rejects_warning_only_enrichment_failure(self):
+        client = Mock()
+        client.request.return_value = {"lastResult": {
+            "status": "success", "itemsProcessed": 1, "itemsFailed": 0,
+            "warnings": [{"key": "document-1", "name": "document-embedding",
+                          "message": "Could not execute the custom Web API skill."}]}}
+        with self.assertRaisesRegex(RuntimeError, "warnings"):
+            configure_pipeline.wait_for_indexer(client, "indexer", 1)
+
 
 if __name__ == "__main__":
     unittest.main()
