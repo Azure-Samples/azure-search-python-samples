@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "foundry-iq-multi-source"
+version = "0.1.0"
+description = "Foundry IQ sample combining a Search index and an external MCP server."
+requires-python = ">=3.11"
+dependencies = [
+  "azure-identity>=1.23.0",
+  "azure-search-documents==12.1.0b1",
+  "python-dotenv>=1.1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.4.0"]
+
+[project.scripts]
+foundry-iq-multi-source = "foundry_iq_multi_source.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
