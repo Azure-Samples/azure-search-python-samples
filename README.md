@@ -13,7 +13,7 @@ If your configuration uses a search service managed identity for indexer connect
 | [Quickstart-Document-Permissions-Push-API](Quickstart-Document-Permissions-Push-API/document-permissions-push-api.ipynb) | Using the push APIs for indexing a JSON payload, flow embedded permission metadata to indexed documents and search results that are filtered based on user access to authorized content. |
 | [Quickstart-Keyword-Search](Quickstart-Keyword-Search/README.md) | Introduces the fundamental tasks of working with a classic search index: create, load, and query. The index is modeled on a subset of the hotels dataset, which is widely used in Azure AI Search samples but reduced in this sample for readability and comprehension. |
 | [Quickstart-Semantic-Ranking](Quickstart-Semantic-Ranking/semantic-ranking-quickstart.ipynb) | Extends the quickstart through modifications that invoke semantic ranking. This notebook adds a semantic configuration to the index and semantic query options that formulate the query and response. |
-| [Quickstart-Vector-Search](Quickstart-Vector-Search/quickstart-vector-search.ipynb) | Introduces vector search in Azure AI Search. This notebook demonstrates how to create, load, and query a vector index. |
+| [Quickstart-Vector-Search](Quickstart-Vector-Search/vector-search-quickstart.ipynb) | Introduces vector search in Azure AI Search. This notebook demonstrates how to create, load, and query a vector index. |
 
 ## Deeper dive tutorials and examples
 
